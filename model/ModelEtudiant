@@ -1,3 +1,34 @@
 <?php
 
 require_once('../config/config.php');
+class Etudiant
+{
+    private $nom;
+    private $prenom;
+    private $login;
+    private $mdp;
+
+    function __construct($nom=null,$prenom=null,$login=null){
+        if(!is_null($nom) && is_null($prenom) && is_null($login)){
+            $this->nom = $nom;
+            $this->prenom = $prenom;
+            $this->login = $login;
+        }
+    }
+
+    public function getNom(){
+        return $this->nom;
+    }
+
+    public function getPrenom(){
+        return $this->prenom;
+    }
+
+    public function getLogin(){
+        return $this->login;
+    }
+
+    public function getListeCours(){
+        
+    }
+}
