@@ -1,8 +1,10 @@
 <?php
-    require_once 'ControllerVoiture.php';
-    $action = $_GET['action'];
-    switch ($action){
-        case 'connexion' : ModelConnexion::connexion();break;
-    }
-    
+    if(isset($_POST['action'])){
+        $actionConnexion = $_POST['action'];
+        switch ($actionConnexion){
+            case 'connect' :  require_once 'ControllerUser.php';ControllerUser::connect();break;
+            case 'creerCompte' :  require_once 'ControllerUser.php';ControllerUser::creerCompte();break;
+        } 
+    };
+    if(isset($_GET['action'])) $action = $_GET['action'];
 ?>

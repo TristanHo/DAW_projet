@@ -2,7 +2,7 @@
 
 require_once("Model.php");
 
-class ModelUser {
+class ModelUser{
     private $username;
     private $password;
 
@@ -30,6 +30,13 @@ class ModelUser {
         }
 
         return $users;
+    }
+
+    public function checkConnexion(){
+        //$liste_users = self::getUsers();
+        $username = $this->username;
+        if($username=="ok") return true;
+        else return false;
     }
 }
 ?>
