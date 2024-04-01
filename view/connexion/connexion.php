@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,10 +20,9 @@
             <input type="submit" value="Se connecter"/>
         </fieldset>
     </form>
-    <form action="../../controller/routeur.php" method='get' style="margin-top:20px;width:700px;margin-left:auto;margin-right:auto">
+    <div style="margin-top:20px;width:700px;margin-left:auto;margin-right:auto">
         <span>Pas de compte ?</span>
-        <input type='hidden' name='action' value='creerCompte'/>
-        <button type=submit style="margin-left:10px;" value="creerCompte">Créer un compte</button>
-    </form>
+        <a href='creerCompte.php'><button type=submit style="margin-left:10px;">Créer un compte</button></a>
+    </div>
 </body>
 </html>

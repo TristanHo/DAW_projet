@@ -9,8 +9,8 @@ class Model
 
         try {
             $config = new config();
-            $this->pdo = new PDO("mysql:host={$config->getHost()};dbname={$config->getDbname()}",  $config->getLogin(), $config->getMdp());
-            echo "ok";
+            self::$pdo = new PDO("mysql:host={$config->getHost()};dbname={$config->getDbname()}",  $config->getLogin(), $config->getMdp());
+            echo "ok_connexion_bd";
         } catch (PDOException $e) {
             echo "Erreur!:" . $e->getMessage();
             die();
@@ -18,7 +18,7 @@ class Model
     }
     public function getPdo()
     {
-        return $this->pdo;
+        return self::$pdo;
     }
     static public function connexion(){
         $host=config::getHost();

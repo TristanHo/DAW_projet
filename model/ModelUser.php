@@ -9,7 +9,7 @@ class ModelUser{
     function __construct($username = null, $password = null)
     {
         if($username != null) {$this->username=$username;}
-        if($password != null) {$this->username=$username;}
+        if($password != null) {$this->password=$password;}
     }
 
     public function getUsername() {return $this->username;}
@@ -25,7 +25,7 @@ class ModelUser{
         $users = array();
 
         while($row = $select->fetch(PDO::FETCH_ASSOC)) {
-            $user = new ModelUser($row['username'], $row['password']);
+            $user = new ModelUser($row['login'], $row['mdp']);
             $users[] = $user;
         }
 
@@ -33,10 +33,37 @@ class ModelUser{
     }
 
     public function checkConnexion(){
-        //$liste_users = self::getUsers();
-        $username = $this->username;
-        if($username=="ok") return true;
-        else return false;
+        $liste_users = self::getUsers();
+        foreach($liste_users as $user){
+            if ($user->getUsername() == $this->getUsername()){
+                if($user->getPassword() == $this->getPassword()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function creationCompte($prenom,$nom,$role){
+        $liste_users = self::getUsers();
+        foreach($liste_users as $user){
+            if ($user->getUsername() == $this->getUsername()){
+                return false;
+            }
+        }
+        try{
+            $sql='INSERT INTO utilisateurs(login,mdp,prenom,nom,role) values(:login, :mdp, :prenom, :nom, :role)';
+            $sqlp = Model::$pdo->prepare($sql);
+            $login = $this->username;
+            $mdp = $this->password;
+            $val = array('login'=>$login, 'mdp'=>$mdp, 'prenom'=>$prenom, 'nom'=>$nom, 'role'=>$role);
+            return $sqlp->execute($val);
+        }catch(PDOException $e){
+            echo "\nFailed :".$e->getMessage();
+            echo $login." ".$mdp."cc";
+            die();
+            return false;
+        }
     }
 }
 ?>
