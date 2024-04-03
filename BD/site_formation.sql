@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 01 avr. 2024 à 19:50
+-- Généré le : mer. 03 avr. 2024 à 13:54
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -34,9 +34,19 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `mdp` varchar(50) NOT NULL,
   `prenom` varchar(50) NOT NULL,
   `nom` varchar(50) NOT NULL,
-  `role` int NOT NULL,
+  `role` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `utilisateurs`
+--
+
+INSERT INTO `utilisateurs` (`id`, `login`, `mdp`, `prenom`, `nom`, `role`) VALUES
+(1, 'admintest', 'adminTestmdp!', 'Jean', 'ZIDANE', 'administrateur'),
+(2, 'JD21', 'jd21mdp', 'Jacques', 'DUPONT', 'etudiant'),
+(3, 'BN22', 'bn22mdp', 'Noé', 'BENITO', 'professeur'),
+(4, 'JD22', 'jd21mdp', 'Jacques', 'DUPONT ', 'etudiant');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

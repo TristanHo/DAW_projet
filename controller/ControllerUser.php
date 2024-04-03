@@ -11,10 +11,13 @@
                 $user = new ModelUser($login,$mdp);
                 $ok = $user->checkConnexion();
                 if($ok){
-                    self::pageAccueilUser();
+                    self::pageAccueilUser($login);
+                }
+                else if(!$ok){
+                    self::pageConnexionUser("Login ou mot de passe incorrect");
                 }
                 else{
-                    self::pageConnexionUser("Login ou mot de passe incorrect");
+                    Reader("Location : ../view/error.php");
                 }
             }
         }
@@ -22,7 +25,19 @@
 
         public static function pageConnexionUser($message){
             echo "<h3>$message</h3>";
-            echo '<h3><a href="../view/connexion/connexion.php">Retour à la page de connexion</a></h3>';
+            echo '<h3><a href="../view/index.php">Retour à la page de connexion</a></h3>';
+        }
+
+        public static function pageAccueilUser($login){
+            setcookie('username',$login);
+            if(isset($_COOKIE['username']) && !is_null($_COOKIE['username'])){
+                require '../view/users/accueil.php';
+                //header("Location : ../views/users/accueil.php");
+                exit;
+            }
+            else{
+                require '../view/error.php';
+            }
         }
 
         public static function creerCompte(){
@@ -37,7 +52,6 @@
                 $ok = $user->creationCompte($prenom,$nom,$role);
                 if($ok){
                     self::pageConnexionUser("Compte crée avec succès !");
-                    alert('Compte crée');
                 }
                 else{
                     self::pageConnexionUser("Compte pas crée");

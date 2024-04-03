@@ -60,10 +60,13 @@ class ModelUser{
             return $sqlp->execute($val);
         }catch(PDOException $e){
             echo "\nFailed :".$e->getMessage();
-            echo $login." ".$mdp."cc";
             die();
             return false;
         }
+    }
+
+    public static function getCours(){
+        $liste_users = self::getUsers();
     }
 }
 ?>

@@ -8,7 +8,7 @@
     <div style="color:blue;margin-left:auto;margin-right:auto;width:700px;">
         <h1>Bienvenue sur le site des apprentis de Dijon</h1>
     </div>
-    <form action="../../controller/routeur.php" method='post' style="width:700px;margin-left:auto;margin-right:auto">
+    <form action="../controller/routeur.php" method='post' style="width:700px;margin-left:auto;margin-right:auto">
         <fieldset>
             <legend>Connexion</legend>
             <label for="login">Login</label>

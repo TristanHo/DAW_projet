@@ -24,8 +24,8 @@
             <label style="margin-right:20px;">Rôle</label>
             <label for="etudiant">Etudiant</label>
             <input type="radio" name ="role" value="etudiant" checked="checked" required="required"/>
-            <label for="admin">Administrateur</label>
-            <input type="radio" name ="role" value="admin" required="required"/><br/>         
+            <label for="professeur">Professeur</label>
+            <input type="radio" name ="role" value="professeur" required="required"/><br/>         
             <input type="submit" value="Valider l'inscription"/>
             <input type='hidden' name='action' value='creerCompte'/>
         </fieldset>
