@@ -2,17 +2,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire Question</title>
+    <title>Liste des utilisateurs</title>
 </head>
 <body>
 
 <form action='../controller/routeur.php' method="get">
-    <input type="button" value="Ajouter un utilisateur"/><br>
+    <a href="create.php">Ajouter un utilisateur</a><br>
     <?php
+        require_once('../../model/ModelUser.php');
         $users = ModelUser::getUsers();
+        echo "<table border = 1>";
+        echo "<tr><td>ID</td><td>Nom</td><td>Prénom</td><td>Rôle</td><td>Login</td><td>Mot de passe</td><td></td></tr>";
         foreach($users as $user) {
-            echo $user->getUsername().' <input type="button" value="Modifier"/> <input type="button" value="Supprimer"/> <br>';
+            echo "<tr>";
+            echo "<td>".$user->getId()."</td>";
+            echo "<td>".$user->getNom()."</td>";
+            echo "<td>".$user->getPrenom()."</td>";
+            echo "<td>".$user->getRole()."</td>";
+            echo "<td>".$user->getUsername()."</td>";
+            echo "<td>".$user->getPassword()."</td>";
+            echo "<td><a href='profil.php?id=".$user->getId()."&role=admin'>Voir profil</a></td>";
+            echo "</tr>";
         }
+        echo "</table>";
 
     ?>
     <br><br> <input type="button" id="theme" value="Mode nuit"/>
