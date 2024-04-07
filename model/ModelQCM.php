@@ -51,6 +51,12 @@ class ModelQCM {
         // Retourne le tableau des voitures
         return $voitures;
     }
+
+    //fonction pour afficher les questions
+    public  function afficheQuestions() {
+        foreach( $this->listeQuestions as $quest)
+        $quest->afficher();
+    }
 }
 
 ?>

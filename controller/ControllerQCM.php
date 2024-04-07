@@ -1,42 +1,22 @@
 <?php
-//test
-require("../model/ModelQCM.php");
+// Charger les questions du QCM depuis le modèle
+require_once("../model/ModelXml.php");
+$test=new ModelXml();
+$test->recupqcm("exemple.xml","../BD/exemple.xml") ;
+$qcm=$test->getQCM() ;
+$score = 0;
+$questions=$qcm->getListeQuestions() ;
+//$questions = $modelQCM->getQuestions();
 
-  class ControllerQCM{
-    static function readAll(){
-        $liste = ModelQCM::readAll();
-        require("../view/list.php");
-    }
-    static function add(){
-        if(isset($_GET['idquestion'])&&isset($_GET['question'])&&isset($_GET['choix1'])&&isset($_GET['choix2'])&&isset($_GET['choix3'])&&isset($_GET['choix4'])) {
-            $question = $_GET['question'];
-            $choix = array($_GET['choix1'] => 'FALSE', $_GET['choix2'] => 'FALSE', $_GET['choix3'] => 'FALSE', $_GET['choix4'] => 'FALSE');
-            if (!empty($_GET['check']))
-            {
-                foreach($_GET['check'] as $value) {
-                    $choix[$value] = 'TRUE';
-                }
+// Passer les questions à la vue qui affiche le formulaire
+include('../views/test/formulaire_qcm.php');
 
-                $q = new ModelQuestion($_GET['idquestion'],$question,$choix);
-                $qcm = new ModelQCM(1);
-                $qcm->ajoutQuestion($q);
-                
-                $ok=$v->save();
-                if($ok){
-                    self::readAll();
-                }else
-                {
-                    header("Location../views/error.php");
-                }
-            }
-            else{
-                header("Location../views/error.php");
-            }
-
-        }
-        
-    }
-
+// Vérifier les réponses soumises
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
+    // Traiter les réponses soumises
+    $score += $qcm->calculerScore($_POST['reponse']);
+    
+    // Passer le score à la vue qui affiche les résultats
+    include('../views/test/resultat_qcm.php');
 }
-
 ?>

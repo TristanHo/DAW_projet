@@ -52,6 +52,16 @@ class ModelQuestion{
             echo($choix." ".$reponse."<br>");
         }
     }
+
+    public function afficherquestionformulaire(){
+        echo "<div>";
+        echo "<p>".$this->question."</p>";
+        echo "<input type='hidden' name='id_question[]' value='".$this->idQuestion."'>";
+        foreach($this->choix as $choix => $reponse) {
+            echo "<input type='radio' name='reponse[".$this->idQuestion."]' value='".$choix."'>".$choix."<br>";
+        }
+        echo "</div>";
+    }
 }
 
 ?>
