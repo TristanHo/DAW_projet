@@ -82,7 +82,10 @@ class ModelUser{
     }
 
     public static function getCours(){
-        $liste_users = self::getUsers();
+        //$liste_users = self::getUsers();
+        $username = $this->username;
+        if($username=="ok") return true;
+        else return false;
     }
 }
 ?>

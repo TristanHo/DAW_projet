@@ -49,6 +49,15 @@ INSERT INTO `utilisateurs` (`id`, `login`, `mdp`, `prenom`, `nom`, `role`) VALUE
 (4, 'JD22', 'jd21mdp', 'Jacques', 'DUPONT ', 'etudiant');
 COMMIT;
 
+DROP TABLE IF EXISTS `cours`;
+CREATE TABLE IF NOT EXISTS `cours` (
+  `nom` int NOT NULL AUTO_INCREMENT,
+  `login_responsable` varchar(50) NOT NULL,
+  PRIMARY KEY (`cours`),
+  KEY `fk_login_responsable` (`login_responsable`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
