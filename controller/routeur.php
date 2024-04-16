@@ -8,7 +8,9 @@
             case 'creerCompte' :  require_once 'ControllerUser.php';ControllerUser::creerCompte();break;
         } 
     };
-    if(isset($_GET['action'])) $action = $_GET['action'];
+    if(isset($_GET['action']) && !is_null($_GET['action'])){
+        $action = $_GET['action'];
+    }
 
 
     /*
