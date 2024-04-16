@@ -1,0 +1,21 @@
+.message
+{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    margin-left: 3%;
+}
+
+.author
+{
+    font-weight: bold;
+    font-size: 13px;
+    margin-left: 1.5%;
+}
+
+.date
+{
+    font-weight: lighter;
+    font-size: 12px;
+    margin-left: 1.5%;
+}
