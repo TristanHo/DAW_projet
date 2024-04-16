@@ -16,7 +16,7 @@
         echo "Prenom : ".$user->getPrenom()."<br>";
         echo "Role : ".$user->getRole()."<br>";
 
-        if($_GET['role'] == 'admin') {
+        if($_COOKIE['role'] == 'admin') {
             echo "<a href='modifUser.php?id=".$user->getId()."'>Modifier utilisateur</a>";
             echo "<input type='submit' value='Supprimer utilisateur'/>";
         }

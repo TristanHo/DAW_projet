@@ -37,7 +37,7 @@ class ModelUser{
         $model = new Model();
         $pdo = $model->getPdo();
         
-        $select = $pdo->query('SELECT * FROM Utilisateur');
+        $select = $pdo->query('SELECT * FROM Utilisateurs');
         $users = array();
 
         while($row = $select->fetch(PDO::FETCH_ASSOC)) {
@@ -49,6 +49,39 @@ class ModelUser{
     }
 
     public function checkConnexion(){
+        $liste_users = self::getUsers();
+        foreach($liste_users as $user){
+            if ($user->getUsername() == $this->getUsername()){
+                if($user->getPassword() == $this->getPassword()){
+                    return [$user->getRole(),$user->getNom(),$user->getPrenom()];
+                }
+            }
+        }
+        return null;
+    }
+
+    public function creationCompte($prenom,$nom,$role){
+        $liste_users = self::getUsers();
+        foreach($liste_users as $user){
+            if ($user->getUsername() == $this->getUsername()){
+                return false;
+            }
+        }
+        try{
+            $sql='INSERT INTO utilisateurs(login,mdp,prenom,nom,role) values(:login, :mdp, :prenom, :nom, :role)';
+            $sqlp = Model::$pdo->prepare($sql);
+            $login = $this->username;
+            $mdp = $this->password;
+            $val = array('login'=>$login, 'mdp'=>$mdp, 'prenom'=>$prenom, 'nom'=>$nom, 'role'=>$role);
+            return $sqlp->execute($val);
+        }catch(PDOException $e){
+            echo "\nFailed :".$e->getMessage();
+            die();
+            return false;
+        }
+    }
+
+    public static function getCours(){
         //$liste_users = self::getUsers();
         $username = $this->username;
         if($username=="ok") return true;

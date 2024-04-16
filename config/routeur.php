@@ -3,9 +3,9 @@
 spl_autoload_register(function ($controller) {
     require_once('../controller/'.$controller.'.php');
 });
-$action = $_GET['action'];
+//$action = $_GET['action'];
 
-switch($action) {
+/*switch($action) {
     case 'createUser' :
         {
             if(isset($_GET['login']) && isset($_GET['mdp']) && isset($_GET['prenom']) && isset($_GET['nom']) && isset($_GET['role']))
@@ -28,3 +28,17 @@ switch($action) {
             }
         }
 }
+
+$_GET['action'] = null; //remettre à  l'action pour éviter des conflits ?
+*/
+if(isset($_POST['action']) && !is_null($_POST['action'])){
+    $actionConnexion = $_POST['action'];
+    switch ($actionConnexion){
+        case 'connect' :  /*require_once 'ControllerUser.php';*/ControllerUser::connect();break;
+        case 'creerCompte' :  /*require_once 'ControllerUser.php';*/ControllerUser::creerCompte();break;
+    } 
+};
+
+$_POST['action'] = null;
+
+?>
