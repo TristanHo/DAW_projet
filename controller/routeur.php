@@ -1,7 +1,8 @@
 <?php
     session_start();
 
-    if(isset($_POST['action'])){
+
+    if(isset($_POST['action']) && !is_null($_POST['action'])){
         $actionConnexion = $_POST['action'];
         switch ($actionConnexion){
             case 'connect' :  require_once 'ControllerUser.php';ControllerUser::connect();break;
