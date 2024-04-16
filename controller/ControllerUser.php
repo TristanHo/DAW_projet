@@ -28,7 +28,7 @@ class ControllerUser {
         $id = $recupID->fetchColumn() + 1;
         $insert = $pdo->query("INSERT INTO Utilisateurs VALUES('".$id."', '".$login."', '".$mdp."', '".$prenom."', '".$nom."', '".$role."')");
         //Redirection vers la liste des utilisateurs
-        header("Location: http://localhost/DAW_projet/view/users/listeUsers.php");
+        header("Location: http://localhost/DAW-projet/view/users/listeUsers.php");
         exit();
     }
 
@@ -39,7 +39,7 @@ class ControllerUser {
 
         $delete = $pdo->query('DELETE FROM Utilisateurs WHERE id='.$id);
         //Redirection vers la liste des utilisateurs
-        header("Location: http://localhost/projet/view/users/listeUsers.php");
+        header("Location: http://localhost/DAW-projet/view/users/listeUsers.php");
         exit();
     }
 
@@ -49,7 +49,7 @@ class ControllerUser {
         $pdo = $model->getPdo();
 
         $update = $pdo->query('UPDATE Utilisateurs SET prenom="'.$prenom.'", nom="'.$nom.'", role="'.$role.'" WHERE id='.$id);
-        header("Location: http://localhost/DAW_projet/view/users/listeUsers.php");
+        header("Location: http://localhost/DAW-projet/view/users/listeUsers.php");
         exit();
     }
 
