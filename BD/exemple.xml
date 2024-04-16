@@ -11,7 +11,7 @@
 </question>
 <question>
 <idquestion>q2</idquestion>
-    <questionposer>ceci  est la question 2</questionposer>
+    <questionposer>quels temps fait-il</questionposer>
     <reponse>2</reponse>
     <choix>non</choix>
     <choix>il fait beau</choix>

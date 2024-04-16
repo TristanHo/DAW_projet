@@ -57,6 +57,25 @@ class ModelQCM {
         foreach( $this->listeQuestions as $quest)
         $quest->afficher();
     }
+    public function calculerScore($reponsesSoumises) {
+        $score = 0;
+        echo 'Vérification en cours<br>';
+        foreach ($this->listeQuestions as $question) {
+            $idQuestion = $question->getIDQuestion(); // Suppose que chaque question a un identifiant unique
+            echo 'ID de la question traitée: ' . $idQuestion . '<br>';
+            if (isset($reponsesSoumises[$idQuestion])) {
+                // Vérifier si la réponse soumise correspond à la réponse attendue pour cette question
+                $reponseSoumise = $reponsesSoumises[$idQuestion];
+                echo 'ID de la question: ' . $idQuestion . '<br> Réponse soumise: ' . $reponseSoumise;
+                //$question->afficher();
+                $res = $question->verifok($reponseSoumise);
+                // La réponse est correcte, incrémenter le score
+                $score = $score + $res;
+            }
+        }
+        return $score;
+    }
+    
 }
 
 ?>

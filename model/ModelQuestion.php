@@ -6,11 +6,19 @@ class ModelQuestion{
     private $question;
     private $choix;
 
-    public function __construct($idQuestion=null, $question=null, $choix=array()){
-        if($idQuestion != null){$this->idQuestion = $idQuestion;}
-        if($question != null) {$this->question = $question;}
+    public function __construct($idQuestion = null, $question = null, $choix = array()){
+        // Vérifier si $idQuestion n'est pas null et attribuer sa valeur
+        if($idQuestion !== null) {
+            $this->idQuestion = $idQuestion;
+        }
+        // Vérifier si $question n'est pas null et attribuer sa valeur
+        if($question !== null) {
+            $this->question = $question;
+        }
+        // Attribuer les choix
         $this->choix = $choix;
     }
+    
 
     public function getIDQuestion(){
         return $this->idQuestion;
@@ -62,6 +70,20 @@ class ModelQuestion{
         }
         echo "</div>";
     }
+    public function verifok($reponse){
+        // Vérifier si la réponse soumise existe parmi les choix possibles de la question
+        if(array_key_exists($reponse, $this->choix)) {
+            // Vérifier si la réponse soumise correspond à la réponse correcte
+            if ($this->choix[$reponse] == true) {
+                return 1; // La réponse soumise est correcte
+            } else {
+                return 0; // La réponse soumise est incorrecte
+            }
+        } else {
+            return 0; // La réponse soumise n'existe pas parmi les choix possibles de la question
+        }
+    }
+    
 }
 
 ?>

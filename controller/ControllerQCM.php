@@ -6,17 +6,20 @@ $test->recupqcm("exemple.xml","../BD/exemple.xml") ;
 $qcm=$test->getQCM() ;
 $score = 0;
 $questions=$qcm->getListeQuestions() ;
-//$questions = $modelQCM->getQuestions();
+foreach($questions as $q){
+    $question = $q->getQuestion();
+}
 
-// Passer les questions à la vue qui affiche le formulaire
-include('../views/test/formulaire_qcm.php');
-
+echo "Chemin du script actuel : " . $_SERVER['PHP_SELF'];
+//Passer les questions à la vue qui affiche le formulaire
+//include('/views/test/test_xml.php');
+include('../view/test/formulaire_qcm.php');
 // Vérifier les réponses soumises
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
+ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
     // Traiter les réponses soumises
     $score += $qcm->calculerScore($_POST['reponse']);
     
     // Passer le score à la vue qui affiche les résultats
-    include('../views/test/resultat_qcm.php');
-}
+    include('../view/test/resultat_qcm.php');
+} 
 ?>

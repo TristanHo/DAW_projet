@@ -40,7 +40,7 @@ function createXMLFileIfNotExists($filePath, $xmlContent) {
         $this->qcm->setIdQCM($id_qcm);
     
         // Charger le fichier XML s'il existe
-        if ($xmlFile != null) {
+        if ($xmlFile == null) {
         $xmlFile = "../../BD/exemple.xml";}
         
         if(file_exists($xmlFile)) {
@@ -50,6 +50,7 @@ function createXMLFileIfNotExists($filePath, $xmlContent) {
                 // Récupérer la question
                 $question = new ModelQuestion($idc);
                 $idc++;
+                
                 $question->setQuestion((string)$quest->questionposer);
                 // Récupérer la réponse correcte
                 $reponseCorrecte = (string)$quest->reponse;
