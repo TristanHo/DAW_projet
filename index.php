@@ -8,7 +8,7 @@
     <div style="color:blue;margin-left:auto;margin-right:auto;width:700px;">
         <h1>Bienvenue sur le site des apprentis de Dijon</h1>
     </div>
-    <form action="../controller/routeur.php" method='post' style="width:700px;margin-left:auto;margin-right:auto">
+    <form action="config/routeur.php" method='post' style="width:700px;margin-left:auto;margin-right:auto">
         <fieldset>
             <legend>Connexion</legend>
             <label for="login">Login</label>
@@ -22,7 +22,7 @@
     </form>
     <div style="margin-top:20px;width:700px;margin-left:auto;margin-right:auto">
         <span>Pas de compte ?</span>
-        <a href='creerCompte.php'><button type=submit style="margin-left:10px;">Créer un compte</button></a>
+        <a href='view/connexion/creerCompte.php'><button type=submit style="margin-left:10px;">Créer un compte</button></a>
     </div>
 </body>
 </html>

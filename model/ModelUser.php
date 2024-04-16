@@ -37,7 +37,7 @@ class ModelUser{
         $model = new Model();
         $pdo = $model->getPdo();
         
-        $select = $pdo->query('SELECT * FROM Utilisateur');
+        $select = $pdo->query('SELECT * FROM Utilisateurs');
         $users = array();
 
         while($row = $select->fetch(PDO::FETCH_ASSOC)) {
@@ -53,11 +53,11 @@ class ModelUser{
         foreach($liste_users as $user){
             if ($user->getUsername() == $this->getUsername()){
                 if($user->getPassword() == $this->getPassword()){
-                    return true;
+                    return [$user->getRole(),$user->getNom(),$user->getPrenom()];
                 }
             }
         }
-        return false;
+        return null;
     }
 
     public function creationCompte($prenom,$nom,$role){
