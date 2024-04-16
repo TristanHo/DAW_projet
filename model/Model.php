@@ -1,6 +1,5 @@
 <?php
-
-require_once ('../config/config.php');
+require(__DIR__."/../config/config.php");
 class Model
 {
     static public $pdo;
@@ -9,8 +8,7 @@ class Model
 
         try {
             $config = new config();
-            self::$pdo = new PDO("mysql:host={$config->getHost()};dbname={$config->getDbname()}",  $config->getLogin(), $config->getMdp());
-            echo "ok_connexion_bd";
+            $this::$pdo = new PDO("mysql:host={$config->getHost()};dbname={$config->getDbname()}",  $config->getLogin(), $config->getMdp());
         } catch (PDOException $e) {
             echo "Erreur!:" . $e->getMessage();
             die();
@@ -18,7 +16,7 @@ class Model
     }
     public function getPdo()
     {
-        return self::$pdo;
+        return $this::$pdo;
     }
     static public function connexion(){
         $host=config::getHost();
