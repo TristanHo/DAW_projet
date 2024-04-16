@@ -1,3 +1,5 @@
+<?php session_start() ?>
+
 <!DOCTYPE html>
 
 <html>
@@ -15,6 +17,11 @@
             ControllerForum::retrieveMessages();
 
         ?>
+
+        <form method="get" action="../../controller/routeur.php" class="inputArea">
+            <textarea name="messageInput" rows="5" cols="40" placeholder="Saisir un message... (Problème si message contient des apostrophes" size="50"></textarea><br>
+            <input type="submit" value="Envoyer">
+        </form>
 
     </body>
 </html>

@@ -32,10 +32,11 @@ public static function retrieveTopics($className)
     {
         $content .= '<div><a href=topic_template.php?topic_id='.$record['id'].'&topic_title='.$record['titre'].'>'.$record['titre'].'</a> par ';
         $content .= $record['auteur'].'</div>';
+        $_SESSION['topic_id'] = $record['id'];
+        $_SESSION['topic_title'] = $record['titre'];
     }
 
     $dbh = null;
-
     echo $content;
 }
 
@@ -43,21 +44,34 @@ public static function retrieveTopics($className)
 public static function retrieveMessages()
 {
     $dbh = ControllerForum::getPDO();
-    $content = "<h1>Messages de ".$_GET['topic_title']."</h1><br>";
+    $content = "<h1>Messages de ".$_SESSION['topic_title']."</h1><br>";
     
-
     $query = 'SELECT contenu, date, author FROM Messages WHERE id_topic='.$_GET['topic_id']."";
 
     foreach($dbh->query($query) as $record)
     {
-        $content .= "<div class=\"message\"><p>".$record['contenu']."</p>";
+        $content .= "<div class=\"message\">";
+        $content .= "<div>".$record['contenu']."</div>";
         $content .= "<div class=\"author\">".$record['author']."</div>";
-        $content .= "<div class=\"date\">".$record['date']."</div></div>";
+        $content .= "<div class=\"date\">".$record['date']."</div>";
+        $content .= "</div>";
     }
 
     $dbh = null;
-
     echo $content;
+}
+
+public static function addMessage()
+{
+    $dbh = ControllerForum::getPDO();
+
+    $query = 'INSERT INTO Messages (id_topic, contenu, author) VALUES ('.$_SESSION['topic_id'].', \''.$_GET['messageInput'].'\',\''.$_COOKIE['login'].'\')';
+    $dbh->query($query);
+
+    header('Location: ../view/forum/topic_template.php?topic_id='.$_SESSION['topic_id'].'&topic_title='.$_SESSION['topic_title']);
+    //include('ControllerForum.php');
+    ControllerForum::retrieveMessages();
+
 }
 
 }

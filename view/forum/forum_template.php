@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 
 <html>
@@ -8,8 +10,6 @@
     <body>
 
         <?php
-
-            error_reporting(E_ALL);
 
             include('../../controller/ControllerForum.php');
             ControllerForum::retrieveTopics('Mécanique');

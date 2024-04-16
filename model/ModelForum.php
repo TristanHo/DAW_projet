@@ -2,6 +2,5 @@
 
 class ModelForum
 {
-    private $topic_array;
-    private $discipline_array;
+    private $topic_id;
 }

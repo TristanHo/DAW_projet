@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     if(isset($_POST['action'])){
         $actionConnexion = $_POST['action'];
         switch ($actionConnexion){
@@ -8,3 +10,10 @@
     };
     if(isset($_GET['action'])) $action = $_GET['action'];
 
+
+
+    if(isset($_GET['messageInput']))
+    {
+        $_COOKIE['login'] = "willfried";
+        require_once 'ControllerForum.php'; ControllerForum::addMessage();
+    }
