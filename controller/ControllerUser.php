@@ -49,6 +49,7 @@ class ControllerUser {
         $pdo = $model->getPdo();
 
         $update = $pdo->query('UPDATE Utilisateurs SET prenom="'.$prenom.'", nom="'.$nom.'", role="'.$role.'" WHERE id='.$id);
+        //Redirection vers la liste des utilisateurs
         header("Location: http://localhost/DAW-projet/view/users/listeUsers.php");
         exit();
     }
@@ -105,6 +106,7 @@ class ControllerUser {
 
         //Vérifier que les cookies ont bien été définis
         if(isset($_COOKIE['login']) && !is_null($_COOKIE['login'])){
+            //Redirection vers la page d'accueil
             header('Location: http://localhost/DAW-projet/view/users/accueil.php');
             exit();
         }
