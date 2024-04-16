@@ -46,14 +46,23 @@ public static function retrieveMessages()
     $dbh = ControllerForum::getPDO();
     $content = "<h1>Messages de ".$_SESSION['topic_title']."</h1><br>";
     
-    $query = 'SELECT contenu, date, author FROM Messages WHERE id_topic='.$_GET['topic_id']."";
+    $query = 'SELECT contenu, date, author, id_message FROM Messages WHERE id_topic='.$_GET['topic_id']."";
 
     foreach($dbh->query($query) as $record)
     {
         $content .= "<div class=\"message\">";
+
         $content .= "<div>".$record['contenu']."</div>";
         $content .= "<div class=\"author\">".$record['author']."</div>";
         $content .= "<div class=\"date\">".$record['date']."</div>";
+
+        if($_SESSION['login']=="admin")
+        {
+            $content .= "<div><form method=\"post\" action=\"../../controller/routeur.php?id_message=".$record['id_message']."\">";
+            $content .= "<input type=\"submit\" name=\"btnDeleteMessage\" value=\"Supprimer\"/>";
+            $content .= "</form></div>";
+        }
+
         $content .= "</div>";
     }
 
@@ -63,13 +72,29 @@ public static function retrieveMessages()
 
 public static function addMessage()
 {
+
     $dbh = ControllerForum::getPDO();
 
-    $query = 'INSERT INTO Messages (id_topic, contenu, author) VALUES ('.$_SESSION['topic_id'].', \''.$_GET['messageInput'].'\',\''.$_COOKIE['login'].'\')';
+    $query = 'INSERT INTO Messages (id_topic, contenu, author) VALUES ('.$_SESSION['topic_id'].', \''.$_GET['messageInput'].'\',\''.$_SESSION['login'].'\')';
     $dbh->query($query);
 
     header('Location: ../view/forum/topic_template.php?topic_id='.$_SESSION['topic_id'].'&topic_title='.$_SESSION['topic_title']);
-    //include('ControllerForum.php');
+    ControllerForum::retrieveMessages();
+
+}
+
+public static function removeMessage($id_message)
+{
+
+    if($_SESSION['login'] != 'admin'){ return; } 
+
+    
+    $dbh = ControllerForum::getPDO();
+
+    $query = "DELETE FROM Messages WHERE id_message=".$id_message;
+    $dbh->query($query);
+
+    header('Location: ../view/forum/topic_template.php?topic_id='.$_SESSION['topic_id'].'&topic_title='.$_SESSION['topic_title']);
     ControllerForum::retrieveMessages();
 
 }

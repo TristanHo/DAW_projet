@@ -12,7 +12,7 @@
         <?php
 
             include('../../controller/ControllerForum.php');
-            ControllerForum::retrieveTopics('Mécanique');
+            ControllerForum::retrieveTopics('Mécanique'); //REMPLACER PARAMETRE PAR VALEUR DU COURS
 
         ?>
 
