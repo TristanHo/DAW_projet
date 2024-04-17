@@ -2,7 +2,7 @@
 class config{
     static private $data=array(
         'dbhost'=>'localhost',
-        'dbname'=>'site_formation',
+        'dbname'=>'DAW_Project',
         'login'=>'root',
         'password'=>''
     );
