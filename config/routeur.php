@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 spl_autoload_register(function ($controller) {
     require_once('../controller/'.$controller.'.php');
@@ -41,4 +42,45 @@ if(isset($_POST['action']) && !is_null($_POST['action'])){
 
 $_POST['action'] = null;
 
-?>
+
+
+
+
+if(isset($_POST['action']) && !is_null($_POST['action'])){
+    $actionConnexion = $_POST['action'];
+    switch ($actionConnexion){
+        case 'connect' :  require_once 'ControllerUser.php';ControllerUser::connect();break;
+        case 'creerCompte' :  require_once 'ControllerUser.php';ControllerUser::creerCompte();break;
+    } 
+};
+if(isset($_GET['action']) && !is_null($_GET['action'])){
+    $action = $_GET['action'];
+}
+
+
+/*
+PARTIE FORUM
+*/
+if(isset($_POST['messageInput']))
+{
+    
+    /* 
+    A REMPLACER PAR COOKIE
+    A REMPLACER PAR COOKIE
+    A REMPLACER PAR COOKIE
+    */
+    $_SESSION['login'] = "admin";
+    /* 
+    A REMPLACER PAR COOKIE
+    A REMPLACER PAR COOKIE
+    A REMPLACER PAR COOKIE
+    */
+
+
+    require_once '../controller/ControllerForum.php'; ControllerForum::addMessage();
+}
+
+if(isset($_POST['btnDeleteMessage']) && isset($_GET['id_message']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::removeMessage($_GET['id_message']);
+}

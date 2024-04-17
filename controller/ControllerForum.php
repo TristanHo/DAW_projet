@@ -58,7 +58,7 @@ public static function retrieveMessages()
 
         if($_SESSION['login']=="admin")
         {
-            $content .= "<div><form method=\"post\" action=\"../../controller/routeur.php?id_message=".$record['id_message']."\">";
+            $content .= "<div><form method=\"post\" action=\"../../config/routeur.php?id_message=".$record['id_message']."\">";
             $content .= "<input type=\"submit\" name=\"btnDeleteMessage\" value=\"Supprimer\"/>";
             $content .= "</form></div>";
         }
@@ -74,8 +74,8 @@ public static function addMessage()
 {
 
     $dbh = ControllerForum::getPDO();
-
-    $query = 'INSERT INTO Messages (id_topic, contenu, author) VALUES ('.$_SESSION['topic_id'].', \''.$_GET['messageInput'].'\',\''.$_SESSION['login'].'\')';
+    echo $_POST['messageInput'].'hello';
+    $query = 'INSERT INTO Messages (id_topic, contenu, author) VALUES ('.$_SESSION['topic_id'].', \''.$_POST['messageInput'].'\',\''.$_SESSION['login'].'\')';
     $dbh->query($query);
 
     header('Location: ../view/forum/topic_template.php?topic_id='.$_SESSION['topic_id'].'&topic_title='.$_SESSION['topic_title']);
@@ -88,7 +88,7 @@ public static function removeMessage($id_message)
 
     if($_SESSION['login'] != 'admin'){ return; } 
 
-    
+
     $dbh = ControllerForum::getPDO();
 
     $query = "DELETE FROM Messages WHERE id_message=".$id_message;
