@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 
 <!DOCTYPE html>
-
+<?php require_once("../css/theme.php");?>
 <html>
     <head>
         <link rel="stylesheet" href="../css/message.css">

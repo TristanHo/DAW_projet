@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="external/qunit.css">
+  <?php require_once("view/css/theme.php");?>
 </head>
 <body>
     <div style="color:blue;margin-left:auto;margin-right:auto;width:700px;">
