@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet">
+  <?php require_once("../css/theme.php");?>
 </head>
 <body>
     <h1>Bienvenue 

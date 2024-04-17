@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 spl_autoload_register(function ($controller) {
     require_once('../controller/'.$controller.'.php');
 });
@@ -47,4 +49,30 @@ if(isset($_POST['action']) && !is_null($_POST['action'])) {
 
 $_POST['action'] = null;
 }
+
+/*
+    PARTIE FORUM
+    */
+    if(isset($_GET['messageInput']))
+    {
+        /* 
+        A REMPLACER PAR COOKIE
+        A REMPLACER PAR COOKIE
+        A REMPLACER PAR COOKIE
+        */
+        $_SESSION['login'] = "famous_singer";
+        /* 
+        A REMPLACER PAR COOKIE
+        A REMPLACER PAR COOKIE
+        A REMPLACER PAR COOKIE
+        */
+
+
+        require_once 'ControllerForum.php'; ControllerForum::addMessage();
+    }
+
+    if(isset($_POST['btnDeleteMessage']) && isset($_GET['id_message']))
+    {
+        require_once 'ControllerForum.php'; ControllerForum::removeMessage($_GET['id_message']);
+    }
 ?>

@@ -8,6 +8,7 @@ class ControllerUser {
         return $liste;
     }
 
+    //Fonction du controller pour récupérer un utilisateur avec son id
     public static function getUser($id) {
         $model = new Model();
         $pdo = $model->getPdo();
