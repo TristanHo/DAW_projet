@@ -59,21 +59,27 @@ class ModelQCM {
     }
     public function calculerScore($reponsesSoumises) {
         $score = 0;
-        echo 'Vérification en cours<br>';
+        $compteur=0;
+        //echo 'Vérification en cours<br>';
         foreach ($this->listeQuestions as $question) {
+            $compteur++;
             $idQuestion = $question->getIDQuestion(); // Suppose que chaque question a un identifiant unique
-            echo 'ID de la question traitée: ' . $idQuestion . '<br>';
+            //echo 'ID de la question traitée: ' . $idQuestion . '<br>';
             if (isset($reponsesSoumises[$idQuestion])) {
                 // Vérifier si la réponse soumise correspond à la réponse attendue pour cette question
                 $reponseSoumise = $reponsesSoumises[$idQuestion];
-                echo 'ID de la question: ' . $idQuestion . '<br> Réponse soumise: ' . $reponseSoumise;
+                //echo 'ID de la question: ' . $idQuestion . '<br> Réponse soumise: ' . $reponseSoumise;
                 //$question->afficher();
                 $res = $question->verifok($reponseSoumise);
                 // La réponse est correcte, incrémenter le score
                 $score = $score + $res;
             }
         }
-        return $score;
+        //return le pourcentage si >50% il passe au niveau du dessus valable pour les qcm cour pas qcmintro
+        // Calculer le pourcentage de bonnes réponses
+    $pourcentage = ($score / $compteur) * 100;
+
+    return $pourcentage;
     }
     
 }

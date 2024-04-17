@@ -40,7 +40,7 @@ class ModelXml
     }
     public function recupqcm($id_qcm, $xmlFile)
     {
-        echo ("je fais la récupération du qcm: " . $id_qcm . " depuis le fichier: " . $xmlFile . "<br>");
+       // echo ("je fais la récupération du qcm: " . $id_qcm . " depuis le fichier: " . $xmlFile . "<br>");
         $this->qcm = new ModelQCM();
         $this->qcm->setIdQCM($id_qcm);
 
@@ -51,20 +51,20 @@ class ModelXml
 
         if (file_exists($xmlFile)) {
             $fichier = simplexml_load_file($xmlFile);
-            echo ("je suis la <br>");
+            //echo ("je suis la <br>");
             $qcmFound = false; // Variable pour indiquer si le QCM a été trouvé
             // Rechercher le QCM avec l'ID spécifié
             foreach ($fichier->qcm as $qcm) {
                 $qcm_id = trim((string)$qcm->idqcm); // Nettoyer l'IDQCM
-                echo "verif corepondanceS" . $qcm_id . "<br>";
+                //echo "verif corepondanceS" . $qcm_id . "<br>";
                 if ($qcm_id == $id_qcm) {
                     $qcmFound = true; // Marquer que le QCM a été trouvé
-                    echo "valideok<br>";
+                    
                     $this->qcm = new ModelQCM();
                     $this->qcm->setIdQCM($qcm_id);
                     $idc = 0;
                     foreach ($qcm->questions->question as $quest) {
-                        echo "lecture question<br>";
+                        
                         // Récupérer la question
                         $question = new ModelQuestion($idc);
                         $idc++;
@@ -72,19 +72,19 @@ class ModelXml
                         $question->setQuestion((string)$quest->questionposer);
                         // Récupérer la réponse correcte
                         $reponseCorrecte = (string)$quest->reponse;
-                        echo ("<br>");
-                        echo ($reponseCorrecte);
+                        //echo ("<br>");
+                        //echo ($reponseCorrecte);
 
                         // Récupérer les choix possibles
                         $tmp = 0;
                         foreach ($quest->choix as $rep) {
                             $tmp++;
                             if ($reponseCorrecte != $tmp) {
-                                echo "<br> le choix et: ";
+                                //echo "<br> le choix et: ";
                                 $question->ajoutChoix((string)$rep, false);
                             } else {
                                 $question->ajoutChoix((string)$rep, true);
-                                echo "<br> la reponse et: " . $tmp;
+                               // echo "<br> la reponse et: " . $tmp;
                             }
                         }
 
@@ -100,8 +100,8 @@ class ModelXml
             // Vérifier si le QCM a été trouvé
             if (!$qcmFound) {
                 echo "Le fichier XML n'existe pas. creation";
-                $txt = "test";
-                $this->createXMLFileIfNotExists($xmlFile, $txt);
+                //$txt = "test";
+                //$this->createXMLFileIfNotExists($xmlFile, $txt);
                 return null; // Ou une autre action appropriée
             }
         }
