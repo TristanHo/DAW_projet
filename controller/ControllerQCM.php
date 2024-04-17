@@ -2,7 +2,7 @@
 // Charger les questions du QCM depuis le modèle
 require_once("../model/ModelXml.php");
 $test=new ModelXml();
-$test->recupqcm("exemple.xml","../BD/exemple.xml") ;
+$test->recupqcm("qcmintro","../BD/exemple.xml") ;
 $qcm=$test->getQCM() ;
 $score = 0;
 $questions=$qcm->getListeQuestions() ;

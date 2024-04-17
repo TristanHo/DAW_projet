@@ -1,30 +1,66 @@
-<qcm>
-
-<question>
-<idquestion>q1</idquestion>
-    <questionposer>ceci  est la question 1</questionposer>
-    <reponse>2</reponse>
-    <choix>reponse 1</choix>
-    <choix>reponse 2</choix>
-    <choix>blabla rdutt rfhgg</choix>
-    <choix>reponse 4</choix>
-</question>
-<question>
-<idquestion>q2</idquestion>
-    <questionposer>quels temps fait-il</questionposer>
-    <reponse>2</reponse>
-    <choix>non</choix>
-    <choix>il fait beau</choix>
-    <choix>pluie</choix>
-    <choix>gris</choix>
-</question>
-<question>
-<idquestion>q3</idquestion>
-    <questionposer>ceci  est la question 3</questionposer>
-    <reponse>2</reponse>
-    <choix>non</choix>
-    <choix> beau</choix>
-    <choix>pluie</choix>
-    <choix>gris</choix>
-</question>
-</qcm>
+<qcms>
+    <qcm>
+        <idqcm>qcmintro</idqcm>
+        <questions>
+            <question>
+                <idquestion>q1</idquestion>
+                <questionposer>ceci est la question 1</questionposer>
+                <reponse>2</reponse>
+                <choix>reponse 1</choix>
+                <choix>reponse 2</choix>
+                <choix>blabla rdutt rfhgg</choix>
+                <choix>reponse 4</choix>
+            </question>
+            <question>
+                <idquestion>q2</idquestion>
+                <questionposer>quels temps fait-il</questionposer>
+                <reponse>2</reponse>
+                <choix>non</choix>
+                <choix>il fait beau</choix>
+                <choix>pluie</choix>
+                <choix>gris</choix>
+            </question>
+            <question>
+                <idquestion>q3</idquestion>
+                <questionposer>ceci est la question 3</questionposer>
+                <reponse>2</reponse>
+                <choix>non</choix>
+                <choix>beau</choix>
+                <choix>pluie</choix>
+                <choix>gris</choix>
+            </question>
+        </questions>
+    </qcm>
+    <qcm>
+        <idqcm>qcm2</idqcm>
+        <questions>
+            <question>
+                <idquestion>q1</idquestion>
+                <questionposer>ceci est la question 1.1?</questionposer>
+                <reponse>2</reponse>
+                <choix>reponse 1</choix>
+                <choix>reponse 2</choix>
+                <choix>blabla rdutt rfhgg</choix>
+                <choix>reponse 4</choix>
+            </question>
+            <question>
+                <idquestion>q2</idquestion>
+                <questionposer>quels temps fai?</questionposer>
+                <reponse>2</reponse>
+                <choix>non</choix>
+                <choix>il fait beau</choix>
+                <choix>pluie</choix>
+                <choix>gris</choix>
+            </question>
+            <question>
+                <idquestion>q3</idquestion>
+                <questionposer>bou?</questionposer>
+                <reponse>2</reponse>
+                <choix>non</choix>
+                <choix>beau</choix>
+                <choix>pluie</choix>
+                <choix>gris</choix>
+            </question>
+        </questions>
+    </qcm>
+</qcms>
