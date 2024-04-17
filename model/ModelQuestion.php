@@ -5,8 +5,10 @@ class ModelQuestion{
     private $idQuestion;
     private $question;
     private $choix;
+    private $matiere;
+    private $lv;
 
-    public function __construct($idQuestion = null, $question = null, $choix = array()){
+    public function __construct($idQuestion = null, $question = null, $choix = array(), $matiere = null, $lv = null){
         // Vérifier si $idQuestion n'est pas null et attribuer sa valeur
         if($idQuestion !== null) {
             $this->idQuestion = $idQuestion;
@@ -17,6 +19,12 @@ class ModelQuestion{
         }
         // Attribuer les choix
         $this->choix = $choix;
+
+        // Attribuer la matière
+        $this->matiere = $matiere;
+
+        // Attribuer le niveau
+        $this->lv = $lv;
     }
     
 
@@ -38,6 +46,22 @@ class ModelQuestion{
 
     public function getChoix() {
         return $this->choix;
+    }
+    public function getMatiere(){
+        return $this->matiere;
+    }
+
+    public function setMatiere($matiere){
+        $this->matiere = $matiere;
+    }
+
+    // Getter et setter pour le niveau
+    public function getLv(){
+        return $this->lv;
+    }
+
+    public function setLv($lv){
+        $this->lv = $lv;
     }
 
     public function ajoutChoix($choix, $reponse) {

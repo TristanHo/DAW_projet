@@ -81,6 +81,43 @@ class ModelQCM {
 
     return $pourcentage;
     }
+
+    public function calcul_score_intro($reponsesSoumises) {
+
+        $score = 0;
+        $compteur= 0;
+        $tempo=0;
+        $tempomatiere=0;
+        foreach ($this->listeQuestions as $question) {
+            $compteur++;
+            $idQuestion = $question->getIDQuestion();
+            $matiere= $question->getMatiere();
+            $lv= $question->getLv();
+           // echo'id: '.$idQuestion.' matiere: '.$matiere.' lv: '.$lv."<br>";
+            if (isset($reponsesSoumises[$idQuestion])) {
+                $reponseSoumise = $reponsesSoumises[$idQuestion];
+                $res = $question->verifok($reponseSoumise);
+                if ($res > 0) {
+                    if($lv==2){
+                        echo 'attribution du lv 2 dans le domaine '.$matiere.'<br>';
+                    }
+                    else {
+                        //lv =1 car que 2 lv possible ici 
+                        if($tempo==1&&$tempomatiere==$matiere){
+                            echo 'attribution du lv1 a la matire '.$matiere.'<br>';
+                        }else {
+                            $tempo=1;
+                            $tempomatiere=$matiere;
+                            
+                            }
+                        
+                    }
+                }
+                $score = $score + $res;
+            }
+        }
+
+    }
     
 }
 
