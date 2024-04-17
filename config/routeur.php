@@ -3,42 +3,48 @@
 spl_autoload_register(function ($controller) {
     require_once('../controller/'.$controller.'.php');
 });
-//$action = $_GET['action'];
 
-/*switch($action) {
-    case 'createUser' :
-        {
-            if(isset($_GET['login']) && isset($_GET['mdp']) && isset($_GET['prenom']) && isset($_GET['nom']) && isset($_GET['role']))
+if(isset($_POST['action']) && !is_null($_POST['action'])) {
+    $action = $_POST['action'];
+
+    switch($action) {
+        case 'createUser' :
             {
-                ControllerUser::insertUser($_GET['login'],$_GET['mdp'],$_GET['prenom'],$_GET['nom'],$_GET['role']);
+                if(isset($_POST['login']) && isset($_POST['mdp']) && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['role']))
+                {
+                    ControllerUser::insertUser($_POST['login'],$_POST['mdp'],$_POST['prenom'],$_POST['nom'],$_POST['role']);
+                }
+                break;
             }
-            break;
-        }
 
-    case 'deleteUser' :
-        {
-            ControllerUser::deleteUser($_GET['id']);
-        }
-
-    case 'modifUser' :
-        {
-            if(isset($_GET['id']) && isset($_GET['prenom']) && isset($_GET['nom']) && isset($_GET['role']))
+        case 'deleteUser' :
             {
-                ControllerUser::modifUser($_GET['id'],$_GET['prenom'],$_GET['nom'],$_GET['role']);
+                ControllerUser::deleteUser($_POST['id']);
+                break;
             }
-        }
-}
 
-$_GET['action'] = null; //remettre à  l'action pour éviter des conflits ?
-*/
-if(isset($_POST['action']) && !is_null($_POST['action'])){
-    $actionConnexion = $_POST['action'];
-    switch ($actionConnexion){
-        case 'connect' :  /*require_once 'ControllerUser.php';*/ControllerUser::connect();break;
-        case 'creerCompte' :  /*require_once 'ControllerUser.php';*/ControllerUser::creerCompte();break;
-    } 
-};
+        case 'modifUser' :
+            {
+                if(isset($_POST['id']) && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['role']))
+                {
+                    ControllerUser::modifUser($_POST['id'],$_POST['prenom'],$_POST['nom'],$_POST['role']);
+                }
+                break;
+            }
+
+        case 'connect' :
+            {
+                ControllerUser::connect();
+                break;
+            }
+        
+        case 'creerCompte' :
+            {
+                ControllerUser::creerCompte();
+                break;
+            }
+    }
 
 $_POST['action'] = null;
-
+}
 ?>

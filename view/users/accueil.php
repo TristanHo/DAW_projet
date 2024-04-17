@@ -6,27 +6,16 @@
 </head>
 <body>
     <h1>Bienvenue 
-        <?php 
-        echo "".$_COOKIE['prenom'];
-        echo " ".$_COOKIE['nom'];
+        <?php
+            echo $_COOKIE['nom']." ".$_COOKIE['prenom'];
         ?>
     </h1>
     <p>
     <?php 
         switch ($_COOKIE['role']){
-            case "etudiant" : echo
-            'Je suis étudiant
-            ';break;
-            case "professeur" : echo
-            'Je suis professeur
-            ';break;
-
-            case "administrateur" : echo 
-            '<a href="../view/users/listeUsers.php">Gérer la liste d\'utilisateurs</a>
-            <br/>
-            <a href="../view/users/createUser.php">Créer un utilisateur</a>
-            <br/>
-            ';break;
+            case 'etudiant' : echo 'Je suis étudiant <a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>'; break;
+            case "professeur" : echo 'Je suis professeur <a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>'; break;
+            case "administrateur" : echo '<a href="listeUsers.php">Gérer la liste d\'utilisateurs</a> <a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>'; break;
         }
     ?>
     </p>

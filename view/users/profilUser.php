@@ -6,17 +6,16 @@
 </head>
 <body>
 
-<form action='../../config/routeur.php' method="get">
+<form action='../../config/routeur.php' method="post">
     <?php
         require_once('../../controller/ControllerUser.php');
         $user = ControllerUser::getUser($_GET['id']);
 
-        echo "Login : ".$user->getUsername()."<br>";
-        echo "Nom : ".$user->getNom()." ";
+        echo "Nom : ".$user->getNom()."<br>";
         echo "Prenom : ".$user->getPrenom()."<br>";
         echo "Role : ".$user->getRole()."<br>";
 
-        if($_COOKIE['role'] == 'admin') {
+        if($_COOKIE['role'] == 'administrateur') {
             echo "<a href='modifUser.php?id=".$user->getId()."'>Modifier utilisateur</a>";
             echo "<input type='submit' value='Supprimer utilisateur'/>";
         }

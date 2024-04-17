@@ -6,25 +6,31 @@
 </head>
 <body>
 
-<form action='../../config/routeur.php' method="get">
+<form action='../../config/routeur.php' method="post">
     <?php
-        require_once(__DIR__.'/../../model/ModelUser.php');
-        echo "<a href='createUser.php'>Ajouter un utilisateur</a><br>";
-        $users = ModelUser::getUsers();
-        echo "<table border = 1>";
-        echo "<tr><td>ID</td><td>Nom</td><td>Prénom</td><td>Rôle</td><td>Login</td><td>Mot de passe</td><td></td></tr>";
-        foreach($users as $user) {
-            echo "<tr>";
-            echo "<td>".$user->getId()."</td>";
-            echo "<td>".$user->getNom()."</td>";
-            echo "<td>".$user->getPrenom()."</td>";
-            echo "<td>".$user->getRole()."</td>";
-            echo "<td>".$user->getUsername()."</td>";
-            echo "<td>".$user->getPassword()."</td>";
-            echo "<td><a href='profilUser.php?id=".$user->getId()."&role=admin'>Voir profil</a></td>";
-            echo "</tr>";
+        if($_COOKIE['role'] == 'administrateur') {
+            require_once(__DIR__.'/../../model/ModelUser.php');
+            echo "<a href='createUser.php'>Ajouter un utilisateur</a><br>";
+            $users = ModelUser::getUsers();
+            echo "<table border = 1>";
+            echo "<tr><td>ID</td><td>Nom</td><td>Prénom</td><td>Rôle</td><td>Login</td><td>Mot de passe</td><td></td></tr>";
+            foreach($users as $user) {
+                echo "<tr>";
+                echo "<td>".$user->getId()."</td>";
+                echo "<td>".$user->getNom()."</td>";
+                echo "<td>".$user->getPrenom()."</td>";
+                echo "<td>".$user->getRole()."</td>";
+                echo "<td>".$user->getUsername()."</td>";
+                echo "<td>".$user->getPassword()."</td>";
+                echo "<td><a href='profilUser.php?id=".$user->getId()."'>Voir profil</a></td>";
+                echo "</tr>";
+            }
+            echo "</table>";
         }
-        echo "</table>";
+        else {
+            echo "<h1>Accès refusé</h1><br>";
+            echo "<a href='accueil.php'>Revenir à la page d'accueil</a>";
+        }
     ?>
 </form>
 
