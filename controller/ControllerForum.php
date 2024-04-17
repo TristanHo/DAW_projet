@@ -28,16 +28,15 @@ public static function retrieveTopics($className)
 {
 
     $dbh = ControllerForum::getPDO();
-    $_SESSION['class_name'] = $className;
-    echo $_SESSION['class_name'];
     
+    $_SESSION['class_name'] = $className;
     $query = "SELECT nom, titre, id, auteur FROM Topic WHERE nom='".$className."'";
     $content = "<h1>Liste des topics de ".$className."</h1><br>";
 
     foreach($dbh->query($query) as $record)
     {
         $content .= '<div class=topicEntry>';
-        $content .= '<a href=topic_template.php?topic_id='.$record['id'].'&topic_title='.$record['titre'].'>'.$record['titre'].'</a> par ';
+        $content .= '<a href=topic_template.php?topic_id='.$record['id'].'&topic_title='.urlencode($record['titre']).'>'.$record['titre'].'</a> par ';
         $content .= $record['auteur'];
 
         //if($_COOKIE['role'] == "administrateur")
@@ -49,9 +48,6 @@ public static function retrieveTopics($className)
         }
 
         $content .= '</div>';
-
-        $_SESSION['topic_id'] = $record['id'];
-        $_SESSION['topic_title'] = $record['titre'];
     }
 
 
@@ -96,7 +92,8 @@ public static function addTopic()
 public static function retrieveMessages()
 {
     $dbh = ControllerForum::getPDO();
-    $content = "<h1>Messages de ".$_SESSION['topic_title']."</h1><br>";
+    //$content = "<h1>Messages de ".$_SESSION['topic_title']."</h1><br>";
+    $content = "<h1>Messages de ".urldecode($_GET['topic_title'])."</h1><br>";
     
     $query = 'SELECT contenu, date, author, id_message FROM Messages WHERE id_topic='.$_GET['topic_id']."";
 
@@ -119,22 +116,26 @@ public static function retrieveMessages()
         $content .= "</div>";
     }
 
+    $content .= "<div><form method=\"post\" action=\"../../config/routeur.php?topic_id=".$_GET['topic_id']."&topic_title=".$_GET['topic_title']."\" class=\"inputArea\">";
+    $content .= "<textarea name=\"messageInput\" rows=\"5\" cols=\"40\" size=\"50\"></textarea><br>";
+    $content .= "<input type=\"submit\" value=\"Envoyer\"></form></div>";
+
     $dbh = null;
     echo $content;
 }
 
-public static function addMessage()
+public static function addMessage($topic_id, $topic_title)
 {
 
     $dbh = ControllerForum::getPDO();
 
     if($_POST['messageInput'] != "" && strlen($_POST['messageInput']) < MESSAGE_MAX_LENGTH)
     {
-        $query = 'INSERT INTO Messages (id_topic, contenu, author) VALUES ('.$_SESSION['topic_id'].', \''.$_POST['messageInput'].'\',\''.$_SESSION['login'].'\')';
+        $query = 'INSERT INTO Messages (id_topic, contenu, author) VALUES ('.$_GET['topic_id'].', \''.$_POST['messageInput'].'\',\''.$_SESSION['login'].'\')';
         $dbh->query($query);
     }
 
-    header('Location: ../view/forum/topic_template.php?topic_id='.$_SESSION['topic_id'].'&topic_title='.$_SESSION['topic_title']);
+    header('Location: ../view/forum/topic_template.php?topic_id='.$_GET['topic_id'].'&topic_title='.$_GET['topic_title']);
     ControllerForum::retrieveMessages();
 
 }

@@ -63,21 +63,7 @@ PARTIE FORUM
 */
 if(isset($_POST['messageInput']))
 {
-    
-    /* 
-    A REMPLACER PAR COOKIE
-    A REMPLACER PAR COOKIE
-    A REMPLACER PAR COOKIE
-    */
-    //$_SESSION['login'] = "admin";
-    /* 
-    A REMPLACER PAR COOKIE
-    A REMPLACER PAR COOKIE
-    A REMPLACER PAR COOKIE
-    */
-
-
-    require_once '../controller/ControllerForum.php'; ControllerForum::addMessage();
+    require_once '../controller/ControllerForum.php'; ControllerForum::addMessage($_GET['topic_id'], $_GET['topic_title']);
 }
 
 if(isset($_POST['btnDeleteMessage']) && isset($_GET['id_message']))
