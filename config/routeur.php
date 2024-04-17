@@ -69,7 +69,7 @@ if(isset($_POST['messageInput']))
     A REMPLACER PAR COOKIE
     A REMPLACER PAR COOKIE
     */
-    $_SESSION['login'] = "admin";
+    //$_SESSION['login'] = "admin";
     /* 
     A REMPLACER PAR COOKIE
     A REMPLACER PAR COOKIE
@@ -83,4 +83,14 @@ if(isset($_POST['messageInput']))
 if(isset($_POST['btnDeleteMessage']) && isset($_GET['id_message']))
 {
     require_once '../controller/ControllerForum.php'; ControllerForum::removeMessage($_GET['id_message']);
+}
+
+if(isset($_POST['btnDeleteTopic']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::removeTopic($_GET['id_cours']);
+}
+
+if(isset($_POST['topicInput']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::addTopic();
 }
