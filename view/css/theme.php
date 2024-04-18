@@ -1,7 +1,7 @@
 <?php
     $theme = $_COOKIE['theme'];
     echo '<button id="theme" value="theme">Changer le thème</button>';
-    $href = "http://localhost/DAW-projet/css/$theme.css";
+    $href = "/DAW-projet/css/$theme.css";
     echo "<link rel='stylesheet' href=$href>";
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

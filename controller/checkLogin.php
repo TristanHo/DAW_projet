@@ -1,6 +1,5 @@
 <?php
     require_once("ControllerUser.php");
-    //header("Content-Type : text/plain");
     if(isset($_REQUEST['login'])){
         $login = $_REQUEST['login'];
         $liste = ControllerUser::listeUsers();

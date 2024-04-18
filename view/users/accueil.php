@@ -7,13 +7,17 @@
 </head>
 <body>
     <?php require("../css/header.php");?>
+    <?php
+        if(isset($_COOKIE['pp'])){
+            $path = $_COOKIE['pp'];
+            echo "<img src='$path' />";
+        }
+    ?>
     <h1>Bienvenue 
         <?php
             echo $_COOKIE['nom']." ".$_COOKIE['prenom'];
         ?>
     </h1>
-    
-    <img src="/DAW-projet/BD/fichiers/images/death_stranding_wallpaper.jpg"/>
     <p>
     <?php 
         switch ($_COOKIE['role']){
@@ -24,7 +28,6 @@
         echo '<a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>';
     ?>
     </p>
-    <img src="/DAW-projet/BD/fichiers/images/death_stranding_wallpaper.jpg"/>
     <?php require("../css/footer.php");?>
 </body>
 </html>

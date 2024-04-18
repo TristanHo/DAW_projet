@@ -55,7 +55,7 @@
             $id = $recupID->fetchColumn() + 1;
             $insert = $pdo->query("INSERT INTO Cours VALUES('".$id."', '".$nom."', '".$responsable."')");
             //Redirection vers la page d'accueil
-            header('Location: http://localhost/DAW-projet/view/users/accueil.php');
+            header('Location: /DAW-projet/view/users/accueil.php');
             exit();
         }
     
@@ -66,7 +66,7 @@
     
             $delete = $pdo->query('DELETE FROM Cours WHERE id_cours='.$id);
             //Redirection vers la page d'accueil
-            header('Location: http://localhost/DAW-projet/view/users/accueil.php');
+            header('Location: /DAW-projet/view/users/accueil.php');
             exit();
         }
     
@@ -77,7 +77,7 @@
     
             $update = $pdo->query('UPDATE Cours SET login_responsable="'.$responsable.'", nom="'.$nom.'" WHERE id_cours='.$id);
             //Redirection vers la page du cours
-            header('Location: http://localhost/DAW-projet/view/cours/pageCours.php?id='.$id);
+            header('Location: /DAW-projet/view/cours/pageCours.php?id='.$id);
             exit();
         }
     }

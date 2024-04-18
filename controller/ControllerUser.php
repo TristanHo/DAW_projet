@@ -39,7 +39,7 @@ class ControllerUser {
         $id = $recupID->fetchColumn() + 1;
         $insert = $pdo->query("INSERT INTO Utilisateurs VALUES('".$id."', '".$login."', '".$mdp."', '".$prenom."', '".$nom."', '".$role."')");
         //Redirection vers la liste des utilisateurs
-        header("Location: http://localhost/DAW-projet/view/users/listeUsers.php");
+        header("Location: /DAW-projet/view/users/listeUsers.php");
         exit();
     }
 
@@ -50,7 +50,7 @@ class ControllerUser {
 
         $delete = $pdo->query('DELETE FROM Utilisateurs WHERE id='.$id);
         //Redirection vers la liste des utilisateurs
-        header("Location: http://localhost/DAW-projet/view/users/listeUsers.php");
+        header("Location: /DAW-projet/view/users/listeUsers.php");
         exit();
     }
 
@@ -61,7 +61,7 @@ class ControllerUser {
 
         $update = $pdo->query('UPDATE Utilisateurs SET prenom="'.$prenom.'", nom="'.$nom.'", role="'.$role.'" WHERE id='.$id);
         //Redirection vers la liste des utilisateurs
-        header("Location: http://localhost/DAW-projet/view/users/listeUsers.php");
+        header("Location: /DAW-projet/view/users/listeUsers.php");
         exit();
     }
 
@@ -83,17 +83,14 @@ class ControllerUser {
                 //Définition des cookies de l'utilisateur pour toute la session
                 setcookie('login',$login, 0, '/');
                 setcookie('role',$infos[0], 0, '/');
-                setcookie('nom',$infos[1], time() + 3600*24*7, '/');
+                setcookie('nom',$infos[1], 0, '/');
                 setcookie('prenom',$infos[2], 0, '/');
-                setcookie('id', $infos[3], 0, '/');
-
-                //Redirection vers la page d'accueil
-                header('Location:/DAW-projet/view/users/accueil.php');
-                exit();
+                setcookie('id', $infos[3], 0, '/');$_COOKIE['login'] = $login;
             }   
             else if($infos == null){
                 //Si aucune information n'a été envoyée, on affiche un message d'erreur
                 header('Location:/DAW-projet/index.php?infos=false');
+                exit();
             }
             else{
                 //Si il y a une erreur durant l'exécution du code PHP
@@ -106,7 +103,9 @@ class ControllerUser {
         }
     }
 
-    //Fonction pour renvoyer sur la page d'accueil utilisateur
+
+    //FONCTION INUTILE ? A ENLEVER ??
+    /*
     public static function pageAccueilUser($login,$infos){
         
         //Définition des cookies de l'utilisateur pour toute la session
@@ -127,6 +126,8 @@ class ControllerUser {
             exit();
         }
     }
+    */
+
 
     //Fonction pour créer un compte
     public static function creerCompte(){
@@ -143,28 +144,15 @@ class ControllerUser {
 
             //Créer un ModelUser pour traiter la création de compte et comparer avec les comtpes déjà existants de la base de données
             $user = new ModelUser($login,$mdp);
+            $ok = $user->creationCompte($prenom,$nom,$role);
             //Si la fonction renvoie true, alors le compte peut être créé, sinon le compte n'est pas créé
-            if($_FILES['photo']['error'] == UPLOAD_ERR_OK){
-                $file = $_FILES['photo']['name'];
-                $ok = $user->creationCompte($prenom,$nom,$role,$file);
-                if($ok[0]){
-                    $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                    $file = "$ok[1].$extension";
-                    $dir_dest = "../BD/fichiers/images$file";
-                    $dir_temp = $_FILES['photo']['tmp_name'];
-                    move_uploaded_file($dir_temp,$dir_dest);
-                }
-            }
-            else{
-                $ok = $user->creationCompte($prenom,$nom,$role,null);
-            }
 
             //Dans les deux cas, on renvoie sur la page de connexion avec le message correspondant à l'état de création du compte
-            if($ok[0]){
+            if($ok && $_FILES['photo']['name'] == ""){
                 header('Location:/DAW-projet/index.php?infos=crea');
                 exit();
             }
-            else{
+            else if(!$ok && $_FILES['photo']['name'] == ""){
                 header('Location:/DAW-projet/index.php?infos=ncrea');
                 exit();
             }
@@ -180,6 +168,7 @@ class ControllerUser {
         setcookie('id','1', time()-3600, '/');
         setcookie('role','1', time()-3600, '/');
         setcookie('theme','jour',0,'/');
+        setcookie('pp','1',time()-3600,'/');
         //Redirection vers la page de connexion du site
         header('Location:/DAW-projet');
         exit();
