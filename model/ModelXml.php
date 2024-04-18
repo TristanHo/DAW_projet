@@ -44,7 +44,7 @@ class ModelXml
 
     public function recupqcmintro($xmlfile){
         if (file_exists($xmlfile)) {
-            echo"test ici";
+            //echo"test ici";
             $this->qcm = new ModelQCM();
             $this->qcm->setIdQCM("qcmintro");
             $fichier = simplexml_load_file($xmlfile);
@@ -91,7 +91,7 @@ class ModelXml
                     }
 
                     // Retourner le QCM trouvé et terminer la fonction
-                    echo"retour du qcm";
+                    //echo"retour du qcm";
                     return $this->qcm;
 
                 }

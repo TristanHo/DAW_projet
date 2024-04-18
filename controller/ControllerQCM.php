@@ -1,29 +1,39 @@
 <?php
-// Charger les questions du QCM depuis le modèle
-require_once("../model/ModelXml.php");
-$test=new ModelXml();
-//test pour lire un qcm de cours cree
-//$test->recupqcm("qcmcours1","../BD/exemple.xml") ;
-//test pour lire le qcmintro
-$test->recupqcmintro("../BD/exemple.xml");
-$qcm=$test->getQCM() ;
 
-$score = 0;
-$questions=$qcm->getListeQuestions() ;
-foreach($questions as $q){
-    $question = $q->getQuestion();
+error_reporting(E_ALL);
+
+class ControllerForum
+{
+
+public static function getPDO()
+{
+    //recupere les element depuis confic pour conection a la bd
+
+    try
+    {        
+        $dbh =  new PDO('mysql:host=localhost;dbname=DAW_Project', 'root', '');
+        return $dbh;
+    }
+    catch(PDOException $e)
+    {
+        echo $e->getMessage();
+    }
+
 }
 
-echo "Chemin du script actuel : " . $_SERVER['PHP_SELF'];
-//Passer les questions à la vue qui affiche le formulaire
+public static function valideQCM($nomcours,$lvcours,$loginetu){
+    $dbh = ControllerForum::getPDO();
+    // Utilisation de requête préparée pour éviter les injections SQL
+    $query = 'INSERT INTO cours_valider (id, nomcours, lv, login) VALUES (null, :nomcours, :lvcours, :loginetu)';
+    $requ = $dbh->prepare($query);
+    $requ->bindParam(':nomcours', $nomcours);
+    $requ->bindParam(':lvcours', $lvcours);
+    $requ->bindParam(':loginetu', $loginetu);
+    // evoie de la requete
+    $requ->execute();
 
-include('../view/test/formulaire_qcm.php');
-// Vérifier les réponses soumises
- if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
-    $qcm->calcul_score_intro($_POST['reponse']);
-    $score += $qcm->calculerScore($_POST['reponse']);
-    
-    // vue qui affiche les résultats
-    include('../view/test/resultat_qcm.php');
-} 
+}
+
+
+}
 ?>

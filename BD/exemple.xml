@@ -7,7 +7,7 @@
                 <lv>1</lv>
                 <idquestion>q1</idquestion>
                 <questionposer>ceci est la question 1</questionposer>
-                <reponse>2</reponse>
+                <reponse>1</reponse>
                 <choix>reponse 1</choix>
                 <choix>reponse 2</choix>
                 <choix>blabla rdutt rfhgg</choix>
@@ -20,7 +20,7 @@
                 <questionposer>quels temps fait-il</questionposer>
                 <reponse>2</reponse>
                 <choix>non</choix>
-                <choix>il fait beau</choix>
+                <choix>ok</choix>
                 <choix>pluie</choix>
                 <choix>gris</choix>
             </question>
@@ -29,10 +29,10 @@
                 <lv>2</lv>
                 <idquestion>q3</idquestion>
                 <questionposer>ceci est la question 3</questionposer>
-                <reponse>2</reponse>
+                <reponse>3</reponse>
                 <choix>non</choix>
                 <choix>beau</choix>
-                <choix>pluie</choix>
+                <choix>ok</choix>
                 <choix>gris</choix>
             </question>
             <question>
@@ -40,76 +40,76 @@
                 <lv>1</lv>
                 <idquestion>q4</idquestion>
                 <questionposer>ceci est la question 4</questionposer>
-                <reponse>2</reponse>
+                <reponse>4</reponse>
                 <choix>non</choix>
                 <choix>beau</choix>
                 <choix>pluie</choix>
-                <choix>gris</choix>
+                <choix>ok</choix>
             </question>
             <question>
-                <matiere>math</matiere>
+                <matiere>geo</matiere>
                 <lv>1</lv>
                 <idquestion>q5</idquestion>
                 <questionposer>ceci est la question 5</questionposer>
                 <reponse>2</reponse>
                 <choix>non</choix>
-                <choix>beau</choix>
+                <choix>ok</choix>
                 <choix>pluie</choix>
                 <choix>gris</choix>
             </question>
             <question>
-                <matiere>math</matiere>
-                <lv>1</lv>
+                <matiere>geo</matiere>
+                <lv>2</lv>
                 <idquestion>q6</idquestion>
                 <questionposer>ceci est la question 6</questionposer>
                 <reponse>2</reponse>
                 <choix>non</choix>
-                <choix>beau</choix>
+                <choix>ok</choix>
                 <choix>pluie</choix>
                 <choix>gris</choix>
             </question>
             <question>
-                <matiere>math</matiere>
+                <matiere>info</matiere>
                 <lv>1</lv>
                 <idquestion>q7</idquestion>
                 <questionposer>ceci est la question 7</questionposer>
                 <reponse>2</reponse>
                 <choix>non</choix>
-                <choix>beau</choix>
+                <choix>ok</choix>
                 <choix>pluie</choix>
                 <choix>gris</choix>
             </question>
             <question>
-                <matiere>math</matiere>
+                <matiere>info</matiere>
                 <lv>1</lv>
                 <idquestion>q8</idquestion>
                 <questionposer>ceci est la question 8</questionposer>
                 <reponse>2</reponse>
                 <choix>non</choix>
-                <choix>beau</choix>
+                <choix>ok</choix>
                 <choix>pluie</choix>
                 <choix>gris</choix>
             </question><question>
-                <matiere>math</matiere>
+                <matiere>info</matiere>
                 <lv>1</lv>
                 <idquestion>q9</idquestion>
                 <questionposer>ceci est la question 9</questionposer>
                 <reponse>2</reponse>
                 <choix>non</choix>
-                <choix>beau</choix>
+                <choix>ok</choix>
                 <choix>pluie</choix>
                 <choix>gris</choix>
             </question>
             <question>
-                <matiere>math</matiere>
-                <lv>1</lv>
+                <matiere>info</matiere>
+                <lv>2</lv>
                 <idquestion>q10</idquestion>
-                <questionposer>ceci est la question 10</questionposer>
-                <reponse>2</reponse>
-                <choix>non</choix>
-                <choix>beau</choix>
-                <choix>pluie</choix>
-                <choix>gris</choix>
+                <questionposer>quel langage est le langage le plus proche de la machine?</questionposer>
+                <reponse>1</reponse>
+                <choix>lok</choix>
+                <choix>phyton</choix>
+                <choix>java</choix>
+                <choix>c</choix>
             </question>
         </questions>
     </qcm>

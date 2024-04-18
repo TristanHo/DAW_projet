@@ -84,26 +84,29 @@ class ModelQCM {
 
     public function calcul_score_intro($reponsesSoumises) {
 
-        $score = 0;
+       
         $compteur= 0;
         $tempo=0;
-        $tempomatiere=0;
+        $tempomatiere='';
         foreach ($this->listeQuestions as $question) {
             $compteur++;
             $idQuestion = $question->getIDQuestion();
             $matiere= $question->getMatiere();
             $lv= $question->getLv();
-           // echo'id: '.$idQuestion.' matiere: '.$matiere.' lv: '.$lv."<br>";
+           //echo'id: '.$idQuestion.' matiere: '.$matiere.' lv: '.$lv."<br>";
             if (isset($reponsesSoumises[$idQuestion])) {
+                
                 $reponseSoumise = $reponsesSoumises[$idQuestion];
+                //echo'choix reponse '.$reponseSoumise .' <br>';
                 $res = $question->verifok($reponseSoumise);
                 if ($res > 0) {
+                   // echo'juste <br>';
                     if($lv==2){
                         echo 'attribution du lv 2 dans le domaine '.$matiere.'<br>';
                     }
                     else {
                         //lv =1 car que 2 lv possible ici 
-                        if($tempo==1&&$tempomatiere==$matiere){
+                        if(($tempo==1)&& ($tempomatiere==$matiere)){
                             echo 'attribution du lv1 a la matire '.$matiere.'<br>';
                         }else {
                             $tempo=1;
@@ -113,11 +116,67 @@ class ModelQCM {
                         
                     }
                 }
-                $score = $score + $res;
+                
             }
         }
+        echo 'fin traitement';
 
     }
+
+    public function affiche_modif()
+    //fonction de modification du qcm this
+    {
+        
+        echo "<form action='modifier_qcm.php' method='post'>";
+        foreach ($this->listeQuestions as $question) {
+            echo "<div>";
+            echo "<label>Question : </label>";
+            echo "<input type='text' name='question[]' value='" . $question->getQuestion() . "'>";
+            echo "<br>";
+            $cmp=0;
+            foreach($question->getChoix() as $choix=> $reponse){
+                $cmp++;
+                echo "<label>Réponse ".$cmp.": </label>";
+                echo "<input type='text' name='reponse[]' value='" . $choix . "'>";
+               
+            }
+            //pour l'indice de la reponse juste (entre 1 et 4)
+            echo "<br>";
+            echo "<label>Bonne réponse : </label>";
+            echo "<input type='text' name='question[]' value='" . $question->getReponse() . "'>";
+
+             echo "</div>";
+            
+        }
+        echo "<input type='submit' value='Valider les modifications'>";
+        echo "</form>";
+    }
+    //fonction de modification dans le fichier xml ou sauvgarde si il n'existe pas encore
+    public function modif_sauv_qcm($idqcm) {
+        $xmlFile = "../../BD/exemple.xml";
+        $xml = simplexml_load_file($xmlFile);    
+        // Rechercher le QCM à modifier en fonction de son ID
+        foreach ($xml->qcm as $qcm) {
+            if ($qcm->idqcm == $idqcm) {
+                // Mettre à jour les questions et réponses du QCM en fonction des données soumises dans le formulaire
+                foreach ($qcm->questions->question as $question) {
+                    // Récupérer l'index de la question dans le formulaire
+                    $index = (int)$_POST['index'];
+    
+                    // Mettre à jour la question et les réponses
+                    $question->questionposer = $_POST['question'][$index];
+                    $question->reponse = $_POST['reponse'][$index];
+                }
+                // Enregistrer les modifications dans le fichier XML
+                $xml->asXML($xmlFile);
+                return true; // Modification réussie
+            }
+        }
+    
+        // Si le QCM n'a pas été trouvé
+        return false;
+    }
+    
     
 }
 

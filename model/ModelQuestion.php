@@ -39,6 +39,16 @@ class ModelQuestion{
     public function getQuestion(){
         return $this->question;
     }
+    public function getReponse(){
+        $cmp=0;
+        foreach($this->choix as $key => $value) {
+            $cmp ++;
+            if ($this->choix[$key] == true) {
+                return $cmp;
+            }
+        }
+        return -1;
+    }
     public function setQuestion($question){
         $this->question = $question;
         

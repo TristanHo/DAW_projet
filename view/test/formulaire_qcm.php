@@ -6,10 +6,11 @@
     <title>Formulaire de QCM</title>
 </head>
 <body>
-     <form action="ControllerQCM.php" method="post">
+     <form action="formulaireQcm.php" method="post">
         <?php
         
         // Afficher les questions du QCM
+        
         foreach ($questions as $question) {
             $question->afficherquestionformulaire();
         }
