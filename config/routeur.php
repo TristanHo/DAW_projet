@@ -49,6 +49,28 @@ if(isset($_POST['action']) && !is_null($_POST['action'])){
                 ControllerUser::creerCompte();
                 break;
             }
+
+        case 'createCours' :
+            {
+                if(isset($_POST['nom'])) {
+                    ControllerCours::insertCours($_COOKIE['login'], $_POST['nom']);
+                    break;
+                }
+            }
+
+        case 'modifCours' :
+            {
+                if(isset($_POST['nom']) && isset($_POST['id'])) {
+                    ControllerCours::modifCours($_COOKIE['login'], $_POST['nom'], $_POST['id']);
+                }
+                break;
+            }
+
+        case 'deleteCours' :
+            {
+                ControllerCours::deleteCours($_POST['id']);
+                break;
+            }
     }
 
 $_POST['action'] = null;

@@ -20,6 +20,17 @@ class ControllerUser {
         }
     }
 
+    public static function getUserLogin($login) {
+        $model = new Model();
+        $pdo = $model->getPdo();
+
+        $select = $pdo->query('SELECT * FROM Utilisateurs WHERE utilisateurs.login="'.$login.'"');
+        while($row = $select->fetch(PDO::FETCH_ASSOC)) {
+            $user = new ModelUser($row['login'], $row['mdp'], $row['id'], $row['role'], $row['nom'], $row['prenom']);
+            return $user;
+        }
+    }
+
     //Fonction du controller pour ajouter un utilisateur à la table des utilisateurs
     public static function insertUser($login, $mdp, $prenom, $nom, $role) {    
         $model = new Model();
