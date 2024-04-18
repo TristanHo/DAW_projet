@@ -53,7 +53,7 @@ class ModelUser{
         foreach($liste_users as $user){
             if ($user->getUsername() == $this->getUsername()){
                 if($user->getPassword() == $this->getPassword()){
-                    return [$user->getRole(),$user->getNom(),$user->getPrenom()];
+                    return [$user->getRole(),$user->getNom(),$user->getPrenom(), $user->getId()];
                 }
             }
         }
