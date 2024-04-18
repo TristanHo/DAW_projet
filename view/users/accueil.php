@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <?php require_once("../css/theme.php");?>
 </head>
 <body>
+    <?php require("../css/theme.php");?>
     <h1>Bienvenue 
         <?php
             echo $_COOKIE['nom']." ".$_COOKIE['prenom'];

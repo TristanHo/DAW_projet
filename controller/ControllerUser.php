@@ -59,7 +59,6 @@ class ControllerUser {
 
         //Vérifier si le login et le mot de passe du formulaire de connexion sont bien définis
         if(isset($_POST['login']) && isset($_POST['mdp'])){ 
-            setcookie('login','',1); 
             //Récupérer les informations du formulaire
             $login = $_POST['login']; 
             $mdp = $_POST['mdp'];
@@ -70,8 +69,18 @@ class ControllerUser {
 
             //En fonction de la vérification de la connexion
             if($infos != null){
-                //Si des infos ont été envoyés par la fonction de vérification, on se dirige vers la page d'accueil utilisateur
-                self::pageAccueilUser($login,$infos);
+                //Définition des cookies de l'utilisateur pour toute la session
+                setcookie('login',$login, 0, '/');
+                setcookie('role',$infos[0], 0, '/');
+                setcookie('nom',$infos[1], time() + 3600*24*7, '/');
+                setcookie('prenom',$infos[2], 0, '/');
+                setcookie('id', $infos[3], 0, '/');
+                //Vérifier que les cookies ont bien été définis
+                if(isset($_COOKIE['login']) && !is_null($_COOKIE['login'])){
+                    //Redirection vers la page d'accueil
+                    header('Location: /DAW-projet/view/users/accueil.php');
+                    exit();
+                }   
             }
             else if($infos == null){
                 //Si aucune information n'a été envoyée, on affiche un message d'erreur
@@ -100,14 +109,15 @@ class ControllerUser {
         //Définition des cookies de l'utilisateur pour toute la session
         setcookie('login',$login, 0, '/');
         setcookie('role',$infos[0], 0, '/');
-        setcookie('nom',$infos[1], 0, '/');
+        setcookie('nom',$infos[1], time() + 3600*24*7, '/');
         setcookie('prenom',$infos[2], 0, '/');
         setcookie('id', $infos[3], 0, '/');
-
         //Vérifier que les cookies ont bien été définis
         if(isset($_COOKIE['login']) && !is_null($_COOKIE['login'])){
             //Redirection vers la page d'accueil
-            header('Location: http://localhost/DAW-projet/view/users/accueil.php');
+            header('Location: http://localhost/DAW-projet/view/users/accueil.php',true,301);
+            header("Set-Cookie: nom=BB; Path=/");
+            //require_once('../view/users/accueil.php');
             exit();
         }
         //En cas d'erreur lors de l'exécution du code
