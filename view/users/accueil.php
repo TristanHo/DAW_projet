@@ -2,36 +2,26 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet">
+  <title>Page d'accueil</title>
+  <?php require("../css/stylesheet.php");?>
 </head>
 <body>
+    <?php require("../css/header.php");?>
     <h1>Bienvenue 
-        <?php 
-        echo "".$_COOKIE['prenom'];
-        echo " ".$_COOKIE['nom'];
+        <?php
+            echo $_COOKIE['nom']." ".$_COOKIE['prenom'];
         ?>
     </h1>
     <p>
     <?php 
         switch ($_COOKIE['role']){
-            case "etudiant" : echo
-            'Je suis étudiant
-            ';break;
-            case "professeur" : echo
-            'Je suis professeur
-            ';break;
-
-            case "administrateur" : echo 
-            '<a href="../view/users/listeUsers.php">Gérer la liste d\'utilisateurs</a>
-            <br/>
-            <a href="../view/users/createUser.php">Créer un utilisateur</a>
-            <br/>
-            ';break;
+            case 'etudiant' : echo 'Je suis étudiant '; break;
+            case "professeur" : echo 'Je suis professeur '; break;
+            case "administrateur" : echo '<a href="listeUsers.php">Gérer la liste d\'utilisateurs</a> <a href="../cours/listeCours.php">Gérer la liste des cours</a>'; break;
         }
+        echo '<a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>';
     ?>
     </p>
-    <script type="text/javascript">
-        //window.location.replace($_SERVER['REQUEST_URI']);
-    </script>
+    <?php require("../css/footer.php");?>
 </body>
 </html>
