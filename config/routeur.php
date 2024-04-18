@@ -39,6 +39,40 @@ if(isset($_POST['action']) && !is_null($_POST['action'])){
     } 
 };
 
-$_POST['action'] = null;
+$_POST['id'] = null;
+
+if(isset($_POST['validerChangement']))
+{
+    echo $_GET['idqcm'];
+    require_once '../controller/ControllerQCM.php'; ControllerQCM::modif_sauv_qcm();
+
+}
+//validation du QCM
+if(isset($_POST['validerQCMintro']))
+{
+    echo 'traitement score intro';
+    //passer id du qcm avec hidden ou _GET
+    $idqcm="qcmintro";
+    require_once '../controller/ControllerQCM.php'; 
+    $tmp=new ControllerQCM;
+   // $tmp->recupqcm($idqcm);
+    
+    $tmp->calcul_score_intro();
+
+
+}
+if(isset($_POST['validerQCM']))
+{
+    //echo 'traitement score';
+    //passer id du qcm avec hidden ou _GET
+    $idqcm="qcmcours2";
+    require_once '../controller/ControllerQCM.php'; 
+    $tmp=new ControllerQCM;
+   // $tmp->recupqcm($idqcm);
+    
+    $tmp->calculerScore($idqcm);
+
+
+}
 
 ?>

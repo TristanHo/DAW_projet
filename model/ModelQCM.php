@@ -28,29 +28,7 @@ class ModelQCM {
         }
     }
 
-    // Fonction statique pour récupérer toutes les voitures de la base de données
-    public static function getQCM() {
-        // Connexion à la base de données (supposons que cela est géré dans votre classe Model)
-        $model = new Model();
-        $pdo = $model->getPdo();
-        
-        // Requête pour récupérer toutes les voitures
-        $stmt = $pdo->query('SELECT * FROM voiture');
-        
-        // Tableau pour stocker les voitures
-        $voitures = array();
-        
-        // Récupération des données et remplissage du tableau de voitures
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            // Création d'une nouvelle instance de Voiture à partir des données récupérées
-            $voiture = new Voiture($row['marque'], $row['coul'], $row['immatriculation']);
-            // Ajout de la voiture au tableau
-            $voitures[] = $voiture;
-        }
-        
-        // Retourne le tableau des voitures
-        return $voitures;
-    }
+  
 
     //fonction pour afficher les questions
     public  function afficheQuestions() {
@@ -60,6 +38,7 @@ class ModelQCM {
     public function calculerScore($reponsesSoumises) {
         $score = 0;
         $compteur=0;
+
         //echo 'Vérification en cours<br>';
         foreach ($this->listeQuestions as $question) {
             $compteur++;
@@ -107,7 +86,7 @@ class ModelQCM {
                     else {
                         //lv =1 car que 2 lv possible ici 
                         if(($tempo==1)&& ($tempomatiere==$matiere)){
-                            echo 'attribution du lv1 a la matire '.$matiere.'<br>';
+                            echo 'attribution du lv1 a la matiere '.$matiere.'<br>';
                         }else {
                             $tempo=1;
                             $tempomatiere=$matiere;
@@ -127,7 +106,9 @@ class ModelQCM {
     //fonction de modification du qcm this
     {
         
-        echo "<form action='modifier_qcm.php' method='post'>";
+        echo "<form action='../../config/routeur.php' method='post'>";
+        //garder l'id du QCM
+        echo '<input type="hidden" name="idqcm" value="'.$this->idQCM.'">';
         foreach ($this->listeQuestions as $question) {
             echo "<div>";
             echo "<label>Question : </label>";
@@ -142,13 +123,15 @@ class ModelQCM {
             }
             //pour l'indice de la reponse juste (entre 1 et 4)
             echo "<br>";
-            echo "<label>Bonne réponse : </label>";
+            echo "<label>Bonne réponse (indiquer l'indice entre 1 et 4): </label>";
             echo "<input type='text' name='question[]' value='" . $question->getReponse() . "'>";
 
              echo "</div>";
             
         }
         echo "<input type='submit' value='Valider les modifications'>";
+        
+
         echo "</form>";
     }
     //fonction de modification dans le fichier xml ou sauvgarde si il n'existe pas encore
@@ -172,7 +155,7 @@ class ModelQCM {
                 return true; // Modification réussie
             }
         }
-    
+       
         // Si le QCM n'a pas été trouvé
         return false;
     }

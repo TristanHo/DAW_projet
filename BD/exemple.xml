@@ -239,4 +239,118 @@
             </question>
         </questions>
         </qcm>
+        <qcm>
+        <idqcm>qcmcours2</idqcm>
+        <questions>
+            <question>
+                <matiere>math</matiere>
+                <lv>1</lv>
+                <idquestion>q1</idquestion>
+                <questionposer>ceci est la question 1</questionposer>
+                <reponse>1</reponse>
+                <choix>reponse 1</choix>
+                <choix>reponse 2</choix>
+                <choix>blabla rdutt rfhgg</choix>
+                <choix>reponse 4</choix>
+            </question>
+            <question>
+                <matiere>math</matiere>
+                <lv>1</lv>
+                <idquestion>q2</idquestion>
+                <questionposer>quels temps fait-il</questionposer>
+                <reponse>2</reponse>
+                <choix>non</choix>
+                <choix>ok</choix>
+                <choix>pluie</choix>
+                <choix>gris</choix>
+            </question>
+            <question>
+            <matiere>math</matiere>
+                <lv>2</lv>
+                <idquestion>q3</idquestion>
+                <questionposer>ceci est la question 3</questionposer>
+                <reponse>3</reponse>
+                <choix>non</choix>
+                <choix>beau</choix>
+                <choix>ok</choix>
+                <choix>gris</choix>
+            </question>
+            <question>
+                <matiere>geo</matiere>
+                <lv>1</lv>
+                <idquestion>q4</idquestion>
+                <questionposer>ceci est la question 4</questionposer>
+                <reponse>4</reponse>
+                <choix>non</choix>
+                <choix>beau</choix>
+                <choix>pluie</choix>
+                <choix>ok</choix>
+            </question>
+            <question>
+                <matiere>geo</matiere>
+                <lv>1</lv>
+                <idquestion>q5</idquestion>
+                <questionposer>ceci est la question 5</questionposer>
+                <reponse>2</reponse>
+                <choix>non</choix>
+                <choix>ok</choix>
+                <choix>pluie</choix>
+                <choix>gris</choix>
+            </question>
+            <question>
+                <matiere>geo</matiere>
+                <lv>2</lv>
+                <idquestion>q6</idquestion>
+                <questionposer>ceci est la question 6</questionposer>
+                <reponse>2</reponse>
+                <choix>non</choix>
+                <choix>ok</choix>
+                <choix>pluie</choix>
+                <choix>gris</choix>
+            </question>
+            <question>
+                <matiere>info</matiere>
+                <lv>1</lv>
+                <idquestion>q7</idquestion>
+                <questionposer>ceci est la question 7</questionposer>
+                <reponse>2</reponse>
+                <choix>non</choix>
+                <choix>ok</choix>
+                <choix>pluie</choix>
+                <choix>gris</choix>
+            </question>
+            <question>
+                <matiere>info</matiere>
+                <lv>1</lv>
+                <idquestion>q8</idquestion>
+                <questionposer>ceci est la question 8</questionposer>
+                <reponse>2</reponse>
+                <choix>non</choix>
+                <choix>ok</choix>
+                <choix>pluie</choix>
+                <choix>gris</choix>
+            </question><question>
+                <matiere>info</matiere>
+                <lv>1</lv>
+                <idquestion>q9</idquestion>
+                <questionposer>ceci est la question 9</questionposer>
+                <reponse>2</reponse>
+                <choix>non</choix>
+                <choix>ok</choix>
+                <choix>pluie</choix>
+                <choix>gris</choix>
+            </question>
+            <question>
+                <matiere>info</matiere>
+                <lv>2</lv>
+                <idquestion>q10</idquestion>
+                <questionposer>quel langage est le langage le plus proche de la machine?</questionposer>
+                <reponse>1</reponse>
+                <choix>lok</choix>
+                <choix>phyton</choix>
+                <choix>java</choix>
+                <choix>c</choix>
+            </question>
+        </questions>
+    </qcm>
 </qcms>
