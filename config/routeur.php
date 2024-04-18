@@ -88,6 +88,8 @@ if(isset($_GET['action']) && !is_null($_GET['action'])){
 
 /*
 PARTIE FORUM
+PARTIE FORUM
+PARTIE FORUM
 */
 if(isset($_POST['messageInput']))
 {
