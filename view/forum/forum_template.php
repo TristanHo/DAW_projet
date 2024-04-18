@@ -1,13 +1,18 @@
 <?php session_start(); ?>
 
 <!DOCTYPE html>
-<?php require_once("../css/theme.php");?>
 <html>
     <head>
 
+    <?php require("../../view/css/stylesheet.php");?>
+
     </head>
 
+    
+
     <body>
+
+        <?php require("../css/header.php");?>
 
         <?php
 
@@ -15,6 +20,8 @@
             ControllerForum::retrieveTopics('Mécanique'); //REMPLACER PARAMETRE PAR VALEUR DU COURS
 
         ?>
+
+    <?php require_once("../css/footer.php");?>
 
     </body>
 </html>

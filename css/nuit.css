@@ -1,5 +1,80 @@
-body{
-    background-color: black;
-    color: white;
+body:not(#index){
+    background-color : black;
+    color : white;
+    margin-top : 5px;
+    padding-top : 105px;
+    padding-bottom : 15px;
+}
+
+#index{
+    background-color : black;
+    color : white;
     border-color : white;
+    h1{
+        color:blueviolet;
+        text-align: center;
+        width: 100%;
+    };
+    #div-crea{
+        text-align: center;
+        width:100%;
+    };
+    #form-crea{
+        width : 50%;
+        margin-left:auto;
+        margin-right:auto;
+
+        input:type(text){
+            width:100px;
+            height:50px;
+        }
+        input{
+            margin-bottom: 10px;
+        }
+    };
+    #form-co{
+        margin-bottom : 15px;
+    };
+    #error{
+        position:absolute;
+        left: 50%;
+        margin-bottom:10px;
+        padding:5px;
+    }
+}
+
+header{
+    background-color : darkorchid;
+    color : black;
+    position : absolute;
+    top : 0;
+    height : 100px;
+    width : 100%;
+    margin-bottom : 5px;
+}
+
+header > input{
+    float: right;
+}
+
+a{
+    color : orchid;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color : darkviolet;
+    color : white;
+    height : 20px;
+    text-align: center;
+    padding: 10px 0;
+    #theme{
+        float: left;
+    }
+    span{
+        position:absolute;
+        left:50%;
+    }
 }

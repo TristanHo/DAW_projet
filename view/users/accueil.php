@@ -2,9 +2,10 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <?php require("../css/stylesheet.php");?>
 </head>
 <body>
-    <?php require("../css/theme.php");?>
+    <?php require("../css/header.php");?>
     <h1>Bienvenue 
         <?php
             echo $_COOKIE['nom']." ".$_COOKIE['prenom'];
@@ -19,8 +20,6 @@
         }
     ?>
     </p>
-    <script type="text/javascript">
-        //window.location.replace($_SERVER['REQUEST_URI']);
-    </script>
+    <?php require("../css/footer.php");?>
 </body>
 </html>

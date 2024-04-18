@@ -6,7 +6,7 @@ spl_autoload_register(function ($controller) {
     require_once('../controller/'.$controller.'.php');
 });
 
-if(isset($_POST['action']) && !is_null($_POST['action'])) {
+if(isset($_POST['action']) && !is_null($_POST['action'])){
     $action = $_POST['action'];
 
     switch($action) {
@@ -50,10 +50,26 @@ if(isset($_POST['action']) && !is_null($_POST['action'])) {
 $_POST['action'] = null;
 }
 
+else if(isset($_GET['action']) && !is_null($_GET['action'])){
+    $action = $_GET['action'];
+
+    switch($action) {
+        case 'disconnect' :
+            {
+                ControllerUser::deconnexion();
+                break;
+            }
+
+    }
+
+
+$_GET['action'] = null;
+}
+
 /*
     PARTIE FORUM
     */
-    if(isset($_GET['messageInput']))
+    if(isset($_GET['messageInput']) && !is_null($_GET['messageInput']))
     {
         /* 
         A REMPLACER PAR COOKIE

@@ -1,13 +1,15 @@
 <?php session_start(); ?>
 
 <!DOCTYPE html>
-<?php require_once("../css/theme.php");?>
 <html>
     <head>
         <link rel="stylesheet" href="../css/message.css">
+        <?php require("../../view/css/stylesheet.php");?>
     </head>
 
     <body>
+
+        <?php require("../css/header.php");?>
 
         <?php
 
@@ -22,6 +24,8 @@
             <textarea name="messageInput" rows="5" cols="40" placeholder="Saisir un message... (Problème si message contient des apostrophes" size="50"></textarea><br>
             <input type="submit" value="Envoyer">
         </form>
+
+        <?php require_once("../css/footer.php");?>
 
     </body>
 </html>

@@ -11,10 +11,10 @@
             }
         }
         if($ok){
-            echo "<span style='color:green;'>Login disponible</span>";
+            echo "Login disponible";
         }
         else{
-            echo "<span style='color:red'>Login déjà utilisé</span>";  
+            echo "Login déjà utilisé";  
         }
     }  
     else{
