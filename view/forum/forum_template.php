@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php require_once("../css/theme.php");?>
 
 <!DOCTYPE html>
 

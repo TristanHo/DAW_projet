@@ -39,7 +39,7 @@ public static function retrieveTopics($className)
         $content .= '<a href=topic_template.php?topic_id='.$record['id'].'&topic_title='.urlencode($record['titre']).'>'.$record['titre'].'</a> par ';
         $content .= $record['auteur'];
 
-        //if($_COOKIE['role'] == "administrateur")
+        //if($_COOKIE['role'] == "administrateur" || $_COOKIE['role'] == "professeur"))
         if($_SESSION['login']=="admin")
         {
             $content .= "<div><form method=\"post\" action=\"../../config/routeur.php?id_cours=".$record['id']."\">";
@@ -51,7 +51,7 @@ public static function retrieveTopics($className)
     }
 
 
-    //if($_COOKIE['role'] == "administrateur")
+    //if($_COOKIE['role'] == "administrateur" || $_COOKIE['role'] == "professeur")
     if($_SESSION['login']=="admin")
     {
         $content .= "<div class=addTopic><form method=\"post\" action=\"../../config/routeur.php\">";
@@ -92,7 +92,6 @@ public static function addTopic()
 public static function retrieveMessages()
 {
     $dbh = ControllerForum::getPDO();
-    //$content = "<h1>Messages de ".$_SESSION['topic_title']."</h1><br>";
     $content = "<h1>Messages de ".urldecode($_GET['topic_title'])."</h1><br>";
     
     $query = 'SELECT contenu, date, author, id_message FROM Messages WHERE id_topic='.$_GET['topic_id']."";
@@ -105,7 +104,7 @@ public static function retrieveMessages()
         $content .= "<div class=\"author\">".$record['author']."</div>";
         $content .= "<div class=\"date\">".$record['date']."</div>";
 
-        //if($_COOKIE['role'] == "administrateur")
+        //if($_COOKIE['role'] == "administrateur" || $_COOKIE['role'] == "professeur")
         if($_SESSION['login']=="admin")
         {
             $content .= "<div><form method=\"post\" action=\"../../config/routeur.php?id_message=".$record['id_message']."\">";
