@@ -2,10 +2,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php require_once("../css/theme.php");?>
+    <?php require("../../view/css/stylesheet.php");?>
     <title>Profil</title>
 </head>
 <body>
+
+<?php require("../css/header.php");?>
 
 <form action='../../config/routeur.php' method="post">
     <?php
@@ -26,6 +28,8 @@
 
     ?>
 </form>
+
+<?php require_once("../css/footer.php");?>
 
 </body>
 

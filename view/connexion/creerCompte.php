@@ -2,14 +2,15 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <?php require_once("../css/theme.php");?>
+  <?php require("../../view/css/stylesheet.php");?>
+  <title>Créer son compte</title>
 </head>
-<body>
-    <div style="margin-left:auto;margin-right:auto;width:700px;">
+<body id=index>
+    <div id="div-crea">
         <h1>Créer son compte</h1>
         <p>Merci de remplir l'ensemble des informations suivantes afin de créer un compte.</p>
     </div>
-    <form action="../../controller/routeur.php" method='post' style="width:700px;margin-left:auto;margin-right:auto;input{width=1000px;}">
+    <form id="form-crea" action="../../config/routeur.php" method='post'>
         <fieldset>
             <legend>Inscription</legend>
             
@@ -33,10 +34,12 @@
             <label for="professeur">Professeur</label>
             <input type="radio" name ="role" value="professeur" required="required"/><br/>         
             
-            <input type="submit" value="Valider l'inscription"/>
+            <input type="submit" id="valider" value="Valider l'inscription"/>
             <input type='hidden' name='action' value='creerCompte'/>
         </fieldset>
     </form>
+    <a href="../../index.php">Retourner à la page de connexion</a>
+    <?php require_once("../css/footer.php");?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
 
@@ -72,16 +75,30 @@
             }
             return resultat;
         }
-        const objetXHR = new createXHR();        
+        const objetXHR = new createXHR();//création de la requête
+        
+        //Interroger la base de données pour l'existence du login
         $(document).ready(function(){
             objetXHR.onreadystatechange = function(){
                 if(objetXHR.readyState == 4){
                     if(objetXHR.status >= 200 && objetXHR.status <= 299){
                         var reponse = this.responseText;
                         document.getElementById("check-login").innerHTML = reponse;
+                       
+                        //Affichage du message en fonction du login
+                        if(reponse == "Login déjà utilisé"){
+                            $("#valider").prop('disabled',true);
+                            $("#check-login").css('color','red');
+                        }
+                        else{
+                            $("#valider").prop('disabled',false);
+                            $("#check-login").css('color','#00AA00');
+                        }
                     }
                 }
             }  
+
+            //Appel de la fonction à chaque écriture dans l'input pour le login
             $("#login").on("input", function(){
                 var login = document.getElementById("login").value;
                 var request = "../../controller/checkLogin.php?login=" + login;

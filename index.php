@@ -2,16 +2,18 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <?php 
-  setcookie('theme','nuit', 0, '/');
-  $_COOKIE['theme'] = 'nuit';
-  require_once("view/css/theme.php");?>
+  <?php require("view/css/stylesheet.php");?>
+  <title>Site des apprentis de Dijon</title>
 </head>
-<body>
-    <div style="color:blue;margin-left:auto;margin-right:auto;width:700px;">
-        <h1>Bienvenue sur le site des apprentis de Dijon</h1>
-    </div>
-    <form action="config/routeur.php" method='post' style="width:700px;margin-left:auto;margin-right:auto">
+<body id="index">
+
+    <?php
+    if(!isset($_COOKIE['theme'])){
+        setcookie('theme','jour', 0, '/');
+    }?>
+    
+    <h1>Bienvenue sur le site des apprentis de Dijon</h1>
+    <form id="form-co" action="config/routeur.php" method='post' style="width:700px;margin-left:auto;margin-right:auto">
         <fieldset>
             <legend>Connexion</legend>
             <label for="login">Login</label>
@@ -26,6 +28,43 @@
     <div style="margin-top:20px;width:700px;margin-left:auto;margin-right:auto">
         <span>Pas de compte ?</span>
         <a href='view/connexion/creerCompte.php'><button type=submit style="margin-left:10px;">Créer un compte</button></a>
+        <span id="error"></span>
     </div>
+    
+    <?php
+    require_once("view/css/footer.php");
+    ?>
+    <?php
+        if(isset($_GET['infos'])){ 
+            if($_GET['infos']=='false'){
+                echo "<script>
+                    $(document).ready(function(){
+                        document.getElementById('error').innerHTML = 'Informations de connexion incorrectes';
+                        $('#error').css('border','solid red');
+                        $('#error').css('color','red');
+                    });
+                    </script>";
+            }
+            else if($_GET['infos']=='crea'){
+                echo "<script>
+                    $(document).ready(function(){
+                        document.getElementById('error').innerHTML = 'Compte créé avec succès';
+                        $('#error').css('border','solid green');
+                        $('#error').css('color','green');
+                    });
+                    </script>";
+            }
+            else if($_GET['infos']=='ncrea'){
+                echo "<script>
+                    $(document).ready(function(){
+                        document.getElementById('error').innerHTML = 'Une erreur est survenue lors de la création du compte';
+                        $('#error').css('border','solid red');
+                        $('#error').css('color','red');
+                    });
+                    </script>";
+                }
+        $_GET['infos']=null;
+        }
+    ?>
 </body>
 </html>
