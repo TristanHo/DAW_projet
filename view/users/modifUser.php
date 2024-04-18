@@ -2,9 +2,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php require("../../view/css/stylesheet.php");?>
     <title>Profil</title>
 </head>
 <body>
+
+<?php require("../css/header.php");?>
 
 <form action='../../config/routeur.php' method="post">
     <?php
@@ -29,6 +32,8 @@
         <input type='submit' id='valider' value='Valider'/>
         <input type='hidden' name='action' value='modifUser'/>
 </form>
+
+<?php require_once("../css/footer.php");?>
 
 </body>
 

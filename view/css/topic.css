@@ -1,0 +1,12 @@
+.topicEntry
+{
+    background-color: azure;
+    border: solid black 1px;
+    margin-top: 5px;
+    margin-right: 33%;
+}
+
+.addTopic
+{
+    margin-top: 10px;
+}

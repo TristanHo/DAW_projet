@@ -2,10 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <?php require_once("../css/theme.php");?>
   <title>Page d'accueil</title>
+  <?php require("../css/stylesheet.php");?>
 </head>
 <body>
+    <?php require("../css/header.php");?>
     <h1>Bienvenue 
         <?php
             echo $_COOKIE['nom']." ".$_COOKIE['prenom'];
@@ -21,8 +22,6 @@
         echo '<a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>';
     ?>
     </p>
-    <script type="text/javascript">
-        //window.location.replace($_SERVER['REQUEST_URI']);
-    </script>
+    <?php require("../css/footer.php");?>
 </body>
 </html>
