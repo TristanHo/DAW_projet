@@ -41,12 +41,14 @@ if(isset($_POST['action']) && !is_null($_POST['action'])){
         case 'connect' :
             {
                 ControllerUser::connect();
+                ControllerFichier::afficherPP();
                 break;
             }
         
         case 'creerCompte' :
             {
                 ControllerUser::creerCompte();
+                ControllerFichier::savePP();
                 break;
             }
 
@@ -85,7 +87,7 @@ else if(isset($_GET['action']) && !is_null($_GET['action'])){
                 ControllerUser::deconnexion();
                 break;
             }
-
+       
     }
 
 
@@ -129,6 +131,8 @@ if(isset($_POST['validerQCM']))
 }
 
 /*
+PARTIE FORUM
+PARTIE FORUM
 PARTIE FORUM
 */
 if(isset($_POST['messageInput']))

@@ -30,8 +30,8 @@ public static function retrieveTopics($className)
     $dbh = ControllerForum::getPDO();
     
     $_SESSION['class_name'] = $className;
-    $query = "SELECT nom, titre, id, auteur FROM Topic WHERE nom='".$className."'";
-    $content = "<h1>Liste des topics de ".$className."</h1><br>";
+    $query = "SELECT nom, titre, id, auteur FROM Topic WHERE nom='".$_SESSION['class_name']."'";
+    $content = "<h1>Liste des topics de ".$_SESSION['class_name']."</h1><br>";
 
     foreach($dbh->query($query) as $record)
     {

@@ -62,7 +62,16 @@
                         $('#error').css('color','red');
                     });
                     </script>";
-                }
+            }
+            else if($_GET['infos']=='ncreaphoto'){
+                echo "<script>
+                    $(document).ready(function(){
+                        document.getElementById('error').innerHTML = 'Compte créé sans photo de profil';
+                        $('#error').css('border','solid red');
+                        $('#error').css('color','red');
+                    });
+                    </script>";
+            }
         $_GET['infos']=null;
         }
     ?>
