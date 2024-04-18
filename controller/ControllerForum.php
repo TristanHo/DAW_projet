@@ -67,6 +67,8 @@ public static function retrieveTopics($className)
 public static function removeTopic($topic_id)
 {
     $dbh = ControllerForum::getPDO();
+    $query = "DELETE FROM Messages WHERE id_topic=".$topic_id;
+    $dbh->exec($query);
     $query = "DELETE FROM Topic WHERE id=".$topic_id;
     $dbh->exec($query);
     $dbh = null;
