@@ -1,6 +1,10 @@
 <?php
 require_once("ModelQuestion.php");
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 class ModelQCM {
     private $idQCM;
     private $listeQuestions;
@@ -27,7 +31,11 @@ class ModelQCM {
             unset($this->listeQuestions[$question->getIDQuestion()]);
         }
     }
+<<<<<<< Updated upstream
 
+=======
+/* 
+>>>>>>> Stashed changes
     // Fonction statique pour récupérer toutes les voitures de la base de données
     public static function getQCM() {
         // Connexion à la base de données (supposons que cela est géré dans votre classe Model)
@@ -51,7 +59,11 @@ class ModelQCM {
         // Retourne le tableau des voitures
         return $voitures;
     }
+<<<<<<< Updated upstream
 
+=======
+ */
+>>>>>>> Stashed changes
     //fonction pour afficher les questions
     public  function afficheQuestions() {
         foreach( $this->listeQuestions as $quest)
@@ -84,7 +96,11 @@ class ModelQCM {
 
     public function calcul_score_intro($reponsesSoumises) {
 
+<<<<<<< Updated upstream
        
+=======
+        $login="testeur1";
+>>>>>>> Stashed changes
         $compteur= 0;
         $tempo=0;
         $tempomatiere='';
@@ -103,6 +119,10 @@ class ModelQCM {
                    // echo'juste <br>';
                     if($lv==2){
                         echo 'attribution du lv 2 dans le domaine '.$matiere.'<br>';
+<<<<<<< Updated upstream
+=======
+                        ControllerQCM::valideQCM($matiere,2, $login);
+>>>>>>> Stashed changes
                     }
                     else {
                         //lv =1 car que 2 lv possible ici 
@@ -127,7 +147,13 @@ class ModelQCM {
     //fonction de modification du qcm this
     {
         
+<<<<<<< Updated upstream
         echo "<form action='modifier_qcm.php' method='post'>";
+=======
+        echo "<form action='../../config/routeur.php' method='post'>";
+        //garder l'id du QCM
+        echo '<input type="hidden" name="idqcm" value="'.$this->idQCM.'">';
+>>>>>>> Stashed changes
         foreach ($this->listeQuestions as $question) {
             echo "<div>";
             echo "<label>Question : </label>";
@@ -142,13 +168,22 @@ class ModelQCM {
             }
             //pour l'indice de la reponse juste (entre 1 et 4)
             echo "<br>";
+<<<<<<< Updated upstream
             echo "<label>Bonne réponse : </label>";
+=======
+            echo "<label>Bonne réponse (indiquer l'indice entre 1 et 4): </label>";
+>>>>>>> Stashed changes
             echo "<input type='text' name='question[]' value='" . $question->getReponse() . "'>";
 
              echo "</div>";
             
         }
         echo "<input type='submit' value='Valider les modifications'>";
+<<<<<<< Updated upstream
+=======
+        
+
+>>>>>>> Stashed changes
         echo "</form>";
     }
     //fonction de modification dans le fichier xml ou sauvgarde si il n'existe pas encore

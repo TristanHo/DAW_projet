@@ -41,4 +41,41 @@ if(isset($_POST['action']) && !is_null($_POST['action'])){
 
 $_POST['action'] = null;
 
+<<<<<<< Updated upstream
 ?>
+=======
+/*
+PARTIE FORUM
+*/
+if(isset($_POST['messageInput']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::addMessage($_GET['topic_id'], $_GET['topic_title']);
+}
+
+if(isset($_POST['btnDeleteMessage']) && isset($_GET['id_message']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::removeMessage($_GET['id_message']);
+}
+
+if(isset($_POST['btnDeleteTopic']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::removeTopic($_GET['id_cours']);
+}
+
+if(isset($_POST['topicInput']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::addTopic();
+}
+
+/*
+PARTIE QCM
+*/
+
+if(isset($_POST['idqcm']))
+{
+    require_once '../controller/ControllerQCM.php'; ControllerQCM::modif_sauv_qcm();
+}
+
+
+?>
+>>>>>>> Stashed changes

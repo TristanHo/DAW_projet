@@ -1,22 +1,16 @@
 <?php
-<<<<<<< Updated upstream
-=======
 //inclusion du controllerQCM pour pouvoir faire les ajout dans la BD avec la fonction calculerscore
+include("../../controller/ControllerQCM.php");
 
-
->>>>>>> Stashed changes
 // pour afficher et repondre au QCM
 // Charger les questions du QCM depuis le modèle
 require_once("../../model/ModelXml.php");
 $test=new ModelXml();
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 //test pour lire un qcm de cours cree
-//$test->recupqcm("qcmcours1","../BD/exemple.xml") ;
+$test->recupqcm("qcmcours1","../../BD/exemple.xml") ;
 //test pour lire le qcmintro
-$test->recupqcmintro("../../BD/exemple.xml");
+//$test->recupqcmintro("../../BD/exemple.xml");
 $qcm=$test->getQCM() ;
 
 $score = 0;
@@ -31,13 +25,9 @@ include('../test/formulaire_qcm.php');
 // Vérifier les réponses soumises
  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
     $qcm->calcul_score_intro($_POST['reponse']);
-<<<<<<< Updated upstream
-    $score += $qcm->calculerScore($_POST['reponse']);
-=======
     
     $score += $qcm->calculerScore($_POST['reponse']);
 
->>>>>>> Stashed changes
     
     // vue qui affiche les résultats
     include('../test/resultat_qcm.php');
