@@ -6,7 +6,11 @@ spl_autoload_register(function ($controller) {
     require_once('../controller/'.$controller.'.php');
 });
 
-if(isset($_POST['action']) && !is_null($_POST['action'])) {
+
+/*
+PARTIE CONNEXION, CREATION DE COMPTE, GESTION D'UTILISATEUR
+*/
+if(isset($_POST['action']) && !is_null($_POST['action'])){
     $action = $_POST['action'];
 
     switch($action) {
@@ -72,29 +76,58 @@ if(isset($_POST['action']) && !is_null($_POST['action'])) {
 $_POST['action'] = null;
 }
 
+else if(isset($_GET['action']) && !is_null($_GET['action'])){
+    $action = $_GET['action'];
+
+    switch($action) {
+        case 'disconnect' :
+            {
+                ControllerUser::deconnexion();
+                break;
+            }
+
+    }
+
+
+$_GET['action'] = null;
+}
+
+
 /*
-    PARTIE FORUM
-    */
-    if(isset($_GET['messageInput']))
-    {
-        /* 
-        A REMPLACER PAR COOKIE
-        A REMPLACER PAR COOKIE
-        A REMPLACER PAR COOKIE
-        */
-        $_SESSION['login'] = "famous_singer";
-        /* 
-        A REMPLACER PAR COOKIE
-        A REMPLACER PAR COOKIE
-        A REMPLACER PAR COOKIE
-        */
+PARTIE DECONNEXION
+*/
+if(isset($_POST['action']) && !is_null($_POST['action'])){
+    $actionConnexion = $_POST['action'];
+    switch ($actionConnexion){
+        case 'connect' :  require_once 'ControllerUser.php';ControllerUser::connect();break;
+        case 'creerCompte' :  require_once 'ControllerUser.php';ControllerUser::creerCompte();break;
+    } 
+};
+if(isset($_GET['action']) && !is_null($_GET['action'])){
+    $action = $_GET['action'];
+}
 
 
-        require_once 'ControllerForum.php'; ControllerForum::addMessage();
-    }
+/*
+PARTIE FORUM
+*/
+if(isset($_POST['messageInput']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::addMessage($_GET['topic_id'], $_GET['topic_title']);
+}
 
-    if(isset($_POST['btnDeleteMessage']) && isset($_GET['id_message']))
-    {
-        require_once 'ControllerForum.php'; ControllerForum::removeMessage($_GET['id_message']);
-    }
+if(isset($_POST['btnDeleteMessage']) && isset($_GET['id_message']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::removeMessage($_GET['id_message']);
+}
+
+if(isset($_POST['btnDeleteTopic']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::removeTopic($_GET['id_cours']);
+}
+
+if(isset($_POST['topicInput']))
+{
+    require_once '../controller/ControllerForum.php'; ControllerForum::addTopic();
+}
 ?>
