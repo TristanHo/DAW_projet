@@ -75,9 +75,7 @@ if(isset($_POST['validerQCM']))
 
 }
 
-<<<<<<< Updated upstream
-?>
-=======
+
 /*
 PARTIE FORUM
 */
@@ -91,7 +89,7 @@ if(isset($_POST['btnDeleteMessage']) && isset($_GET['id_message']))
     require_once '../controller/ControllerForum.php'; ControllerForum::removeMessage($_GET['id_message']);
 }
 
-if(isset($_POST['btnDeleteTopic']))
+/*if(isset($_POST['btnDeleteTopic']))
 {
     require_once '../controller/ControllerForum.php'; ControllerForum::removeTopic($_GET['id_cours']);
 }
@@ -99,7 +97,7 @@ if(isset($_POST['btnDeleteTopic']))
 if(isset($_POST['topicInput']))
 {
     require_once '../controller/ControllerForum.php'; ControllerForum::addTopic();
-}
+}*/
 
 /*
 PARTIE QCM
@@ -112,4 +110,3 @@ if(isset($_POST['idqcm']))
 
 
 ?>
->>>>>>> Stashed changes
