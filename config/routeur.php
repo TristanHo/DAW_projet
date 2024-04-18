@@ -92,21 +92,41 @@ else if(isset($_GET['action']) && !is_null($_GET['action'])){
 $_GET['action'] = null;
 }
 
+$_POST['id'] = null;
 
-/*
-PARTIE DECONNEXION
-*/
-if(isset($_POST['action']) && !is_null($_POST['action'])){
-    $actionConnexion = $_POST['action'];
-    switch ($actionConnexion){
-        case 'connect' :  require_once 'ControllerUser.php';ControllerUser::connect();break;
-        case 'creerCompte' :  require_once 'ControllerUser.php';ControllerUser::creerCompte();break;
-    } 
-};
-if(isset($_GET['action']) && !is_null($_GET['action'])){
-    $action = $_GET['action'];
+if(isset($_POST['validerChangement']))
+{
+    echo $_GET['idqcm'];
+    require_once '../controller/ControllerQCM.php'; ControllerQCM::modif_sauv_qcm();
+
 }
+//validation du QCM
+if(isset($_POST['validerQCMintro']))
+{
+    echo 'traitement score intro';
+    //passer id du qcm avec hidden ou _GET
+    $idqcm="qcmintro";
+    require_once '../controller/ControllerQCM.php'; 
+    $tmp=new ControllerQCM;
+   // $tmp->recupqcm($idqcm);
+    
+    $tmp->calcul_score_intro();
 
+
+}
+if(isset($_POST['validerQCM']))
+{
+    //echo 'traitement score';
+    //passer id du qcm avec hidden ou _GET
+    $idqcm="qcmcours2";
+    require_once '../controller/ControllerQCM.php'; 
+    $tmp=new ControllerQCM;
+   // $tmp->recupqcm($idqcm);
+    
+    $tmp->calculerScore($idqcm);
+
+
+}
 
 /*
 PARTIE FORUM
@@ -121,6 +141,7 @@ if(isset($_POST['btnDeleteMessage']) && isset($_GET['id_message']))
     require_once '../controller/ControllerForum.php'; ControllerForum::removeMessage($_GET['id_message']);
 }
 
+
 if(isset($_POST['btnDeleteTopic']))
 {
     require_once '../controller/ControllerForum.php'; ControllerForum::removeTopic($_GET['id_cours']);
@@ -129,5 +150,16 @@ if(isset($_POST['btnDeleteTopic']))
 if(isset($_POST['topicInput']))
 {
     require_once '../controller/ControllerForum.php'; ControllerForum::addTopic();
+}*/
+
+/*
+PARTIE QCM
+*/
+
+if(isset($_POST['idqcm']))
+{
+    require_once '../controller/ControllerQCM.php'; ControllerQCM::modif_sauv_qcm();
 }
+
+
 ?>
