@@ -4,6 +4,11 @@ body:not(#index){
     margin-top : 5px;
     padding-top : 105px;
     padding-bottom : 15px;
+    img{
+        border-radius: 50%; 
+        max-width: 150px; 
+        float:right;
+    }
 }
 
 #index{
@@ -14,11 +19,11 @@ body:not(#index){
         color:blueviolet;
         text-align: center;
         width: 100%;
-    };
+    }
     #div-crea{
         text-align: center;
         width:100%;
-    };
+    }
     #form-crea{
         width : 50%;
         margin-left:auto;
@@ -31,10 +36,10 @@ body:not(#index){
         input{
             margin-bottom: 10px;
         }
-    };
+    }
     #form-co{
         margin-bottom : 15px;
-    };
+    }
     #error{
         position:absolute;
         left: 50%;
@@ -62,7 +67,7 @@ a{
 }
 
 footer {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
     background-color : darkviolet;

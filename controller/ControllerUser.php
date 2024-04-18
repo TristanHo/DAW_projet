@@ -133,14 +133,29 @@ class ControllerUser {
             //Créer un ModelUser pour traiter la création de compte et comparer avec les comtpes déjà existants de la base de données
             $user = new ModelUser($login,$mdp);
             //Si la fonction renvoie true, alors le compte peut être créé, sinon le compte n'est pas créé
-            $ok = $user->creationCompte($prenom,$nom,$role);
+            if($_FILES['photo']['error'] == UPLOAD_ERR_OK){
+                $file = $_FILES['photo']['name'];
+                $ok = $user->creationCompte($prenom,$nom,$role,$file);
+                if($ok[0]){
+                    $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                    $file = "$ok[1].$extension";
+                    $dir_dest = "../BD/fichiers/images$file";
+                    $dir_temp = $_FILES['photo']['tmp_name'];
+                    move_uploaded_file($dir_temp,$dir_dest);
+                }
+            }
+            else{
+                $ok = $user->creationCompte($prenom,$nom,$role,null);
+            }
 
             //Dans les deux cas, on renvoie sur la page de connexion avec le message correspondant à l'état de création du compte
-            if($ok){
+            if($ok[0]){
                 header('Location:/DAW-projet/index.php?infos=crea');
+                exit();
             }
             else{
                 header('Location:/DAW-projet/index.php?infos=ncrea');
+                exit();
             }
         }
     }

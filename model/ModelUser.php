@@ -60,11 +60,11 @@ class ModelUser{
         return null;
     }
 
-    public function creationCompte($prenom,$nom,$role){
+    public function creationCompte($prenom,$nom,$role,$file){
         $liste_users = self::getUsers();
         foreach($liste_users as $user){
             if ($user->getUsername() == $this->getUsername()){
-                return false;
+                return [false,''];
             }
         }
         try{
@@ -73,7 +73,22 @@ class ModelUser{
             $login = $this->username;
             $mdp = $this->password;
             $val = array('login'=>$login, 'mdp'=>$mdp, 'prenom'=>$prenom, 'nom'=>$nom, 'role'=>$role);
-            return $sqlp->execute($val);
+            $succes = $sqlp->execute($val);
+            if($succes && !is_null($file)){
+                $dir = "/DAW-projet/BD/fichiers/images"; //répertoire de stockage
+                //Commit des informations de l'image dans la base de données des fichiers 
+                $sql='INSERT INTO fichiers(path,type,login_user) values(:path, :type, :login_user)';
+                $sqlp = Model::$pdo->prepare($sql);
+                $login = $this->username;
+                $type = "pp";
+                $dir = "$dir/$login-$type";
+                $val = array('path'=>$dir, 'type'=>$type, 'login_user'=>$login);
+                $succes = $sqlp->execute($val);
+                return [$succes,"/$login-$type"];
+            }
+            else{
+                return [$succes,''];
+            }
         }catch(PDOException $e){
             echo "\nFailed :".$e->getMessage();
             die();

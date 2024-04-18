@@ -11,15 +11,20 @@
             echo $_COOKIE['nom']." ".$_COOKIE['prenom'];
         ?>
     </h1>
+    
+    <img src="/DAW-projet/BD/fichiers/images/death_stranding_wallpaper.jpg"/>
     <p>
     <?php 
         switch ($_COOKIE['role']){
-            case 'etudiant' : echo 'Je suis étudiant <a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>'; break;
+            case 'etudiant' : 
+                echo 'Je suis étudiant <a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>';
+                break;
             case "professeur" : echo 'Je suis professeur <a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>'; break;
             case "administrateur" : echo '<a href="listeUsers.php">Gérer la liste d\'utilisateurs</a> <a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>'; break;
         }
     ?>
     </p>
+    <img src="/DAW-projet/BD/fichiers/images/death_stranding_wallpaper.jpg"/>
     <?php require("../css/footer.php");?>
 </body>
 </html>

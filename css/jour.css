@@ -1,9 +1,14 @@
 body:not(#index){
     background-color : white;
     color : black;
-    margin-top : 5 px;
+    margin-top : 5px;
     padding-top : 105px;
     padding-bottom : 15px;
+    img{
+        border-radius: 50%; 
+        max-width: 150px; 
+        float:right;
+    }
 }
 
 #index{
@@ -49,7 +54,6 @@ header{
     background-color : lightcoral;
     color : white;
     position : absolute;
-    display: block;
     top : 0;
     height : 100px;
     width : 100%;

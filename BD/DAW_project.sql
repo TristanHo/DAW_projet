@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 03 avr. 2024 à 13:54
+-- Généré le : jeu. 18 avr. 2024 à 13:20
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -18,8 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `DAW_Project`
+-- Base de données : `daw_project`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `cours`
+--
+
+DROP TABLE IF EXISTS `cours`;
+CREATE TABLE IF NOT EXISTS `cours` (
+  `id_cours` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(50) NOT NULL,
+  `login_responsable` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_cours`),
+  KEY `fk_responsable` (`login_responsable`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -48,34 +63,6 @@ INSERT INTO `utilisateurs` (`id`, `login`, `mdp`, `prenom`, `nom`, `role`) VALUE
 (3, 'BN22', 'bn22mdp', 'Noé', 'BENITO', 'professeur'),
 (4, 'JD22', 'jd21mdp', 'Jacques', 'DUPONT ', 'etudiant');
 COMMIT;
-
-DROP TABLE IF EXISTS `cours`;
-CREATE TABLE IF NOT EXISTS `cours` (
-  `nom` int NOT NULL AUTO_INCREMENT,
-  `login_responsable` varchar(50) NOT NULL,
-  PRIMARY KEY (`cours`),
-  KEY `fk_login_responsable` (`login_responsable`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-COMMIT;
-
-CREATE TABLE `Topic`(
-  `nom` VARCHAR(100) NOT NULL,
-  CONSTRAINT `fk_topic_cours` FOREIGN KEY `nom` REFERENCES cours(`nom`), /*identifiant reliant topic au cours | On ne pourra insérer qu'un topic dont le nom figure dans la table cours*/
-  `titre` VARCHAR(200) NOT NULL DEFAULT `titre topic`,
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `auteur` VARCHAR(50) NOT NULL,
-  CONSTRAINT `fk_topicAuthor_users` FOREIGN KEY `auteur` REFERENCES utilisateurs(`login`) /*l'auteur d'un topic doit figurer dans la table utilisateur*/
-);
-
-CREATE TABLE `Messages`(
-  `id_topic` INTEGER UNSIGNED NOT NULL,
-  CONSTRAINT `fk_message_topic`FOREIGN KEY `id_topic` REFERENCES Topic(`nom`),
-  `id_message` INTEGER UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `contenu` VARCHAR(500) NOT NULL,
-  `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `author` VARCHAR(50) NOT NULL,
-  CONSTRAINT `fk_msgauthor_users` FOREIGN KEY `author` REFERENCES utilisateurs(`login`)
-);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
