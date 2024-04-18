@@ -1,8 +1,4 @@
 <?php
-    if(!isset($_COOKIE['theme']))
-    {
-        setcookie('theme','jour', 0, '/');
-    }
     $theme = $_COOKIE['theme'];
     echo '<button id="theme" value="theme">Changer le thème</button>';
     $href = "http://localhost/DAW-projet/css/$theme.css";
@@ -42,7 +38,7 @@
         }  
         $("#theme").on("click", function(){
             var theme = $('link').attr('href');
-            var request = "http://localhost/DAW-projet/controller/changeTheme.php?theme=" + theme;
+            var request = '/DAW-projet/controller/changeTheme.php';
             objetXHRtheme.open("GET",request,true);
             objetXHRtheme.send(); 
         });
