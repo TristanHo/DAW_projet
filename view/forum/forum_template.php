@@ -13,7 +13,9 @@
         <?php
             $_SESSION['login'] = "admin";
             include('../../controller/ControllerForum.php');
-            ControllerForum::retrieveTopics('Mécanique'); //REMPLACER PARAMETRE PAR VALEUR DU COURS
+
+            if(isset($_GET['className'])){ ControllerForum::retrieveTopics($_GET['className']); }
+            else{ ControllerForum::retrieveTopics($_SESSION['class_name']); }
 
         ?>
 
