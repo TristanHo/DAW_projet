@@ -69,6 +69,7 @@ class ModelQCM {
         $tempomatiere='';
         //tableau pour les matiere de lv1 valider
         $matiereunv=array();
+        $cours_valid=[];
         foreach ($this->listeQuestions as $question) {
             $compteur++;
             $idQuestion = $question->getIDQuestion();
@@ -81,13 +82,15 @@ class ModelQCM {
                 //echo'choix reponse '.$reponseSoumise .' <br>';
                 $res = $question->verifok($reponseSoumise);
                 if ($res > 0) {
+                    
                    // echo'juste <br>';
                     if($lv==2){
                         //lv2 juste
                         //verifier lv1 valider avant de donner lv 2
                         if (in_array($matiere, $matiereunv)) {
                             ControllerQCM::valideQCM($matiere,2, $login);
-                            echo 'Attribution du lv2 dans le domaine ' . $matiere . '<br>';
+                            $cours_valid[] = $matiere.'(niveau_2)';
+                            //echo 'Attribution du lv2 dans le domaine ' . $matiere . '<br>';
                         }
                     }
                     else {
@@ -96,7 +99,8 @@ class ModelQCM {
                             //ajout dans la BD
 
                             ControllerQCM::valideQCM($matiere,1, $login);
-                            echo 'attribution du lv1 a la matiere '.$matiere.'<br>';
+                            $cours_valid[] = $matiere.'(niveau_1)';
+                            //echo 'attribution du lv1 a la matiere '.$matiere.'<br>';
                             //ajout dans le tableau de matiere valider
                             $matiereunv[] = $matiere;
                             $tempo=0;
@@ -108,12 +112,26 @@ class ModelQCM {
                             }
                         
                     }
+                    
                 }
                 
             }
         }
-        echo 'fin traitement';
-
+        //echo 'fin traitement';
+        if($cours_valid[0] != null){
+            $path = '/DAW-projet/view/users/accueil.php?tab_cours[]='.$cours_valid[0];
+            $cpt = 0;
+            foreach($cours_valid as $cours){
+                if($cpt != 0){
+                    $path = $path.'&tab_cours[]='.$cours;
+                }
+                $cpt ++;   
+                }
+        }
+        else{
+            $path = '/DAW-projet/view/users/accueil.php';
+        }
+        header("Location:$path");
     }
 
     public function affiche_modif()

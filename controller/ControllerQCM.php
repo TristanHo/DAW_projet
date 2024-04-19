@@ -40,12 +40,18 @@ class ControllerQCM
     {
         $dbh = ControllerQCM::getPDO();
         // Utilisation de requête préparée
-        $query = 'INSERT INTO cours_valider (id, nomcours, lv, login) VALUES (null, :nomcours, :lvcours, :loginetu)';
-        $requ = $dbh->prepare($query);
-        $requ->bindParam(':nomcours', $nomcours);
-        $requ->bindParam(':lvcours', $lvcours);
-        $requ->bindParam(':loginetu', $loginetu);
-        // evoie de la requete a la BD
+        if($lvcours == 1){
+            $query = 'INSERT INTO cours_valider (id, nomcours, lv, login) VALUES (null, :nomcours, :lvcours, :loginetu)';
+            $requ = $dbh->prepare($query);
+            $requ->bindParam(':nomcours', $nomcours);
+            $requ->bindParam(':lvcours', $lvcours);
+            $requ->bindParam(':loginetu', $loginetu);
+        }
+        else{
+            $query = 'UPDATE cours_valider SET lv='.$lvcours.' WHERE login=\''.$loginetu.'\' AND nomcours=\''.$nomcours.'\'';
+            $requ = $dbh->prepare($query);
+        }
+        // envoi de la requete a la BD
         $requ->execute();
     }
 
@@ -92,7 +98,7 @@ class ControllerQCM
                 }
                 // Enregistrer les modifications dans le fichier XML
                 $xml->asXML($xmlFile);
-                echo 'Modification du QCM effectuer ';
+                echo 'Modification du QCM effectuée ';
                 echo '<br>';
                 echo '<a href="/DAW-projet/view/users/accueil.php"><button>Retour à l\'accueil</button></a>';
                 return true; // Modification réussie
@@ -120,17 +126,17 @@ class ControllerQCM
 
         // Enregistrer les modifications dans le fichier XML
         $xml->asXML($xmlFile);
-        echo 'création du QCM validé';
+        echo 'création du QCM validée';
         echo '<br>';
         echo '<a href="/DAW-projet/view/users/accueil.php"><button>Retour à l\'accueil</button></a>';
         $_POST['validerChangement'] = null;
         return true;
     }
-    public function affiche_formulaire_qcm($idqcm)
+    public function affiche_formulaire_qcm($idqcm,$nom,$nv)
     {
 
         //var_dump($this->modelXml);
-        echo '<h1>Vous effectuer le QCM ' . $idqcm . '</h1>';
+        echo '<h1>Vous effectuez le QCM ' . $nom . ' de niveau '. $nv . '</h1>';
         $this->recupqcm($idqcm);
 
         $tmp = $this->modelXml->getQCM()->getListeQuestions();
@@ -208,7 +214,7 @@ class ControllerQCM
     }
 
 
-    public function calculerScore($idqcm)
+    public function calculerScore($idqcm,$cours,$nv)
     {
         $login = $_COOKIE['login'];
         if ($login == null) {
@@ -231,7 +237,7 @@ class ControllerQCM
         if ($score >= 50) {
             echo 'vous avez réussi le qcm';
             //atributiont du lv valider 
-            $this->valideQCM($idqcm, 1, $login);
+            $this->valideQCM($cours, $nv, $login);
             // Bouton pour retourner à la page d'accueil
 
         } else echo 'dommage vous avez un score de ' . $score . '%';

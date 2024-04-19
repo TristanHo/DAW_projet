@@ -1,5 +1,4 @@
 <?php session_start(); ?>
-<?php require_once("../css/theme.php");?>
 
 <!DOCTYPE html>
 <html>
@@ -18,10 +17,6 @@
 
         <?php
 
-            ///////////////////////////////
-            $_COOKIE['role'] = "administrateur";
-            $_COOKIE['login'] = "administrateur";
-            //////////////////////////////////
             include('../../controller/ControllerForum.php');
 
             if(isset($_GET['className'])){ ControllerForum::retrieveTopics($_GET['className']); }
@@ -29,6 +24,8 @@
 
         ?>
 
+        <br/>
+        <a href='../users/accueil.php'>Retour à l'accueil</a>
     <?php require_once("../css/footer.php");?>
 
     </body>

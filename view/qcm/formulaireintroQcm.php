@@ -16,7 +16,7 @@
 
         require_once("../../controller/ControllerQCM.php");
         $tmp = new ControllerQCM;
-        $tmp->affiche_formulaire_qcm("qcmintro");
+        $tmp->affiche_formulaire_qcm("qcmintro","d'introduction",0);
 
         //mettre en hiden le login user pour pouvoir faire les ajout a la BD via le cookie
         ?>

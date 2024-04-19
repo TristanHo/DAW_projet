@@ -48,21 +48,21 @@
     //Afficher les QCM 
     require_once('../../controller/ControllerQCM.php');
     $lvetudiant=ControllerQCM::recuplvetu($cours->getNom(),$_COOKIE['login']);
-    echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."1'>Faire le QCM de niveau 1</a><br>";
-    if ($lvetudiant>1 || $_COOKIE['role'] == 'professeur') {
-        echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."2'>Faire le QCM de niveau 2</a><br>";
+    echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."1&cours=".$cours->getNom()."&nv=1'>Faire le QCM de niveau 1</a><br>";
+    if ($lvetudiant>=1 || $_COOKIE['role'] == 'professeur') {
+        echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."2&cours=".$cours->getNom()."&nv=2'>Faire le QCM de niveau 2</a><br>";
     }
-    if($lvetudiant> 2 || $_COOKIE['role'] == 'professeur') {
-        echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."3'>Faire le QCM de niveau 3</a><br>";
+    if($lvetudiant>= 2 || $_COOKIE['role'] == 'professeur') {
+        echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."3&cours=".$cours->getNom()."&nv=3'>Faire le QCM de niveau 3</a><br>";
     } 
-        //Affiche les options de modification et de suppression si l'utilisateur est l'administrateur ou le responsable du cours
-        if($_COOKIE['role'] == 'administrateur' || $_COOKIE['login'] == $cours->getResponsable()) {
-            //afficher la liste des cours avec la possibilité des mofifier
-           
-            echo"<br/><a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."1'>Le QCM de niveau 1</a><br>";
-            echo"<a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."2'>Le QCM de niveau 2</a><br>";
-            echo"<a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."3'>Le QCM de niveau 3</a><br><br/>";
-        }
+    //Affiche les options de modification et de suppression si l'utilisateur est l'administrateur ou le responsable du cours
+    if($_COOKIE['role'] == 'administrateur' || $_COOKIE['login'] == $cours->getResponsable()) {
+        //afficher la liste des cours avec la possibilité des mofifier
+        
+        echo"<br/><a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."1'>Le QCM de niveau 1</a><br>";
+        echo"<a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."2'>Le QCM de niveau 2</a><br>";
+        echo"<a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."3'>Le QCM de niveau 3</a><br><br/>";
+    }
     ?>
 <p>---------------------------------------------------------</p>
 
@@ -129,7 +129,6 @@
 
 
 </body>
-<?php require("../css/footer.php");?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script  type="text/javascript" src="../js/theme.js"></script>
 

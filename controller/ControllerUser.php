@@ -37,7 +37,7 @@ class ControllerUser {
         $pdo = $model->getPdo();
         $recupID = $pdo->query("SELECT MAX(id) FROM Utilisateurs");
         $id = $recupID->fetchColumn() + 1;
-        $insert = $pdo->query("INSERT INTO Utilisateurs VALUES('".$id."', '".$login."', '".$mdp."', '".$prenom."', '".$nom."', '".$role."')");
+        $insert = $pdo->query("INSERT INTO Utilisateurs VALUES('".$id."', '".$login."', '".$mdp."', '".$prenom."', '".$nom."', '".$role."',0)");
         //Redirection vers la liste des utilisateurs
         header("Location: /DAW-projet/view/users/listeUsers.php");
         exit();
@@ -66,15 +66,12 @@ class ControllerUser {
     }
 
      //Fonction du controller pour valider le passage par le qcm introduction
-     public static function qcmintrovalider($login) {
+    public static function qcmintrovalider($login) {
         $model = new Model();
         $pdo = $model->getPdo();
 
         $update = $pdo->query("UPDATE utilisateurs SET qcm_intro = 1 WHERE login = '$login'");
-
-        //Redirection vers la liste des utilisateurs
-        //header("Location: /DAW-projet/view/users/accueil.php");
-        exit();
+        
     }
 
     //Fonction du controller pour la connexion d'un utilisateur
@@ -117,31 +114,6 @@ class ControllerUser {
             header("Location : ../view/error.php");
         }
     }
-
-
-    //FONCTION INUTILE ? A ENLEVER ??
-    /*
-    public static function pageAccueilUser($login,$infos){
-        
-        //Définition des cookies de l'utilisateur pour toute la session
-        setcookie('login',$login, 0, '/');
-        setcookie('role',$infos[0], 0, '/');
-        setcookie('nom',$infos[1], 0, '/');
-        setcookie('prenom',$infos[2], 0, '/');
-        setcookie('id', $infos[3], 0, '/');
-        //Vérifier que les cookies ont bien été définis
-        if(isset($_COOKIE['login']) && !is_null($_COOKIE['login'])){
-            //Redirection vers la page d'accueil de l'utilisateur
-            header('Location:/DAW-projet/view/users/accueil.php');
-            exit();
-        }
-        //En cas d'erreur lors de l'exécution du code
-        else{
-            require '../view/error.php';
-            exit();
-        }
-    }
-    */
 
 
     //Fonction pour créer un compte

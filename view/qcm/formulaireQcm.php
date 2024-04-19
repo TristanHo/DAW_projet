@@ -22,12 +22,13 @@
         //recuperer le cours selectionner dans l'url
         $idqcm=$_GET['idqcm'];
         if ($idqcm== null){$idqcm='qcmcours2';}
-        $test->affiche_formulaire_qcm($_GET['idqcm']);
+        $test->affiche_formulaire_qcm($_GET['idqcm'],$_GET['cours'],$_GET['nv']);
      
         //mettre en hiden l'idqcm pour pouvoir faire les ajout a la BD
         ?>
         <input type="hidden" name="idqcm" value="<?php echo $idqcm; ?>">
-
+        <input type="hidden" name="cours" value="<?php echo $_GET['cours']; ?>">
+        <input type="hidden" name="nv" value="<?php echo $_GET['nv']; ?>">
         <input type='submit' value='Valider le QCM' name='validerQCM'>
     </form>
     

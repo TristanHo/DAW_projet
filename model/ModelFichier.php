@@ -87,7 +87,7 @@ class ModelFichier{
         $pdo = $model->getPdo();
         
         if($cours != null && $nv_cours != null){
-            $query = 'SELECT * FROM fichiers WHERE type=\'cours\' AND cours=\''.$cours.'\''.' AND nv_cours='.$nv_cours; 
+            $query = 'SELECT * FROM fichiers WHERE type=\'cours\' AND cours=\''.$cours.'\''.' AND nv_cours<='.$nv_cours; 
         }
         else if($cours != null){
             $query = 'SELECT * FROM fichiers WHERE cours=\''.$cours.'\'';

@@ -8,9 +8,11 @@
 <body id="index">
 
     <?php
-    if(!isset($_COOKIE['theme'])){
+    if(!isset($_GET['infos'])){
         setcookie('theme','jour', 0, '/');
-    }?>
+        $_COOKIE['theme'] = 'jour';
+    }
+    ?>
     
     <h1>Bienvenue sur le site des apprentis de Dijon</h1>
     <form id="form-co" action="config/routeur.php" method='post' style="width:700px;margin-left:auto;margin-right:auto">

@@ -107,7 +107,7 @@ public static function retrieveMessages()
     Parcours de la table des messages au cours duquel la mise en page
     et le chargement des données est effectué
     */
-    $query = 'SELECT contenu, date, author, id_message FROM Messages WHERE id_topic='.$_GET['topic_id']."";
+    $query = 'SELECT contenu, date, author, id_message FROM Messages WHERE id_topic='.$_GET['topic_id'].' ORDER BY date ASC';
 
     foreach($dbh->query($query) as $record)
     {
@@ -152,7 +152,8 @@ public static function addMessage($topic_id, $topic_title)
 
     if($_POST['messageInput'] != "" && strlen($_POST['messageInput']) < MESSAGE_MAX_LENGTH)
     {
-        $query = 'INSERT INTO Messages (id_topic, contenu, author) VALUES ('.$_GET['topic_id'].', \''.$_POST['messageInput'].'\',\''.$_SESSION['login'].'\')';
+        $message = str_replace('\'','\\\'',$_POST['messageInput']);
+        $query = 'INSERT INTO Messages (id_topic, contenu, author) VALUES ('.$_GET['topic_id'].', \''.$message.'\',\''.$_COOKIE['login'].'\')';
         $dbh->query($query);
     }
 

@@ -18,6 +18,7 @@ body:not(#index){
     background-color : white;
     color : black;
     border-color : black;
+    height:100%;
     h1{
         color:blue;
         text-align: center;
@@ -80,7 +81,7 @@ footer{
     height : 20px;
     text-align: center;
     padding: 10px 0;
-    margin-bottom:0px;
+    margin-top:auto;
     #theme{
         float: left;
     }

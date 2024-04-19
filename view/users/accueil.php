@@ -32,21 +32,30 @@
                     $id_cours = $c->getId();
                     $nom_cours = $c->getNom();
                     if($lvl_etu != null){
-                        if(($lvl_etu + 1) < 3){
-                            $nv_cours = $lvl_etu + 1;
-                            echo "<a href=/DAW-projet/view/cours/pageCours.php?id=$id_cours&lvl=$lvl_etu>Cours de $nom_cours (niveau $nv_cours)</a>";
+                        if(($lvl_etu) < 3){
+                            $nv_cours = $lvl_etu+1;
+                            echo "<a href=/DAW-projet/view/cours/pageCours.php?id=$id_cours&lvl=$nv_cours>Cours de $nom_cours (niveau $nv_cours)</a><br/><br/>";
                         }
                         else{
-                            echo "<a href=/DAW-projet/view/cours/pageCours.php?id=$id_cours&lvl=3>Cours de $nom_cours (niveau 3)</a>";
+                            echo "<a href=/DAW-projet/view/cours/pageCours.php?id=$id_cours&lvl=3>Cours de $nom_cours (niveau 3)</a><br/><br/>";
                         }
                     }
                     else{
-                        echo "<a href=/DAW-projet/view/cours/pageCours.php?id=$id_cours&lvl=1>Cours de $nom_cours (niveau 1)</a>";
+                        echo "<a href=/DAW-projet/view/cours/pageCours.php?id=$id_cours&lvl=1>Cours de $nom_cours (niveau 1)</a><br/><br/>";
                     }
                 }
                 break;
             case "professeur" : echo 'Je suis professeur <br/>'; break;
             case "administrateur" : echo 'Je suis administrateur <br/> <a href="listeUsers.php">Gérer la liste d\'utilisateurs</a><br/> <a href="../cours/listeCours.php">Gérer la liste des cours</a><br/>'; break;
+        }
+        //if(isset($_GET['tab_cours']))
+        if(isset($_GET['tab_cours']) /*&& $_GET['tab_cours'][0] != null*/)
+        {
+            echo '<br/><span> Vous avez validé les cours suivants : <br/>';
+            foreach($_GET['tab_cours'] as $cours){
+                echo $cours."<br/>";
+            }
+            echo '</span>';
         }
         echo '<br/><a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>';
     ?>

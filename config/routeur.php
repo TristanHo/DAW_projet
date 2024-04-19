@@ -111,9 +111,9 @@ if(isset($_POST['validerChangement']))
 {
    
     //echo $_GET['idqcm'];
-    echo'je fait la modif';
+    //echo'je fait la modif';
     require_once '../controller/ControllerQCM.php';
-     ControllerQCM::modif_sauv_qcm();
+    ControllerQCM::modif_sauv_qcm();
 
 
 
@@ -141,8 +141,8 @@ if(isset($_POST['validerQCM']))
     $tmp=new ControllerQCM;
     
    // $tmp->recupqcm($idqcm);
-   
-    $tmp->calculerScore($idqcm);
+    
+    $tmp->calculerScore($idqcm,$_POST['cours'],$_POST['nv']);
     
 
 }
