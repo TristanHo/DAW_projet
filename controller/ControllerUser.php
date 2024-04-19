@@ -159,8 +159,7 @@ class ControllerUser {
         }
     }
 
-    public static function deconnexion(){
-        
+    public static function deconnexion(){     
         //Suppression des cookies
         setcookie('login','1', time()-3600, '/');
         setcookie('nom','1', time()-3600, '/');
