@@ -85,7 +85,10 @@ class ControllerUser {
                 setcookie('role',$infos[0], 0, '/');
                 setcookie('nom',$infos[1], 0, '/');
                 setcookie('prenom',$infos[2], 0, '/');
-                setcookie('id', $infos[3], 0, '/');$_COOKIE['login'] = $login;
+                setcookie('id', $infos[3], 0, '/');
+                $_COOKIE['login'] = $login;
+                $_COOKIE['role'] = $infos[0];
+                $_SESSION['qcm'] = $infos[4]; //Déterminer si le QCM d'intro a été fait
             }   
             else if($infos == null){
                 //Si aucune information n'a été envoyée, on affiche un message d'erreur

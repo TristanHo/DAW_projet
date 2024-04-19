@@ -10,8 +10,9 @@ class ModelUser{
     private $role;
     private $nom;
     private $prenom;
+    private $qcm_intro;
 
-    function __construct($username = null, $password = null, $id = null, $role = null, $nom = null, $prenom = null)
+    function __construct($username = null, $password = null, $id = null, $role = null, $nom = null, $prenom = null , $qcm_intro = null)
     {
         if($username != null) {$this->username=$username;}
         if($password != null) {$this->password=$password;}
@@ -19,6 +20,7 @@ class ModelUser{
         if($role != null) {$this->role=$role;}
         if($nom != null) {$this->nom=$nom;}
         if($prenom != null) {$this->prenom=$prenom;}
+        if($qcm_intro != null) {$this->qcm_intro=$qcm_intro;}
     }
 
     public function getUsername() {return $this->username;}
@@ -33,6 +35,8 @@ class ModelUser{
     public function setNom($nom) {$this->nom=$nom;}
     public function getPrenom() {return $this->prenom;}
     public function setPrenom($prenom) {$this->prenom = $prenom;}
+    public function getQcmIntro() {return $this->qcm_intro;}
+    public function setQcmIntro($qcm_intro) {$this->qcm_intro = $qcm_intro;}
 
     public static function getUsers() {
         $model = new Model();
@@ -42,7 +46,7 @@ class ModelUser{
         $users = array();
 
         while($row = $select->fetch(PDO::FETCH_ASSOC)) {
-            $user = new ModelUser($row['login'], $row['mdp'], $row['id'], $row['role'], $row['nom'], $row['prenom']);
+            $user = new ModelUser($row['login'], $row['mdp'], $row['id'], $row['role'], $row['nom'], $row['prenom'], $row['qcm_intro']);
             $users[] = $user;
         }
 
@@ -54,7 +58,7 @@ class ModelUser{
         foreach($liste_users as $user){
             if ($user->getUsername() == $this->getUsername()){
                 if($user->getPassword() == $this->getPassword()){
-                    return [$user->getRole(),$user->getNom(),$user->getPrenom(), $user->getId()];
+                    return [$user->getRole(),$user->getNom(),$user->getPrenom(), $user->getId(), $user->getQcmIntro()];
                 }
             }
         }
