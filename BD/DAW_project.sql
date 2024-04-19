@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 19 avr. 2024 à 12:29
+-- Généré le : ven. 19 avr. 2024 à 13:09
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -74,6 +74,40 @@ INSERT INTO `fichiers` (`path`, `type`, `cours`, `nv_cours`, `login_user`, `id_f
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `messages`
+--
+
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id_topic` int NOT NULL,
+  `id_message` int NOT NULL AUTO_INCREMENT,
+  `contenu` varchar(500) NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `author` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_message`),
+  KEY `fk_id_topic` (`id_topic`),
+  KEY `fk_msgauthor` (`author`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `topic`
+--
+
+DROP TABLE IF EXISTS `topic`;
+CREATE TABLE IF NOT EXISTS `topic` (
+  `nom` varchar(100) NOT NULL,
+  `titre` varchar(200) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `auteur` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_topicAuthor_users` (`auteur`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `utilisateurs`
 --
 
@@ -100,35 +134,6 @@ INSERT INTO `utilisateurs` (`id`, `login`, `mdp`, `prenom`, `nom`, `role`) VALUE
 (39, 'test_ss_photo', 'photomdp', 'photo', 'TEST', 'etudiant'),
 (36, 'photo_test', 'photomdp', 'test', 'PHOTO', 'etudiant');
 COMMIT;
-
-CREATE TABLE `Topic`(
-  `nom` VARCHAR(100) NOT NULL,
-  CONSTRAINT `fk_topic_cours` FOREIGN KEY `nom` REFERENCES cours(`nom`), /*identifiant reliant topic au cours | On ne pourra insérer qu'un topic dont le nom figure dans la table cours*/
-  `titre` VARCHAR(200) NOT NULL DEFAULT `titre topic`,
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `auteur` VARCHAR(50) NOT NULL,
-  CONSTRAINT `fk_topicAuthor_users` FOREIGN KEY `auteur` REFERENCES utilisateurs(`login`) /*l'auteur d'un topic doit figurer dans la table utilisateur*/
-);
-
-CREATE TABLE `Messages`(
-  `id_topic` INTEGER UNSIGNED NOT NULL,
-  CONSTRAINT `fk_message_topic`FOREIGN KEY `id_topic` REFERENCES Topic(`nom`),
-  `id_message` INTEGER UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `contenu` VARCHAR(500) NOT NULL,
-  `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `author` VARCHAR(50) NOT NULL,
-  CONSTRAINT `fk_msgauthor_users` FOREIGN KEY `author` REFERENCES utilisateurs(`login`)
-);
-
-DROP TABLE IF EXISTS `cours_valider`;
-CREATE TABLE IF NOT EXISTS `cours_valider` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nomcours` varchar(40) NOT NULL,
-  `lv` int NOT NULL,
-  `login` varchar(40) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
--- ajouter les clé etrangere
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

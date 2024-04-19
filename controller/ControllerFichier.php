@@ -35,7 +35,7 @@ class ControllerFichier{
             $photo = new ModelFichier($file,'pp',null,null,$login);
             
             //On essaye tout d'abord de sauvegarder les informations dans la base de données
-            $ok = $photo->saveFile();
+            $ok = $photo->saveFile('');
 
             //Si la sauvegarde dans la BD a réussi, on télécharge l'image sur le serveur
             if($ok[0]){
@@ -107,8 +107,15 @@ class ControllerFichier{
                 setcookie('pp',$photo->getPath(),0,'/');
             }
         }
-        //Redirection vers la page d'accueil
-        header('Location:/DAW-projet/view/users/accueil.php');
-        exit();
+        if($_SESSION['qcm'] == 0 && $_COOKIE['role'] == 'etudiant'){
+            //Si l'étudiant n'a pas fait le QCM d'introduction (première connexion au compte)
+            header('Location:/DAW-projet/view/qcm/formulaireintroQcm.php');
+            exit();
+        }
+        else{
+            //Redirection vers la page d'accueil
+            header('Location:/DAW-projet/view/users/accueil.php');
+            exit();
+        }
     }
 }
