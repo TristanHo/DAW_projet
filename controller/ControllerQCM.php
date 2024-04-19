@@ -39,7 +39,7 @@ class ControllerQCM
     public static function valideQCM($nomcours, $lvcours, $loginetu)
     {
         $dbh = ControllerQCM::getPDO();
-        // Utilisation de requête préparée pour éviter les injections SQL
+        // Utilisation de requête préparée
         $query = 'INSERT INTO cours_valider (id, nomcours, lv, login) VALUES (null, :nomcours, :lvcours, :loginetu)';
         $requ = $dbh->prepare($query);
         $requ->bindParam(':nomcours', $nomcours);
@@ -50,7 +50,7 @@ class ControllerQCM
     }
 
     public static function recuplvetu($nomcours, $loginetu)
-    {// Retourne le niveau maximum validé par l'étudiant dans la matière
+    { // Retourne le niveau maximum validé par l'étudiant dans la matière
         $dbh = ControllerQCM::getPDO();
         // Utilisation de requête préparée
         $query = 'SELECT MAX(lv) AS max_lv FROM cours_valider WHERE nomcours = :nomcours AND login = :loginetu';
@@ -63,9 +63,10 @@ class ControllerQCM
         // Récupération du résultat
         $result = $requ->fetch(PDO::FETCH_ASSOC);
 
-        
+
         return $result['max_lv'];
     }
+
     //
     //fonction de modification dans le fichier xml ou sauvgarde si il n'existe pas encore
     public static function modif_sauv_qcm()
@@ -92,8 +93,8 @@ class ControllerQCM
                 // Enregistrer les modifications dans le fichier XML
                 $xml->asXML($xmlFile);
                 echo 'Modification du QCM effectuer ';
-        echo '<br>';
-        echo '<a href="/DAW-projet/view/users/accueil.php"><button>Retour à l\'accueil</button></a>';
+                echo '<br>';
+                echo '<a href="/DAW-projet/view/users/accueil.php"><button>Retour à l\'accueil</button></a>';
                 return true; // Modification réussie
             }
         }
@@ -122,7 +123,7 @@ class ControllerQCM
         echo 'création du QCM validé';
         echo '<br>';
         echo '<a href="/DAW-projet/view/users/accueil.php"><button>Retour à l\'accueil</button></a>';
-
+        $_POST['validerChangement'] = null;
         return true;
     }
     public function affiche_formulaire_qcm($idqcm)
@@ -209,8 +210,11 @@ class ControllerQCM
 
     public function calculerScore($idqcm)
     {
-        $login = "test22"; //mettre Cookie a la place
-        // recup possible via le hiden sinon
+        $login = $_COOKIE['login'];
+        if ($login == null) {
+            $login = 'anonyme';
+        }
+
         $score = 0;
         $this->modelXml->recupqcm($idqcm, "../BD/exemple.xml");
 
@@ -224,7 +228,7 @@ class ControllerQCM
             // vue qui affiche les résultats
             //include('../test/resultat_qcm.php');
         }
-        if ($score > 50) {
+        if ($score >= 50) {
             echo 'vous avez réussi le qcm';
             //atributiont du lv valider 
             $this->valideQCM($idqcm, 1, $login);
@@ -234,13 +238,18 @@ class ControllerQCM
         echo '<br>';
         echo '<a href="/DAW-projet/view/users/accueil.php"><button>Retour à l\'accueil</button></a>';
         //renvoier sur une autre page boutons acceuil ou autre
+        $_POST['validerQCM'] = null;
+        return 1;
     }
 
     public function calcul_score_intro()
     {
 
-        $login = "test22"; //remplacer par cookie
 
+        $login = $_COOKIE['login'];
+        if ($login == null) {
+            $login = 'anonyme';
+        }
         $compteur = 0;
         $tempo = 0;
         $tempomatiere = '';
@@ -249,6 +258,12 @@ class ControllerQCM
             $qcm = $this->modelXml->getQCM();
             $qcm->calcul_score_intro($_POST['reponse'], $login);
         }
+
+        //changer le table user pour valider le passage du qcmintro
+
+        require_once 'controllerUser.php';
+        ControllerUser::qcmintrovalider($login);
+        $_POST['validerQCMintro'] = null;
         echo '<br>';
         echo '<a href="/DAW-projet/view/users/accueil.php"><button>Retour à l\'accueil</button></a>';
     }

@@ -81,10 +81,10 @@
 
 ?>
 
-<?php require("../css/footer.php");?>
+
 
 </body>
-
+<?php require("../css/footer.php");?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script  type="text/javascript" src="../js/theme.js"></script>
 

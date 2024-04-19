@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire de QCM</title>
+    <?php require("../css/stylesheet.php");?>
 </head>
 
 <body>
@@ -33,5 +34,6 @@
         
     
 </body>
+<?php require("../css/footer.php");?>
 
 </html>

@@ -104,8 +104,13 @@ $_POST['id'] = null;
 
 if(isset($_POST['validerChangement']))
 {
-    echo $_GET['idqcm'];
-    require_once '../controller/ControllerQCM.php'; ControllerQCM::modif_sauv_qcm();
+   
+    //echo $_GET['idqcm'];
+    echo'je fait la modif';
+    require_once '../controller/ControllerQCM.php';
+     ControllerQCM::modif_sauv_qcm();
+
+
 
 }
 //validation du QCM
@@ -124,15 +129,16 @@ if(isset($_POST['validerQCMintro']))
 }
 if(isset($_POST['validerQCM']))
 {
-    //echo 'traitement score';
+    
     //passer id du qcm avec hidden ou _GET
-    $idqcm="qcmcours2";
+    $idqcm=$_POST['idqcm'];
     require_once '../controller/ControllerQCM.php'; 
     $tmp=new ControllerQCM;
-   // $tmp->recupqcm($idqcm);
     
+   // $tmp->recupqcm($idqcm);
+   
     $tmp->calculerScore($idqcm);
-
+    
 
 }
 
@@ -166,10 +172,10 @@ if(isset($_POST['topicInput']))
 PARTIE QCM
 */
 
-if(isset($_POST['idqcm']))
+/* if(isset($_POST['idqcm']))
 {
     require_once '../controller/ControllerQCM.php'; ControllerQCM::modif_sauv_qcm();
-}
+} */
 
 
 ?>
