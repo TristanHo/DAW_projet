@@ -25,14 +25,14 @@
 
 
         //Afficher le cours 
-    $lvetudiant=ControllerQCM::recuplvetu($cours,$_COOKIE['login']);
-    echo"Faire le QCM de niveau 1<a href='../qcm/formulaireQcm.php?idqcm=". $cours ."1'</a><br>";
+    $lvetudiant=ControllerQCM::recuplvetu($cours->getNom(),$_COOKIE['login']);
+    echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."1'>Faire le QCM de niveau 1</a><br>";
     if ($lvetudiant>1) {
-        echo"Faire le QCM de niveau 1<a href='../qcm/formulaireQcm.php?idqcm=". $cours ."2'</a><br>";
+        echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."2'>Faire le QCM de niveau 2</a><br>";
     }
     if ($lvetudiant> 2) {
-        echo"Faire le QCM de niveau 3<a href='../qcm/formulaireQcm.php?idqcm=". $cours ."3'</a><br>";
-    }
+        echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."3'>Faire le QCM de niveau 3</a><br>";
+    } 
 
         //Affiche les options de modification et de suppression si l'utilisateur est l'administrateur ou le responsable du cours
         if($_COOKIE['role'] == 'administrateur' || $_COOKIE['login'] == $cours->getResponsable()) {
@@ -41,9 +41,9 @@
 
 
             
-            echo"Le QCM de niveau 1<a href='../qcm/modifQcm.php?idqcm=". $cours ."1'</a><br>";
-            echo"Le QCM de niveau 2<a href='../qcm/modifQcm.php?idqcm=". $cours ."2'</a><br>";
-            echo"Le QCM de niveau 3<a href='../qcm/modifQcm.php?idqcm=". $cours ."3'</a><br>";
+            echo"<a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."1'>Le QCM de niveau 1</a><br>";
+            echo"<a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."2'>Le QCM de niveau 2</a><br>";
+            echo"<a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."3'>Le QCM de niveau 3</a><br>";
 
             echo "<a href='modifCours.php?id=".$cours->getId()."'>Modifier le cours</a>";
             echo "<input type='submit' value='Supprimer le cours'/>";

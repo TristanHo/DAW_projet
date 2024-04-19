@@ -91,6 +91,9 @@ class ControllerQCM
                 }
                 // Enregistrer les modifications dans le fichier XML
                 $xml->asXML($xmlFile);
+                echo 'Modification du QCM effectuer ';
+        echo '<br>';
+        echo '<a href="/DAW-projet/view/users/accueil.php"><button>Retour à l\'accueil</button></a>';
                 return true; // Modification réussie
             }
         }
@@ -116,6 +119,10 @@ class ControllerQCM
 
         // Enregistrer les modifications dans le fichier XML
         $xml->asXML($xmlFile);
+        echo 'création du QCM validé';
+        echo '<br>';
+        echo '<a href="/DAW-projet/view/users/accueil.php"><button>Retour à l\'accueil</button></a>';
+
         return true;
     }
     public function affiche_formulaire_qcm($idqcm)
