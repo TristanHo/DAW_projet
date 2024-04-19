@@ -46,6 +46,34 @@ class ControllerFichier{
         }
     }
 
+    public static function saveFichierCours(){
+        if(isset($_COOKIE['login']) && $_FILES['fichier_cours']['error'] == UPLOAD_ERR_OK){
+            $file = $_FILES['fichier_cours']['name'];
+            $login = $_COOKIE['login'];
+            $cours = $_POST['cours'];
+            $cours = str_replace('/','',$cours); //Obligé d'enlever le / qui set met automatiquement
+            $nv_cours = $_POST['nv_fichier'];
+            $fichier = new ModelFichier($file,'cours',$cours,$nv_cours,$login);
+            $ok = $fichier->saveFile();
+            //$extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+            if($ok[0]){
+                //$extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                $file = $ok[1];
+                $dir_dest = "../BD/fichiers/cours$file";
+                $dir_temp = $_FILES['fichier_cours']['tmp_name'];
+                move_uploaded_file($dir_temp,$dir_dest);
+                $id_cours = $_POST['id_cours'];
+                $id_cours = str_replace('/','',$id_cours);
+                header("Location:/DAW-projet/view/cours/pageCours.php?id=$id_cours");
+                exit();
+            }
+            else{
+                header("Location:/DAW-projet/pageCours.php?id=$id_cours");
+                exit();
+            }
+        }
+    }
+
     public static function afficherPP(){
         if(isset($_COOKIE['login'])){
             $photo = new ModelFichier(null,'pp',null,null,$_COOKIE['login']);

@@ -15,6 +15,7 @@
     <?php
         require_once('../../controller/ControllerCours.php');
         $cours = ControllerCours::getCours($_GET['id']);
+        $_SESSION['cours'] = $cours->getNom();
         //Autorise l'accès si la personne qui accède à la page est l'administrateur ou le responsable du cours
         if($_COOKIE['role'] == 'administrateur' || $_COOKIE['login'] == $cours->getResponsable()) {
 
@@ -24,6 +25,7 @@
             //Ajouter les QCM
 
             echo "<input type='hidden' name='id' value='".$cours->getId()."'/>";
+
         }
         else { //Sinon refuse l'accès
             echo "<h1>Accès refusé</h1><br>";
@@ -33,6 +35,61 @@
         <input type='submit' id='valider' value='Valider'/>
         <input type='hidden' name='action' value='modifCours'/>
 </form>
+
+    <?php
+        //Si l'utilisateur est l'administrateur ou le prof responsable du cours, il peut ajouter un fichier
+        if($_COOKIE['role'] == 'administrateur' || $_COOKIE['login'] == $cours->getResponsable()) {
+            
+            $cours = $_SESSION['cours'];
+            echo "<form action='../../config/routeur.php' method='post' enctype='multipart/form-data'>";
+            echo "<fieldset>
+                    <legend>Ajouter un fichier au cours</legend>";
+            echo "<input type='file' id='fichier' name='fichier_cours' required='required' /><br/><br/>";
+            echo "<label for='nv_fichier'>Choisissez le niveau du cours correspondant à ce fichier</label>
+            <select id='nv_fichier' name='nv_fichier' required='required' >
+                    <option value=1 >1</option>
+                    <option value=2 >2</option>
+                    <option value=3 >3</option>
+            </select><br/><br/>";
+            echo "<input type='submit' id='ajouter' value='Ajouter un fichier au cours'/><br/>";
+            echo "<input type='hidden' name='cours' value='$cours' />";
+            echo "<input type='hidden' name='id_cours' value=".$_GET['id']." />";
+            echo "<input type='hidden' name='action' value='ajouterFichierCours'/>";
+            //  echo "<span id='check-file'></span>";
+            echo "</fieldset>";
+            echo "</form>";
+
+            //Vérification du fichier, ne marche pas pour le moment, voir si on met ou pas
+            /*
+            echo '
+            <script>
+            $("#fichier").on("change", function(){
+                var filename = document.getElementById("fichier").value;
+                var extension = filename.split('.').pop().toLowerCase();
+                var forbidd_ext = ["exe","dll"]
+                var i = 0;
+                var ok = false;
+                while(i < forbidd_ext.length && !ok){
+                    if(forbidd_ext[i] == extension) ok = true;
+                    i++;
+                }
+                if(ok != false){
+                    document.getElementById("check-file").innerHTML = "Formats de fichiers non-autorisés : ";
+                    for(var i = 0 ; i < forbidd_ext.length ; i++){
+                        document.getElementById("check-file").innerHTML += ".".forbidd_ext[i]." ";
+                    $("#check-file").css("color","red");
+                    $("#ajouter").prop("disabled",true);
+                }
+                else{
+                    document.getElementById("check-file").innerHTML = "";
+                    $("#ajouter").prop("disabled",false);
+                }
+            });
+            </script>
+            ';
+            */
+        }
+    ?>
 
 <?php require("../css/footer.php");?>
 

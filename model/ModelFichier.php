@@ -10,7 +10,7 @@ class ModelFichier{
     private $login_user;
     private $id_file;
 
-    function __construct($path = null, $type = null, $cours = null, $nv_cours=null, $login_user = null){
+    function __construct($path = null, $type = null, $cours = null, $nv_cours=null, $login_user=null){
         if($path != null){
             $this->path = $path;
         }
@@ -21,7 +21,7 @@ class ModelFichier{
             $this->cours = $cours;
         }
         if($nv_cours != null){
-            $this->cours = $cours;
+            $this->nv_cours = $nv_cours;
         }
         if($login_user != null){
             $this->login_user = $login_user;
@@ -78,14 +78,26 @@ class ModelFichier{
         return $fichiers;
     }
 
-    public static function getFichiersCours(){
+    public static function getFichiersCours($cours, $nv_cours){
         $model = new Model();
         $pdo = $model->getPdo();
         
-        $select = $pdo->query('SELECT * FROM Fichiers WHERE type=cours');
+        if($cours != null && $nv_cours != null){
+            $query = 'SELECT * FROM fichiers WHERE type=cours AND cours=\''.$cours.'\''.' AND nv_cours='.$nv_cours; 
+        }
+        else if($cours != null){
+            $query = 'SELECT * FROM fichiers WHERE cours=\''.$cours.'\'';
+        }
+        else{
+            $query = 'SELECT * FROM Fichiers WHERE type=cours'; 
+        }
+        
+        echo $query;
+        $select = $pdo->query($query);
         $fichiers = array();
 
         while($row = $select->fetch(PDO::FETCH_ASSOC)) {
+            echo "cc";
             $file = new ModelFichier($row['path'], $row['type'], $row['cours'], $row['nv_cours'], $row['login_user'], $row['id_file']);
             $fichiers[] = $file;
         }
@@ -95,21 +107,55 @@ class ModelFichier{
     public function saveFile(){
         //Cas où c'est une photo de profil
         if($this->type == 'pp' && $this->login_user !=null){
-            $dir = "/DAW-projet/BD/fichiers/images"; //répertoire de stockage 
-            //Commit des informations de l'image dans la base de données des fichiers 
-            $sql='INSERT INTO fichiers(path,type,login_user) values(:path, :type, :login_user)';
-            $sqlp = Model::$pdo->prepare($sql);
-            $login = $this->login_user;
-            $type = "pp";
-            $dir = "$dir/$login-$type";
-            $val = array('path'=>$dir, 'type'=>$type, 'login_user'=>$login);
-            $succes = $sqlp->execute($val);
-            return [$succes,"/$login-$type"];
+            try{
+                $dir = "/DAW-projet/BD/fichiers/images"; //répertoire de stockage 
+                //Commit des informations de l'image dans la base de données des fichiers 
+                $sql='INSERT INTO fichiers(path,type,login_user) values(:path, :type, :login_user)';
+                $sqlp = Model::$pdo->prepare($sql);
+                $login = $this->login_user;
+                $type = "pp";
+                $dir = "$dir/$login-$type";
+                $val = array('path'=>$dir, 'type'=>$type, 'login_user'=>$login);
+                $succes = $sqlp->execute($val);
+                return [$succes,"/$login-$type"];
+            }catch(PDOException $e){
+                echo "\nFailed :".$e->getMessage();
+                die();
+                return false;
+            }
         }
 
         //Cas où c'est un fichier de cours
         else if($this->type == 'cours'){
-            return [false,''];
+
+            $dir = "/DAW-projet/BD/fichiers/cours"; //répertoire de stockage 
+            $login = $this->login_user;
+            $type = "cours";
+            $cours = $this->getCours();
+            $nv_cours = $this->getNvCours();
+            //Savoir combien de fichiers de ce cours existent déjà
+            $fichiers_existants = $this->getFichiersCours($cours,null);
+            echo $cours;
+            $num = 0;
+            foreach($fichiers_existants as $file){
+                $num++;
+            }
+            $dir = "$dir/$cours-$nv_cours-$num";
+
+            try{
+                //Commit des informations de l'image dans la base de données des fichiers 
+                $sql='INSERT INTO fichiers(path,type,cours,nv_cours,login_user) values(:path, :type, :cours, :nv_cours, :login_user)';
+                $sqlp = Model::$pdo->prepare($sql);
+
+                //Sauvegarder les données sur le fichier de cours dans la base de données
+                $val = array('path'=>$dir, 'type'=>$type, 'cours'=>$cours, 'nv_cours'=>$nv_cours, 'login_user'=>$login);
+                $succes = $sqlp->execute($val);
+                return [$succes,"/$cours-$nv_cours-$num"];
+            }catch(PDOException $e){
+                echo "\nFailed :".$e->getMessage();
+                die();
+                return false;
+            }
         }
     }
 
