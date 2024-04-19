@@ -50,12 +50,36 @@
         }
 
         //Retour vers l'accueil
-        echo "<br><a href='../users/accueil.php'>Revenir à l'accueil</a>";
+        echo "<br><br/><a href='../users/accueil.php'>Revenir à l'accueil</a>";
 
         echo "<input type='hidden' name='action' value='deleteCours'/>";
         echo "<input type='hidden' name='id' value='".$cours->getId()."'/>";
     ?>
 </form>
+
+<?php
+    require_once('../../controller/ControllerFichier.php');
+    $cours = ControllerCours::getCours($_GET['id']);
+    $resp = ControllerUser::getUserLogin($cours->getResponsable());
+    
+
+    //Affichage de lien cliquable pour télécharger les fichiers des cours
+    $fichiers = ControllerFichier::getFichiersCours($cours->getNom());
+    
+    if(count($fichiers)>0){
+        echo "Fichiers du cours (cliquer sur le lien pour le télécharger):</br></br>";
+    }
+    $i = 0;
+    foreach($fichiers as $file){
+        $path = $file->getPath();
+        $i++;
+        echo "<a href=".$path." download>Fichier $i</a></br>";
+        if($_COOKIE['role'] == 'administrateur' || $_COOKIE['login'] == $cours->getResponsable()){
+
+        }
+    }
+
+?>
 
 <?php require("../css/footer.php");?>
 
