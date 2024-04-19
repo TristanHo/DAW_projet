@@ -77,6 +77,15 @@ CREATE TABLE `Messages`(
   CONSTRAINT `fk_msgauthor_users` FOREIGN KEY `author` REFERENCES utilisateurs(`login`)
 );
 
+DROP TABLE IF EXISTS `cours_valider`;
+CREATE TABLE IF NOT EXISTS `cours_valider` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nomcours` varchar(40) NOT NULL,
+  `lv` int NOT NULL,
+  `login` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- ajouter les clé etrangere
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

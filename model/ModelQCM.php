@@ -61,12 +61,14 @@ class ModelQCM {
     return $pourcentage;
     }
 
-    public function calcul_score_intro($reponsesSoumises) {
+    public function calcul_score_intro($reponsesSoumises,$login) {
 
        
         $compteur= 0;
         $tempo=0;
         $tempomatiere='';
+        //tableau pour les matiere de lv1 valider
+        $matiereunv=array();
         foreach ($this->listeQuestions as $question) {
             $compteur++;
             $idQuestion = $question->getIDQuestion();
@@ -81,12 +83,24 @@ class ModelQCM {
                 if ($res > 0) {
                    // echo'juste <br>';
                     if($lv==2){
-                        echo 'attribution du lv 2 dans le domaine '.$matiere.'<br>';
+                        //lv2 juste
+                        //verifier lv1 valider avant de donner lv 2
+                        if (in_array($matiere, $matiereunv)) {
+                            ControllerQCM::valideQCM($matiere,2, $login);
+                            echo 'Attribution du lv2 dans le domaine ' . $matiere . '<br>';
+                        }
                     }
                     else {
                         //lv =1 car que 2 lv possible ici 
                         if(($tempo==1)&& ($tempomatiere==$matiere)){
+                            //ajout dans la BD
+
+                            ControllerQCM::valideQCM($matiere,1, $login);
                             echo 'attribution du lv1 a la matiere '.$matiere.'<br>';
+                            //ajout dans le tableau de matiere valider
+                            $matiereunv[] = $matiere;
+                            $tempo=0;
+                            $tempomatiere= '';
                         }else {
                             $tempo=1;
                             $tempomatiere=$matiere;

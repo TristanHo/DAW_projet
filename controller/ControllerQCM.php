@@ -215,14 +215,15 @@ class ControllerQCM
 
     public function calcul_score_intro() {
 
-        echo "test";
-         $compteur= 0;
+        $login="test22";//remplacer par cookie
+
+        $compteur= 0;
         $tempo=0;
         $tempomatiere='';
         $this->modelXml->recupqcmintro("../BD/exemple.xml");
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
             $qcm = $this->modelXml->getQCM();
-            $qcm->calcul_score_intro($_POST['reponse']);
+            $qcm->calcul_score_intro($_POST['reponse'],$login);
        
         } 
     }
