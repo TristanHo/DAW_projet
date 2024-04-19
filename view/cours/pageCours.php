@@ -25,6 +25,7 @@
     //afficher tous les qcm pour l'etudiant en recuperent son niveau
     //besoin de fonction recupe lv accesible pour un etudiant (lv valider plus 1 )
 
+        echo "<a href='../forum/forum_template.php?className=".$cours->getNom()."'>Forum</a>";
 
         echo "<input type='hidden' name='action' value='deleteCours'/>";
         echo "<input type='hidden' name='id' value='".$cours->getId()."'/>";
