@@ -10,7 +10,7 @@
         <h1>Créer son compte</h1>
         <p>Merci de remplir l'ensemble des informations suivantes afin de créer un compte.</p>
     </div>
-    <form id="form-crea" action="../../config/routeur.php" method='post'>
+    <form id="form-crea" action="../../config/routeur.php" method='post' enctype="multipart/form-data">
         <fieldset>
             <legend>Inscription</legend>
             
@@ -34,9 +34,17 @@
             <label for="professeur">Professeur</label>
             <input type="radio" name ="role" value="professeur" required="required"/><br/>         
             
+            <label for="photo">Choisissez une photo de profil (optionnel)</label>
+            <input type="file" id="photo" name="photo" value="photo"/><br>
+            <input type="button" id="effacer-photo" value="Effacer le fichier sélectionné"/>
+            <span id="check-photo"></span>
+
+        </fieldset>
+        <div>
             <input type="submit" id="valider" value="Valider l'inscription"/>
             <input type='hidden' name='action' value='creerCompte'/>
-        </fieldset>
+            <input type="reset" value="Vider le formulaire"/>
+        </div>
     </form>
     <a href="../../index.php">Retourner à la page de connexion</a>
     <?php require_once("../css/footer.php");?>
@@ -75,10 +83,10 @@
             }
             return resultat;
         }
-        const objetXHR = new createXHR();//création de la requête
+        const objetXHR = new createXHR();//création de la requête pour vérifier le login
         
-        //Interroger la base de données pour l'existence du login
         $(document).ready(function(){
+            //Interroger la base de données pour l'existence du login
             objetXHR.onreadystatechange = function(){
                 if(objetXHR.readyState == 4){
                     if(objetXHR.status >= 200 && objetXHR.status <= 299){
@@ -104,6 +112,32 @@
                 var request = "../../controller/checkLogin.php?login=" + login;
                 objetXHR.open("GET",request,true);
                 objetXHR.send(); 
+            });
+
+            $("#photo").on("change", function(){
+                var filename = document.getElementById("photo").value;
+                var extension = filename.split('.').pop().toLowerCase();
+                var liste_ext_ok = ['jpg','png','jpeg'];
+                var i = 0;
+                var ok = true;
+                while(i < liste_ext_ok.length && ok){
+                    if(liste_ext_ok[i] == extension) ok = false;
+                    i++;
+                }
+                if(ok != false){
+                    document.getElementById("check-photo").innerHTML = "Fichier non valide (format jpg, png, jpeg) !";
+                    $("#check-photo").css('color','red');
+                    $("#valider").prop('disabled',true);
+                }
+                else{
+                    document.getElementById("check-photo").innerHTML = "";
+                    $("#valider").prop('disabled',false);
+                }
+            });
+
+            $("#effacer-photo").on("click", function(){
+                document.getElementById("photo").value = '';
+                document.getElementById("check-photo").innerHTML = "";
             });
         });    
     </script>

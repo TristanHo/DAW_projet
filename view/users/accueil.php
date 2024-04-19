@@ -7,6 +7,12 @@
 </head>
 <body>
     <?php require("../css/header.php");?>
+    <?php
+        if(isset($_COOKIE['pp'])){
+            $path = $_COOKIE['pp'];
+            echo "<img src='$path' />";
+        }
+    ?>
     <h1>Bienvenue 
         <?php
             echo $_COOKIE['nom']." ".$_COOKIE['prenom'];

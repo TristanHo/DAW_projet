@@ -1,6 +1,7 @@
 <?php
 
 require_once("Model.php");
+require_once("ModelFichier.php");
 
 class ModelUser{
     private $username;
@@ -73,7 +74,8 @@ class ModelUser{
             $login = $this->username;
             $mdp = $this->password;
             $val = array('login'=>$login, 'mdp'=>$mdp, 'prenom'=>$prenom, 'nom'=>$nom, 'role'=>$role);
-            return $sqlp->execute($val);
+            $succes = $sqlp->execute($val);
+            return $succes;
         }catch(PDOException $e){
             echo "\nFailed :".$e->getMessage();
             die();
