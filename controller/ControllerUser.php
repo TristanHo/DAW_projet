@@ -65,6 +65,18 @@ class ControllerUser {
         exit();
     }
 
+     //Fonction du controller pour valider le passage par le qcm introduction
+     public static function qcmintrovalider($login) {
+        $model = new Model();
+        $pdo = $model->getPdo();
+
+        $update = $pdo->query("UPDATE utilisateurs SET qcm_intro = 1 WHERE login = '$login'");
+
+        //Redirection vers la liste des utilisateurs
+        //header("Location: /DAW-projet/view/users/accueil.php");
+        exit();
+    }
+
     //Fonction du controller pour la connexion d'un utilisateur
     public static function connect(){
 
@@ -97,12 +109,12 @@ class ControllerUser {
             }
             else{
                 //Si il y a une erreur durant l'exécution du code PHP
-                Reader("Location : ../view/error.php");
+                header("Location : ../view/error.php");
             }
         }
         //Si il y a une erreur durant l'exécution du code PHP
         else{
-            Reader("Location : ../view/error.php");
+            header("Location : ../view/error.php");
         }
     }
 

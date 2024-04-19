@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire de QCM</title>
+    <?php require("../css/stylesheet.php");?>
 </head>
 
 <body>
+<?php require("../css/header.php");?>
     <form action="../../config/routeur.php" method="post">
         <?php
         //inclusion du controllerQCM pour pouvoir faire les ajout dans la BD avec la fonction calculerscore
@@ -21,20 +23,14 @@
         $idqcm=$_GET['idqcm'];
         if ($idqcm== null){$idqcm='qcmcours2';}
         $test->affiche_formulaire_qcm($_GET['idqcm']);
-        //test pour lire un qcm de cours cree
-        //$test->recupqcm("qcmcours1","../BD/exemple.xml") ;
-        //test pour lire le qcmintro
-        //$test->recupqcmintro("../../BD/exemple.xml");
-        //$qcm = $test->getQCM();
-
-
-        
-
-        
-        //mettre en hiden le login user pour pouvoir faire les ajout a la BD
+     
+        //mettre en hiden l'idqcm pour pouvoir faire les ajout a la BD
         ?>
+        <input type="hidden" name="idqcm" value="<?php echo $idqcm; ?>">
+
         <input type='submit' value='Valider le QCM' name='validerQCM'>
     </form>
+    
 </body>
 
 </html>
