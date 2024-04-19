@@ -23,21 +23,14 @@
         $idqcm=$_GET['idqcm'];
         if ($idqcm== null){$idqcm='qcmcours2';}
         $test->affiche_formulaire_qcm($_GET['idqcm']);
-        //test pour lire un qcm de cours cree
-        //$test->recupqcm("qcmcours1","../BD/exemple.xml") ;
-        //test pour lire le qcmintro
-        //$test->recupqcmintro("../../BD/exemple.xml");
-        //$qcm = $test->getQCM();
-
-
-        
-
-        
-        //mettre en hiden le login user pour pouvoir faire les ajout a la BD
+     
+        //mettre en hiden l'idqcm pour pouvoir faire les ajout a la BD
         ?>
+        <input type="hidden" name="idqcm" value="<?php echo $idqcm; ?>">
+
         <input type='submit' value='Valider le QCM' name='validerQCM'>
     </form>
-    <?php require("../css/footer.php");?>
+    
 </body>
 
 </html>
