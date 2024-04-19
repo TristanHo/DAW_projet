@@ -21,11 +21,34 @@
     <p>
     <?php 
         switch ($_COOKIE['role']){
-            case 'etudiant' : echo 'Je suis étudiant '; break;
-            case "professeur" : echo 'Je suis professeur '; break;
-            case "administrateur" : echo '<a href="listeUsers.php">Gérer la liste d\'utilisateurs</a> <a href="../cours/listeCours.php">Gérer la liste des cours</a>'; break;
+            case 'etudiant' : echo 'Je suis étudiant <br/>'; 
+                require_once('../../controller/ControllerCours.php');
+                require_once('../../controller/ControllerQCM.php');
+                $cours = ControllerCours::listeCours();
+                $cours_etu = [];
+                $lvl_etu = -1;
+                foreach($cours as $c){
+                    $lvl_etu = ControllerQCM::recuplvetu($c->getNom(),$_COOKIE['login']);
+                    $id_cours = $c->getId();
+                    $nom_cours = $c->getNom();
+                    if($lvl_etu != null){
+                        if(($lvl_etu + 1) < 3){
+                            $nv_cours = $lvl_etu + 1;
+                            echo "<a href=/DAW-projet/view/cours/pageCours.php?id=$id_cours&lvl=$lvl_etu>Cours de $nom_cours (niveau $nv_cours)</a>";
+                        }
+                        else{
+                            echo "<a href=/DAW-projet/view/cours/pageCours.php?id=$id_cours&lvl=3>Cours de $nom_cours (niveau 3)</a>";
+                        }
+                    }
+                    else{
+                        echo "<a href=/DAW-projet/view/cours/pageCours.php?id=$id_cours&lvl=1>Cours de $nom_cours (niveau 1)</a>";
+                    }
+                }
+                break;
+            case "professeur" : echo 'Je suis professeur <br/>'; break;
+            case "administrateur" : echo 'Je suis administrateur <br/> <a href="listeUsers.php">Gérer la liste d\'utilisateurs</a><br/> <a href="../cours/listeCours.php">Gérer la liste des cours</a><br/>'; break;
         }
-        echo '<a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>';
+        echo '<br/><a href="profilUser?id='.$_COOKIE['id'].'">Voir mon profil</a>';
     ?>
     </p>
     <?php require("../css/footer.php");?>

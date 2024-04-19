@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 19 avr. 2024 à 13:39
+-- Généré le : ven. 19 avr. 2024 à 13:09
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -42,21 +42,6 @@ CREATE TABLE IF NOT EXISTS `cours` (
 
 INSERT INTO `cours` (`id_cours`, `nom`, `login_responsable`) VALUES
 (1, 'mécanique', 'BN22');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `cours_valider`
---
-
-DROP TABLE IF EXISTS `cours_valider`;
-CREATE TABLE IF NOT EXISTS `cours_valider` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nomcours` varchar(40) NOT NULL,
-  `lv` int NOT NULL,
-  `login` varchar(40) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -134,7 +119,6 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `prenom` varchar(50) NOT NULL,
   `nom` varchar(50) NOT NULL,
   `role` varchar(50) NOT NULL,
-  `qcm_intro` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -142,15 +126,33 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 -- Déchargement des données de la table `utilisateurs`
 --
 
-INSERT INTO `utilisateurs` (`id`, `login`, `mdp`, `prenom`, `nom`, `role`, `qcm_intro`) VALUES
-(1, 'admintest', 'adminTestmdp!', 'Jean', 'ZIDANE', 'administrateur', 0),
-(2, 'JD21', 'jd21mdp', 'Jacques', 'DUPONT', 'etudiant', 0),
-(3, 'BN22', 'bn22mdp', 'Noé', 'BENITO', 'professeur', 0),
-(4, 'JD22', 'jd21mdp', 'Jacques', 'DUPONT ', 'etudiant', 0),
-(39, 'test_ss_photo', 'photomdp', 'photo', 'TEST', 'etudiant', 0),
-(36, 'photo_test', 'photomdp', 'test', 'PHOTO', 'etudiant', 0);
+INSERT INTO `utilisateurs` (`id`, `login`, `mdp`, `prenom`, `nom`, `role`) VALUES
+(1, 'admintest', 'adminTestmdp!', 'Jean', 'ZIDANE', 'administrateur'),
+(2, 'JD21', 'jd21mdp', 'Jacques', 'DUPONT', 'etudiant'),
+(3, 'BN22', 'bn22mdp', 'Noé', 'BENITO', 'professeur'),
+(4, 'JD22', 'jd21mdp', 'Jacques', 'DUPONT ', 'etudiant'),
+(39, 'test_ss_photo', 'photomdp', 'photo', 'TEST', 'etudiant'),
+(36, 'photo_test', 'photomdp', 'test', 'PHOTO', 'etudiant');
 COMMIT;
 
+
+--
+-- Structure de la table `cours_valider`
+--
+
+DROP TABLE IF EXISTS `cours_valider`;
+CREATE TABLE IF NOT EXISTS `cours_valider` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nomcours` varchar(40) NOT NULL,
+  `lv` int NOT NULL,
+  login varchar(40) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+COMMIT;
+
+--
+-- Déchargement des données de la table `cours_valider`
+--
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -87,13 +87,13 @@ class ModelFichier{
         $pdo = $model->getPdo();
         
         if($cours != null && $nv_cours != null){
-            $query = 'SELECT * FROM fichiers WHERE type=cours AND cours=\''.$cours.'\''.' AND nv_cours='.$nv_cours; 
+            $query = 'SELECT * FROM fichiers WHERE type=\'cours\' AND cours=\''.$cours.'\''.' AND nv_cours='.$nv_cours; 
         }
         else if($cours != null){
             $query = 'SELECT * FROM fichiers WHERE cours=\''.$cours.'\'';
         }
         else{
-            $query = 'SELECT * FROM Fichiers WHERE type=cours'; 
+            $query = 'SELECT * FROM Fichiers WHERE type=\'cours\''; 
         }
         
         $select = $pdo->query($query);
@@ -159,6 +159,28 @@ class ModelFichier{
         }
     }
 
+    //Fonction pour supprimer un fichier
+    public function deleteFile(){
+        if(!is_null($this->getPath())){
+            $path = $this->getPath();
+            try{
+                /*$sql ='DELETE FROM fichiers WHERE path='.$path;
+                echo $sql;
+                //$sqlp = Model::$pdo->prepare($sql);
+                //$succes = $sqlp->exec($sql);
+                $succes = Model::$pdo->exec($sql);
+                */
+                $model = new Model();
+                $pdo = $model->getPdo();
+                $delete = $pdo->query('DELETE FROM fichiers WHERE fichiers.path=\''.$path.'\'');
+                return $delete;
+            }catch(PDOException $e){
+                echo "\nFailed :".$e->getMessage();
+                die();
+                return false;
+            }
+        }
+    }
 
     //Récupérer la photo de profil de l'utilisateur
     public function getPP(){

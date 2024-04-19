@@ -9,6 +9,9 @@ body:not(#index){
         max-width: 150px; 
         float:right;
     }
+    table{
+        border-spacing:0;
+    }
 }
 
 #index{
@@ -67,7 +70,7 @@ a{
 }
 
 footer {
-    position: absolute;
+    position:static;
     bottom: 0;
     width: 100%;
     background-color : darkviolet;
@@ -75,6 +78,7 @@ footer {
     height : 20px;
     text-align: center;
     padding: 10px 0;
+    margin-bottom:0px;
     #theme{
         float: left;
     }
