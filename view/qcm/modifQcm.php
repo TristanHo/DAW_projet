@@ -17,7 +17,11 @@
         // Charger les questions du QCM depuis le modèle
         require_once("../../controller/ControllerQCM.php");
         $test = new ControllerQCM;
-        $test->affiche_modif();
+        if($_GET['idqcm']==null){
+            $idqcm = "qcmcours22";
+        }
+        else{$idqcm =$_GET['idqcm'];}
+        $test->affiche_modif($idqcm);
         //test pour lire un qcm de cours cree
         //$test->recupqcm("qcmcours1","../BD/exemple.xml") ;
         //test pour lire le qcmintro

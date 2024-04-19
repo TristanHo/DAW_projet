@@ -150,7 +150,7 @@ if(isset($_POST['btnDeleteTopic']))
 if(isset($_POST['topicInput']))
 {
     require_once '../controller/ControllerForum.php'; ControllerForum::addTopic();
-}*/
+}
 
 /*
 PARTIE QCM
