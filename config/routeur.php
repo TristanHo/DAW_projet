@@ -79,6 +79,11 @@ if(isset($_POST['action']) && !is_null($_POST['action'])){
                 ControllerFichier::saveFichierCours();
                 break;
             }
+        case 'supprimerFichier' :
+            {
+                ControllerFichier::deleteFichierCours();
+                break;
+            }
     }
 
 $_POST['action'] = null;

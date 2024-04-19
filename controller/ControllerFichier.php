@@ -4,12 +4,23 @@ require_once(__DIR__.'/../model/ModelFichier.php');
 class ControllerFichier{
 
     //Récupérer l'affichage d'un cours
-    public static function getFichiersCours($nom_cours){
-        $fichiers_cours = ModelFichier::getFichiersCours($nom_cours,null);
-        $res = [];
-        foreach($fichiers_cours as $file){
-            if($file->getCours() == $nom_cours){
-                $res[] = $file;
+    public static function getFichiersCours($nom_cours,$lvl){
+        if($lvl == null){
+            $fichiers_cours = ModelFichier::getFichiersCours($nom_cours,null);
+            $res = [];
+            foreach($fichiers_cours as $file){
+                if($file->getCours() == $nom_cours){
+                    $res[] = $file;
+                }
+            }
+        }
+        else{
+            $fichiers_cours = ModelFichier::getFichiersCours($nom_cours,$lvl);
+            $res = [];
+            foreach($fichiers_cours as $file){
+                if($file->getCours() == $nom_cours){
+                    $res[] = $file;
+                }
             }
         }
         return $res;
@@ -95,6 +106,25 @@ class ControllerFichier{
                 exit();
             }
         }
+    }
+
+
+    //Supprimer le fichier d'un cours
+    public static function deleteFichierCours(){
+        $ok = false;
+        if($_COOKIE['role'] != 'etudiant' && isset($_POST['path'])){
+            $path = $_POST['path'];
+            $file = new ModelFichier($path,'cours',null,null,null);
+            $ok = $file->deleteFile();
+            if($ok){
+                if(file_exists($path)){
+                    $ok = unlink($path);
+                }
+            }
+        }
+        $id_cours = $_POST['id_cours'];
+        header("Location:/DAW-projet/view/cours/pageCours?id=$id_cours");
+        exit();
     }
 
 

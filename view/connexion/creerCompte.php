@@ -138,6 +138,7 @@
             $("#effacer-photo").on("click", function(){
                 document.getElementById("photo").value = '';
                 document.getElementById("check-photo").innerHTML = "";
+                $("#valider").prop('disabled',false);
             });
         });    
     </script>
