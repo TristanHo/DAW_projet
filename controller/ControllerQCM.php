@@ -239,8 +239,9 @@ class ControllerQCM
     public function calcul_score_intro()
     {
 
-        $login = "test22"; //remplacer par cookie
-
+       
+        $login =$_COOKIE['login'];
+        if ($login == null) {$login='anonyme';}
         $compteur = 0;
         $tempo = 0;
         $tempomatiere = '';
@@ -249,6 +250,11 @@ class ControllerQCM
             $qcm = $this->modelXml->getQCM();
             $qcm->calcul_score_intro($_POST['reponse'], $login);
         }
+
+        //changer le table user pour valider le passage du qcmintro
+
+        require_once 'controllerUser.php';
+        ControllerUser::qcmintrovalider($login);
         echo '<br>';
         echo '<a href="/DAW-projet/view/users/accueil.php"><button>Retour à l\'accueil</button></a>';
     }

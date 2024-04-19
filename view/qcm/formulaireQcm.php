@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire de QCM</title>
+    <?php require("../css/stylesheet.php");?>
 </head>
 
 <body>
+<?php require("../css/header.php");?>
     <form action="../../config/routeur.php" method="post">
         <?php
         //inclusion du controllerQCM pour pouvoir faire les ajout dans la BD avec la fonction calculerscore
@@ -35,6 +37,7 @@
         ?>
         <input type='submit' value='Valider le QCM' name='validerQCM'>
     </form>
+    <?php require("../css/footer.php");?>
 </body>
 
 </html>
