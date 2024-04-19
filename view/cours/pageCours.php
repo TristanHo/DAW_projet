@@ -11,6 +11,12 @@
     <?php
         require_once('../../controller/ControllerCours.php');
         require_once('../../controller/ControllerUser.php');
+
+
+        $_COOKIE['role'] = "administrateur";
+        $_COOKIE['login'] = "administrateur";
+
+
         $cours = ControllerCours::getCours($_GET['id']);
         $resp = ControllerUser::getUserLogin($cours->getResponsable());
 
@@ -22,8 +28,10 @@
         //Affiche les options de modification et de suppression si l'utilisateur est l'administrateur ou le responsable du cours
         if($_COOKIE['role'] == 'administrateur' || $_COOKIE['login'] == $cours->getResponsable()) {
             echo "<a href='modifCours.php?id=".$cours->getId()."'>Modifier le cours</a>";
-            echo "<input type='submit' value='Supprimer le cours'/>";
+            echo "<input type='submit' value='Supprimer le cours'/><br>";
         }
+
+        echo "<a href='../forum/forum_template.php?className=".$cours->getNom()."'>Forum</a>";
 
         //Retour vers l'accueil
         echo "<br><a href='../users/accueil.php'>Revenir à l'accueil</a>";

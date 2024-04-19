@@ -17,6 +17,10 @@
         <?php require("../css/header.php");?>
 
         <?php
+
+            $_COOKIE['role'] = "administrateur";
+            $_COOKIE['login'] = "administrateur";
+
             $_SESSION['login'] = "admin";
             include('../../controller/ControllerForum.php');
 
