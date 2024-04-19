@@ -17,7 +17,11 @@
         <?php require("../css/header.php");?>
 
         <?php
-            $_SESSION['login'] = "admin";
+
+            ///////////////////////////////
+            $_COOKIE['role'] = "administrateur";
+            $_COOKIE['login'] = "administrateur";
+            //////////////////////////////////
             include('../../controller/ControllerForum.php');
 
             if(isset($_GET['className'])){ ControllerForum::retrieveTopics($_GET['className']); }
