@@ -15,29 +15,6 @@ class ModelXml
             $this->qcm = $qcm;
         }
     }
-    function createXMLFileIfNotExists($filePath, $xmlContent)
-    {
-        // Vérifier si le fichier existe déjà
-        if (!file_exists($filePath)) {
-            // Créer le fichier s'il n'existe pas
-            $file = fopen($filePath, 'w');
-            if ($file === false) {
-                // Gérer les erreurs d'ouverture de fichier
-                echo "Erreur lors de la création du fichier XML.";
-                return false;
-            }
-
-            // Écrire le contenu XML dans le fichier
-            fwrite($file, $xmlContent);
-
-            // Fermer le fichier après écriture
-            fclose($file);
-            return true;
-        } else {
-            // Si le fichier existe déjà, ne rien faire
-            return true;
-        }
-    }
 
     //fonction pour récuperer le qcmintro
     //fonction particuliere car elle a un attribut en plus (matierelv)
@@ -107,9 +84,6 @@ class ModelXml
         }
     }
 
-        
-
-
     public function recupqcm($id_qcm, $xmlFile)
     //cette fonction ne fonctione pas pour le qcmintro
     {
@@ -172,9 +146,7 @@ class ModelXml
 
             // Vérifier si le QCM a été trouvé
             if (!$qcmFound) {
-                echo "Le fichier XML n'existe pas. creation";
-                //$txt = "test";
-                //$this->createXMLFileIfNotExists($xmlFile, $txt);
+                //echo "Le fichier XML n'existe pas. creation";
                 return null; // Ou une autre action appropriée
             }
         }
@@ -207,21 +179,5 @@ class ModelXml
     {
         return $this->qcm;
     }
-    /* public function saveXML(){
-        //fonction pour l'ecriture du fichier xml
-        $xml = new SimpleXMLElement('<qcm></qcm>');
-        //
-        foreach ($this->qcm as $) {
-            foreach ($groupe->GetListeEtudiant() as $etudiant) {
-                $etudiantXml = $xml->addChild('etudiant');
-                $etudiantXml->addChild('idetudiant', $etudiant->id_etudiant);
-                $etudiantXml->addChild('nom', $etudiant->nom);
-                $etudiantXml->addChild('prenom', $etudiant->prenom);
-                $etudiantXml->addChild('idgroupe', $groupe->idgroupe);
-                $etudiantXml->addChild('role', $etudiant->role);
-            }
-        }
     
-        $xml->asXML($nomfich);
-    } */
 }

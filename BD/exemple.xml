@@ -7,107 +7,107 @@
                 <matiere>math</matiere>
                 <lv>1</lv>
                 <idquestion>q1</idquestion>
-                <questionposer>ceci est la question 1</questionposer>
+                <questionposer>Quels est la derriver de x² ?</questionposer>
                 <reponse>1</reponse>
-                <choix>reponse 1</choix>
-                <choix>reponse 2</choix>
-                <choix>blabla rdutt rfhgg</choix>
-                <choix>reponse 4</choix>
+                <choix>2X</choix>
+                <choix>x/2</choix>
+                <choix>1</choix>
+                <choix>x</choix>
             </question>
             <question>
                 <matiere>math</matiere>
                 <lv>1</lv>
                 <idquestion>q2</idquestion>
-                <questionposer>quels temps fait-il</questionposer>
+                <questionposer>combien vos sin 2pi?</questionposer>
                 <reponse>2</reponse>
-                <choix>non</choix>
-                <choix>ok</choix>
-                <choix>pluie</choix>
-                <choix>gris</choix>
+                <choix>1/4</choix>
+                <choix>1</choix>
+                <choix>0</choix>
+                <choix>1/6</choix>
             </question>
             <question>
             <matiere>math</matiere>
                 <lv>2</lv>
                 <idquestion>q3</idquestion>
-                <questionposer>ceci est la question 3</questionposer>
+                <questionposer>Pour quels valeurs de x cette équation est vraie 2x+2=0?</questionposer>
                 <reponse>3</reponse>
-                <choix>non</choix>
-                <choix>beau</choix>
-                <choix>ok</choix>
-                <choix>gris</choix>
+                <choix>x=4</choix>
+                <choix>x=1</choix>
+                <choix>x=-2</choix>
+                <choix>x=0</choix>
             </question>
             <question>
                 <matiere>geo</matiere>
                 <lv>1</lv>
                 <idquestion>q4</idquestion>
-                <questionposer>ceci est la question 4</questionposer>
+                <questionposer>Quels est la capital de la France?</questionposer>
                 <reponse>4</reponse>
-                <choix>non</choix>
-                <choix>beau</choix>
-                <choix>pluie</choix>
-                <choix>ok</choix>
+                <choix>Marseille</choix>
+                <choix>Toulouse</choix>
+                <choix>Lyon</choix>
+                <choix>Paris</choix>
             </question>
             <question>
                 <matiere>geo</matiere>
                 <lv>1</lv>
                 <idquestion>q5</idquestion>
-                <questionposer>ceci est la question 5</questionposer>
+                <questionposer>Combien y-t-il de continents?</questionposer>
                 <reponse>2</reponse>
-                <choix>non</choix>
-                <choix>ok</choix>
-                <choix>pluie</choix>
-                <choix>gris</choix>
+                <choix>3</choix>
+                <choix>5</choix>
+                <choix>4</choix>
+                <choix>1</choix>
             </question>
             <question>
                 <matiere>geo</matiere>
                 <lv>2</lv>
                 <idquestion>q6</idquestion>
-                <questionposer>ceci est la question 6</questionposer>
+                <questionposer>Combien de temps a durer la guerre de 100 ans?</questionposer>
                 <reponse>2</reponse>
-                <choix>non</choix>
-                <choix>ok</choix>
-                <choix>pluie</choix>
-                <choix>gris</choix>
+                <choix>98</choix>
+                <choix>116</choix>
+                <choix>100</choix>
+                <choix>111</choix>
             </question>
             <question>
                 <matiere>info</matiere>
                 <lv>1</lv>
                 <idquestion>q7</idquestion>
-                <questionposer>ceci est la question 7</questionposer>
+                <questionposer>quels est le resultat de echo $res; si auparavant $res='toto'.'titi'; en php ? </questionposer>
                 <reponse>2</reponse>
-                <choix>non</choix>
-                <choix>ok</choix>
-                <choix>pluie</choix>
-                <choix>gris</choix>
+                <choix>$res</choix>
+                <choix>$res=tototiti</choix>
+                <choix>'titi'</choix>
+                <choix>'tititoto'</choix>
             </question>
             <question>
                 <matiere>info</matiere>
                 <lv>1</lv>
                 <idquestion>q8</idquestion>
-                <questionposer>ceci est la question 8</questionposer>
-                <reponse>2</reponse>
-                <choix>non</choix>
-                <choix>ok</choix>
-                <choix>pluie</choix>
-                <choix>gris</choix>
+                <questionposer>Quel est le rôle principal d'une fonction hash en cryptographie ?</questionposer>
+                <reponse>1</reponse>
+                <choix>Assurer l'intégrité des données</choix>
+                <choix>Chiffrer les données</choix>
+                <choix>Générer des nombres aléatoires</choix>
+                <choix>Vérifier l'authenticité des utilisateurs</choix>
             </question><question>
                 <matiere>info</matiere>
                 <lv>1</lv>
                 <idquestion>q9</idquestion>
-                <questionposer>ceci est la question 9</questionposer>
-                <reponse>2</reponse>
-                <choix>non</choix>
-                <choix>ok</choix>
-                <choix>pluie</choix>
-                <choix>gris</choix>
+                <questionposer>Que mettre au debut d'un script shel </questionposer>
+                <reponse>1</reponse>
+                <choix>#!/bin/bash</choix>
+                <choix>"Hello World!"</choix>
+                <choix>chmod +x script.sh</choix>
+                <choix>cd</choix>
             </question>
             <question>
                 <matiere>info</matiere>
                 <lv>2</lv>
                 <idquestion>q10</idquestion>
-                <questionposer>quel langage est le langage le plus proche de la machine?</questionposer>
+                <questionposer>Quel langage est le langage le plus proche de la machine?</questionposer>
                 <reponse>1</reponse>
-                <choix>lok</choix>
+                <choix>assembleur</choix>
                 <choix>phyton</choix>
                 <choix>java</choix>
                 <choix>c</choix>

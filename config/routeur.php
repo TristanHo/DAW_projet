@@ -103,7 +103,7 @@ if(isset($_POST['validerChangement']))
 //validation du QCM
 if(isset($_POST['validerQCMintro']))
 {
-    echo 'traitement score intro';
+    //echo 'traitement score intro';
     //passer id du qcm avec hidden ou _GET
     $idqcm="qcmintro";
     require_once '../controller/ControllerQCM.php'; 

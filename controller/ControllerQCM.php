@@ -107,6 +107,7 @@ class ControllerQCM
     {
         
         //var_dump($this->modelXml);
+        echo'<h1>Vous effectuer le QCM '.$idqcm.'</h1>';
         $this->recupqcm($idqcm);
         
         $tmp = $this->modelXml->getQCM()->getListeQuestions();
@@ -207,9 +208,12 @@ class ControllerQCM
             echo 'vous avez réussi le qcm';
             //atributiont du lv valider 
             $this->valideQCM($idqcm,1,$login);
+             // Bouton pour retourner à la page d'accueil
+           
         }
         else echo'dommage vous avez un score de '.$score.'%';
-
+        echo'<br>';
+        echo '<a href="accueil.php"><button>Retour à l\'accueil</button></a>';
     //renvoier sur une autre page boutons acceuil ou autre
     }
 
@@ -225,7 +229,9 @@ class ControllerQCM
             $qcm = $this->modelXml->getQCM();
             $qcm->calcul_score_intro($_POST['reponse'],$login);
        
-        } 
+        }
+        echo'<br>';
+        echo '<a href="accueil.php"><button>Retour à l\'accueil</button></a>'; 
     }
 
 }
