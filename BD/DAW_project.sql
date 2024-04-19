@@ -64,6 +64,35 @@ INSERT INTO `utilisateurs` (`id`, `login`, `mdp`, `prenom`, `nom`, `role`) VALUE
 (4, 'JD22', 'jd21mdp', 'Jacques', 'DUPONT ', 'etudiant');
 COMMIT;
 
+CREATE TABLE `Topic`(
+  `nom` VARCHAR(100) NOT NULL,
+  CONSTRAINT `fk_topic_cours` FOREIGN KEY `nom` REFERENCES cours(`nom`), /*identifiant reliant topic au cours | On ne pourra insérer qu'un topic dont le nom figure dans la table cours*/
+  `titre` VARCHAR(200) NOT NULL DEFAULT `titre topic`,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `auteur` VARCHAR(50) NOT NULL,
+  CONSTRAINT `fk_topicAuthor_users` FOREIGN KEY `auteur` REFERENCES utilisateurs(`login`) /*l'auteur d'un topic doit figurer dans la table utilisateur*/
+);
+
+CREATE TABLE `Messages`(
+  `id_topic` INTEGER UNSIGNED NOT NULL,
+  CONSTRAINT `fk_message_topic`FOREIGN KEY `id_topic` REFERENCES Topic(`nom`),
+  `id_message` INTEGER UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `contenu` VARCHAR(500) NOT NULL,
+  `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `author` VARCHAR(50) NOT NULL,
+  CONSTRAINT `fk_msgauthor_users` FOREIGN KEY `author` REFERENCES utilisateurs(`login`)
+);
+
+DROP TABLE IF EXISTS `cours_valider`;
+CREATE TABLE IF NOT EXISTS `cours_valider` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nomcours` varchar(40) NOT NULL,
+  `lv` int NOT NULL,
+  `login` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- ajouter les clé etrangere
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

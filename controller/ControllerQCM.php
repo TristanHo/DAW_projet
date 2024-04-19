@@ -17,12 +17,13 @@ class ControllerQCM
     {
         
         if($idqcm=='qcmintro'){
-            $this->modelXml->recupqcmintro("../../BD/exemple.xml");
+            $retour=$this->modelXml->recupqcmintro("../../BD/exemple.xml");
         }
         else{
-            $this->modelXml->recupqcm($idqcm,"../../BD/exemple.xml");
+            $retour=$this->modelXml->recupqcm($idqcm,"../../BD/exemple.xml");
         }
-        return $this->modelXml;
+        //return $this->modelXml;
+        return $retour;
     }
     public static function getPDO()
     {
@@ -53,36 +54,60 @@ class ControllerQCM
     //fonction de modification dans le fichier xml ou sauvgarde si il n'existe pas encore
     public static function modif_sauv_qcm()
     {
-        $xmlFile = "../../BD/exemple.xml";
+        $xmlFile = "../BD/exemple.xml";
         $xml = simplexml_load_file($xmlFile);
-        $idqcm = $_POST['idqcm'];
+        //var_dump($xml);
+        $idqcm = $_GET['idqcm'];
         // Rechercher le QCM à modifier en fonction de son ID
         foreach ($xml->qcm as $qcm) {
             if ($qcm->idqcm == $idqcm) {
                 // Mettre à jour les questions et réponses du QCM en fonction des données soumises dans le formulaire
+                $idquestion = 0;
                 foreach ($qcm->questions->question as $question) {
-                    // Récupérer l'index de la question dans le formulaire
-                    $index = (int)$_POST['index'];
-
                     // Mettre à jour la question et les réponses
-                    $question->questionposer = $_POST['question'][$index];
-                    $question->reponse = $_POST['reponse'][$index];
+                    $question->questionposer = $_POST['question'][$idquestion];
+                    $question->choix[0] = $_POST['reponse'][$idquestion*4];
+                    $question->choix[1] = $_POST['reponse'][$idquestion*4+1];
+                    $question->choix[2] = $_POST['reponse'][$idquestion*4+2];
+                    $question->choix[3] = $_POST['reponse'][$idquestion*4+3];
+                    $question->reponse = $_POST['bonnerep'][$idquestion];
+                    $idquestion++;
                 }
                 // Enregistrer les modifications dans le fichier XML
                 $xml->asXML($xmlFile);
                 return true; // Modification réussie
             }
-            echo'cela na pas fonctionner';
-            return false;
         }
 
-        // Si le QCM n'a pas été trouvé
-        return false;
+
+       // Si le QCM n'a pas été trouvé, créer un nouveau QCM
+    $qcmElement = $xml->addChild('qcm');
+    $qcmElement->addChild('idqcm', $idqcm);
+
+    $questionsElement = $qcmElement->addChild('questions');
+    // Ajouter des questions à partir des données POST
+    // Assurez-vous que $_POST['question'], $_POST['reponse'] et $_POST['bonnerep'] contiennent des données valides
+    // et ont la même structure que celle attendue.
+    foreach ($_POST['question'] as $index => $question) {
+        $questionElement = $questionsElement->addChild('question');
+        $questionElement->addChild('idquestion', 'q' . ($index + 1));
+        $questionElement->addChild('questionposer', $question);
+        for ($i = 0; $i < 4; $i++) {
+            $questionElement->addChild('choix', $_POST['reponse'][$index * 4 + $i]);
+        }
+        $questionElement->addChild('reponse', $_POST['bonnerep'][$index]);
+    }
+
+    // Enregistrer les modifications dans le fichier XML
+    $xml->asXML($xmlFile);
+    return true;
+        
     }
     public function affiche_formulaire_qcm($idqcm)
     {
         
         //var_dump($this->modelXml);
+        echo'<h1>Vous effectuer le QCM '.$idqcm.'</h1>';
         $this->recupqcm($idqcm);
         
         $tmp = $this->modelXml->getQCM()->getListeQuestions();
@@ -93,12 +118,44 @@ class ControllerQCM
 
 
 
-    public function affiche_modif()
+    public function affiche_modif($idqcm)
     //fonction de modification du qcm this
     {
-        $idqcm = "qcmcours2";
+        //$idqcm = "qcmcours2";
         //var_dump($this->modelXml);
-        $this->recupqcm($idqcm);
+        $tmp=$this->recupqcm($idqcm);
+        //var_dump($tmp);
+        if ($tmp==null){
+            //formulaire vide pour création 
+            echo"création d'un formulaire<br>";
+            echo "<form action='../../config/routeur.php?idqcm=" . $idqcm . "' method='post'>";
+            //garder l'id du QCM
+            // echo '<input type="hidden" name="idqcm" value="'.$tmp->getIdQCM().'">';
+            for ($i=0;$i<10;$i++) {
+                echo "<div>";
+                echo "<label>Question : </label>";
+                echo "<input type='text' name='question[]' value='question". $i . "'>";
+                echo "<br>";
+                $cmp = 0;
+                for ($x=0;$x<4;$x++) {
+                    $cmp++;
+                    echo "<label>Réponse " . $cmp . ": </label>";
+                    echo "<input type='text' name='reponse[]' value='choix" . $x . "'>";
+                }
+                //pour l'indice de la reponse juste (entre 1 et 4)
+                echo "<br>";
+                echo "<label>Bonne réponse (indiquer l'indice entre 1 et 4): </label>";
+                echo "<input type='text' name='bonnerep[]' value='Reponse" . $i . "'>";
+    
+                echo "</div>";
+            }
+            echo "<input type='submit' value='Valider les modifications' name='validerChangement'>";
+    
+    
+            echo "</form>";
+
+        }
+        else {
         $tmp = $this->modelXml->getQCM();
         //var_dump($tmp);
         echo "<form action='../../config/routeur.php?idqcm=" . $idqcm . "' method='post'>";
@@ -118,7 +175,7 @@ class ControllerQCM
             //pour l'indice de la reponse juste (entre 1 et 4)
             echo "<br>";
             echo "<label>Bonne réponse (indiquer l'indice entre 1 et 4): </label>";
-            echo "<input type='text' name='question[]' value='" . $question->getReponse() . "'>";
+            echo "<input type='text' name='bonnerep[]' value='" . $question->getReponse() . "'>";
 
             echo "</div>";
         }
@@ -126,6 +183,7 @@ class ControllerQCM
 
 
         echo "</form>";
+    }
     }
 
 
@@ -150,24 +208,30 @@ class ControllerQCM
             echo 'vous avez réussi le qcm';
             //atributiont du lv valider 
             $this->valideQCM($idqcm,1,$login);
+             // Bouton pour retourner à la page d'accueil
+           
         }
         else echo'dommage vous avez un score de '.$score.'%';
-
+        echo'<br>';
+        echo '<a href="accueil.php"><button>Retour à l\'accueil</button></a>';
     //renvoier sur une autre page boutons acceuil ou autre
     }
 
     public function calcul_score_intro() {
 
-        echo "test";
-         $compteur= 0;
+        $login="test22";//remplacer par cookie
+
+        $compteur= 0;
         $tempo=0;
         $tempomatiere='';
         $this->modelXml->recupqcmintro("../BD/exemple.xml");
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponse'])) {
             $qcm = $this->modelXml->getQCM();
-            $qcm->calcul_score_intro($_POST['reponse']);
+            $qcm->calcul_score_intro($_POST['reponse'],$login);
        
-        } 
+        }
+        echo'<br>';
+        echo '<a href="accueil.php"><button>Retour à l\'accueil</button></a>'; 
     }
 
 }
