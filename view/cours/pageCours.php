@@ -13,17 +13,39 @@
     <?php
         require_once('../../controller/ControllerCours.php');
         require_once('../../controller/ControllerUser.php');
+        require_once('../../controller/ControllerQCM.php');
         $cours = ControllerCours::getCours($_GET['id']);
         $resp = ControllerUser::getUserLogin($cours->getResponsable());
 
         echo "<h1>Cours de ".$cours->getNom()."</h1>";
         echo " par <a href='../users/profilUser.php?id=".$resp->getId()."'>".$resp->getNom()." ".$resp->getPrenom()."</a><br><br>";
+    
+    //afficher tous les qcm pour l'etudiant en recuperent son niveau
+    //besoin de fonction recupe lv accesible pour un etudiant (lv valider plus 1 )
 
-        //Ajouter QCM
+
+        //Afficher le cours 
+    $lvetudiant=ControllerQCM::recuplvetu($cours->getNom(),$_COOKIE['login']);
+    echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."1'>Faire le QCM de niveau 1</a><br>";
+    if ($lvetudiant>1) {
+        echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."2'>Faire le QCM de niveau 2</a><br>";
+    }
+    if ($lvetudiant> 2) {
+        echo"<a href='../qcm/formulaireQcm.php?idqcm=". $cours->getNom() ."3'>Faire le QCM de niveau 3</a><br>";
+    } 
 
         //Affiche les options de modification et de suppression si l'utilisateur est l'administrateur ou le responsable du cours
         if($_COOKIE['role'] == 'administrateur' || $_COOKIE['login'] == $cours->getResponsable()) {
-            echo "<a href='modifCours.php?id=".$cours->getId()."'>Modifier le cours</a><br/><br/>";
+            //afficher la liste des cours avec la posibiliter des mofifier
+           
+
+
+            
+            echo"<a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."1'>Le QCM de niveau 1</a><br>";
+            echo"<a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."2'>Le QCM de niveau 2</a><br>";
+            echo"<a href='../qcm/modifQcm.php?idqcm=". $cours->getNom() ."3'>Le QCM de niveau 3</a><br>";
+
+            echo "<a href='modifCours.php?id=".$cours->getId()."'>Modifier le cours</a>";
             echo "<input type='submit' value='Supprimer le cours'/>";
         }
 
