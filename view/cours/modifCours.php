@@ -55,39 +55,8 @@
             echo "<input type='hidden' name='cours' value='$cours' />";
             echo "<input type='hidden' name='id_cours' value=".$_GET['id']." />";
             echo "<input type='hidden' name='action' value='ajouterFichierCours'/>";
-            //  echo "<span id='check-file'></span>";
             echo "</fieldset>";
             echo "</form>";
-
-            //Vérification du fichier, ne marche pas pour le moment, voir si on met ou pas
-            /*
-            echo '
-            <script>
-            $("#fichier").on("change", function(){
-                var filename = document.getElementById("fichier").value;
-                var extension = filename.split('.').pop().toLowerCase();
-                var forbidd_ext = ["exe","dll"]
-                var i = 0;
-                var ok = false;
-                while(i < forbidd_ext.length && !ok){
-                    if(forbidd_ext[i] == extension) ok = true;
-                    i++;
-                }
-                if(ok != false){
-                    document.getElementById("check-file").innerHTML = "Formats de fichiers non-autorisés : ";
-                    for(var i = 0 ; i < forbidd_ext.length ; i++){
-                        document.getElementById("check-file").innerHTML += ".".forbidd_ext[i]." ";
-                    $("#check-file").css("color","red");
-                    $("#ajouter").prop("disabled",true);
-                }
-                else{
-                    document.getElementById("check-file").innerHTML = "";
-                    $("#ajouter").prop("disabled",false);
-                }
-            });
-            </script>
-            ';
-            */
         }
     ?>
 

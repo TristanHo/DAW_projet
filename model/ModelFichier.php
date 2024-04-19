@@ -64,6 +64,8 @@ class ModelFichier{
         $this->login_user = $login_user;
     }
 
+
+    //Récupérer les photos de profil des utilisateurs
     public static function getFichiersPP(){
         $model = new Model();
         $pdo = $model->getPdo();
@@ -78,6 +80,8 @@ class ModelFichier{
         return $fichiers;
     }
 
+
+    //Récupérer les fichiers d'un cours en fonction du nom du cours et du niveau de cours correspondant au fichier
     public static function getFichiersCours($cours, $nv_cours){
         $model = new Model();
         $pdo = $model->getPdo();
@@ -92,19 +96,17 @@ class ModelFichier{
             $query = 'SELECT * FROM Fichiers WHERE type=cours'; 
         }
         
-        echo $query;
         $select = $pdo->query($query);
         $fichiers = array();
 
         while($row = $select->fetch(PDO::FETCH_ASSOC)) {
-            echo "cc";
             $file = new ModelFichier($row['path'], $row['type'], $row['cours'], $row['nv_cours'], $row['login_user'], $row['id_file']);
             $fichiers[] = $file;
         }
         return $fichiers;
     }
 
-    public function saveFile(){
+    public function saveFile($nom){
         //Cas où c'est une photo de profil
         if($this->type == 'pp' && $this->login_user !=null){
             try{
@@ -135,13 +137,11 @@ class ModelFichier{
             $nv_cours = $this->getNvCours();
             //Savoir combien de fichiers de ce cours existent déjà
             $fichiers_existants = $this->getFichiersCours($cours,null);
-            echo $cours;
             $num = 0;
             foreach($fichiers_existants as $file){
                 $num++;
             }
-            $dir = "$dir/$cours-$nv_cours-$num";
-
+            $dir = "$dir/$cours-$nv_cours-$num-$nom";
             try{
                 //Commit des informations de l'image dans la base de données des fichiers 
                 $sql='INSERT INTO fichiers(path,type,cours,nv_cours,login_user) values(:path, :type, :cours, :nv_cours, :login_user)';
@@ -150,15 +150,17 @@ class ModelFichier{
                 //Sauvegarder les données sur le fichier de cours dans la base de données
                 $val = array('path'=>$dir, 'type'=>$type, 'cours'=>$cours, 'nv_cours'=>$nv_cours, 'login_user'=>$login);
                 $succes = $sqlp->execute($val);
-                return [$succes,"/$cours-$nv_cours-$num"];
+                return [$succes,"/$cours-$nv_cours-$num-$nom"];
             }catch(PDOException $e){
                 echo "\nFailed :".$e->getMessage();
                 die();
-                return false;
+                return [false,''];
             }
         }
     }
 
+
+    //Récupérer la photo de profil de l'utilisateur
     public function getPP(){
         $res = null;
         if($this->getLoginUser() != null){

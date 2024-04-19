@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 18 avr. 2024 à 13:20
+-- Généré le : ven. 19 avr. 2024 à 12:29
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -34,7 +34,42 @@ CREATE TABLE IF NOT EXISTS `cours` (
   `login_responsable` varchar(100) NOT NULL,
   PRIMARY KEY (`id_cours`),
   KEY `fk_responsable` (`login_responsable`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `cours`
+--
+
+INSERT INTO `cours` (`id_cours`, `nom`, `login_responsable`) VALUES
+(1, 'mécanique', 'BN22');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fichiers`
+--
+
+DROP TABLE IF EXISTS `fichiers`;
+CREATE TABLE IF NOT EXISTS `fichiers` (
+  `path` varchar(200) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `cours` varchar(50) NOT NULL,
+  `nv_cours` int NOT NULL,
+  `login_user` varchar(50) NOT NULL,
+  `id_file` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`path`),
+  UNIQUE KEY `id_file` (`id_file`),
+  KEY `fk_login_user` (`login_user`),
+  KEY `fk_cours` (`cours`)
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `fichiers`
+--
+
+INSERT INTO `fichiers` (`path`, `type`, `cours`, `nv_cours`, `login_user`, `id_file`) VALUES
+('/DAW-projet/BD/fichiers/images/photo_test-pp', 'pp', '', 0, 'photo_test', 22),
+('/DAW-projet/BD/fichiers/cours/mécanique-2-0-test_méca.txt', 'cours', 'mécanique', 2, 'BN22', 36);
 
 -- --------------------------------------------------------
 
@@ -51,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `nom` varchar(50) NOT NULL,
   `role` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateurs`
@@ -61,7 +96,9 @@ INSERT INTO `utilisateurs` (`id`, `login`, `mdp`, `prenom`, `nom`, `role`) VALUE
 (1, 'admintest', 'adminTestmdp!', 'Jean', 'ZIDANE', 'administrateur'),
 (2, 'JD21', 'jd21mdp', 'Jacques', 'DUPONT', 'etudiant'),
 (3, 'BN22', 'bn22mdp', 'Noé', 'BENITO', 'professeur'),
-(4, 'JD22', 'jd21mdp', 'Jacques', 'DUPONT ', 'etudiant');
+(4, 'JD22', 'jd21mdp', 'Jacques', 'DUPONT ', 'etudiant'),
+(39, 'test_ss_photo', 'photomdp', 'photo', 'TEST', 'etudiant'),
+(36, 'photo_test', 'photomdp', 'test', 'PHOTO', 'etudiant');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
