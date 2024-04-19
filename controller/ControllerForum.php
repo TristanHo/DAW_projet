@@ -28,8 +28,6 @@ public static function retrieveTopics($className)
 {
 
     $dbh = ControllerForum::getPDO();
-    
-    //$_COOKIE['role'] = "administrateur";
 
     $_SESSION['class_name'] = $className;
     $query = "SELECT nom, titre, id, auteur FROM Topic WHERE nom='".$_SESSION['class_name']."'";
@@ -42,7 +40,6 @@ public static function retrieveTopics($className)
         $content .= $record['auteur'];
 
         if($_COOKIE['role'] == "administrateur" || $_COOKIE['role'] == "professeur")
-        //if($_SESSION['login']=="admin")
         {
             $content .= "<div><form method=\"post\" action=\"../../config/routeur.php?id_cours=".$record['id']."\">";
             $content .= "<input type=\"submit\" name=\"btnDeleteTopic\" value=\"Supprimer\"/>";
@@ -68,8 +65,6 @@ public static function retrieveTopics($className)
 
 public static function removeTopic($topic_id)
 {
-
-   // $_COOKIE['role'] = "administrateur";
 
     $dbh = ControllerForum::getPDO();
     $query = "DELETE FROM Messages WHERE id_topic=".$topic_id;
@@ -102,13 +97,12 @@ Créer la page des messages du topic et charge ces derniers.
 public static function retrieveMessages()
 {
 
-    //$_COOKIE['role'] = "administrateur";
-
     $dbh = ControllerForum::getPDO();
     $content = "<h1>Messages de ".urldecode($_GET['topic_title'])."</h1><br>";
 
     $_SESSION['topic_id'] = $_GET['topic_id'];
     $_SESSION['topic_title'] = $_GET['topic_title'];
+
     /*
     Parcours de la table des messages au cours duquel la mise en page
     et le chargement des données est effectué
@@ -129,7 +123,6 @@ public static function retrieveMessages()
 
         //Place un bouton "suppression" sous les messages si l'utilisateur courant détient suffisamment de privilèges
         if($_COOKIE['role'] == "administrateur" || $_COOKIE['role'] == "professeur")
-        //if($_SESSION['login']=="admin")
         {
             $content .= "<div><form method=\"post\" action=\"../../config/routeur.php?id_message=".$record['id_message']."\">";
             $content .= "<input type=\"submit\" name=\"btnDeleteMessage\" value=\"Supprimer\"/>";

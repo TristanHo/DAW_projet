@@ -14,9 +14,11 @@
 
         <?php
 
-
+            /////////////////////////////////////
             $_COOKIE['role'] = "administrateur";
             $_COOKIE['login'] = "administrateur";
+            /////////////////////////////////
+
 
             error_reporting(E_ALL);
             include('../../controller/ControllerForum.php');

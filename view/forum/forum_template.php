@@ -18,10 +18,10 @@
 
         <?php
 
+            ///////////////////////////////
             $_COOKIE['role'] = "administrateur";
             $_COOKIE['login'] = "administrateur";
-
-            $_SESSION['login'] = "admin";
+            //////////////////////////////////
             include('../../controller/ControllerForum.php');
 
             if(isset($_GET['className'])){ ControllerForum::retrieveTopics($_GET['className']); }
